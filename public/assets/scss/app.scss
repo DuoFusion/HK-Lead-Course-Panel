@@ -1,0 +1,22 @@
+@use "sass:color";
+
+@use "bootstrap/dist/css/bootstrap.min.css";
+
+
+@use "vendors/font-awesome.scss";
+@use "./themes/responsive";
+
+//swiper
+// @import "swiper/css";
+// @import "swiper/css/pagination";
+// @import "swiper/css/navigation";
+// @import "swiper/css/grid";
+// @import 'swiper/css/effect-fade';
+
+//react-bootstrap-typeahead
+// @import 'react-bootstrap-typeahead/css/Typeahead.css';
+
+//react-quill-new
+// @import 'react-quill-new/dist/quill.snow.css';
+
+@use "style.scss";
