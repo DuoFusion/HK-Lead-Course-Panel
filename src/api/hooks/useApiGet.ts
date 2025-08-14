@@ -10,6 +10,7 @@ function useApiGet<T, P = void>(
     queryKey,
     queryFn: async () => await callback(),
     refetchOnWindowFocus: false,
+    // retry: 0, 
     ...options,
   });
 }

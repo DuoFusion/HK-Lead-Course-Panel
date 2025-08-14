@@ -4,6 +4,7 @@ import { UploadListType } from "antd/es/upload/interface";
 import { FormikHelpers } from "formik";
 import { ReactNode } from "react";
 import { Card, CardBody, InputProps } from "reactstrap";
+import * as Yup from "yup";
 import { Params } from "./Api";
 
 export type AntdNotificationType = "success" | "error" | "info" | "warning" | "open";
@@ -114,13 +115,19 @@ export interface MessageStatus {
   error: Record<string, unknown>;
 }
 
+export interface CommonDataType {
+  isDeleted: boolean;
+  isBlocked: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
 // ************ Breadcrumbs ***********
 
 export interface BreadcrumbsProps {
   mainTitle: string;
   parent: string;
 }
-
 
 // ************ CardHeaderProp ***********
 
@@ -149,4 +156,18 @@ export interface UseBasicTableFilterHelperOptions {
   initialParams?: Params;
   debounceDelay?: number;
   sortKey?: string;
+}
+
+// ************ Validation Yup schema ***********
+
+export type FieldTypeMap = {
+  string: Yup.StringSchema<string | null | undefined>;
+  number: Yup.NumberSchema<number | null | undefined>;
+  array: Yup.ArraySchema<any[], Yup.AnyObject>;
+};
+
+export interface FieldOptions<T> {
+  required?: boolean;
+  extraRules?: (schema: T) => T;
+  minItems?: number;
 }

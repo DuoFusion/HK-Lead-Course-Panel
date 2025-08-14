@@ -9,7 +9,7 @@ const initialState = {
   token: storage.getItem(STORAGE_KEYS.TOKEN) || null,
   user: storedUser ? JSON.parse(storedUser) : null,
   isAuthenticated: !!storage.getItem(STORAGE_KEYS.TOKEN),
-  forgotPasswordEmail: storage.getItem(STORAGE_KEYS.TOKEN) || null,
+  forgotPasswordEmail: storage.getItem(STORAGE_KEYS.FORGOT_PASSWORD_EMAIL) || null,
 };
 
 const authSlice = createSlice({

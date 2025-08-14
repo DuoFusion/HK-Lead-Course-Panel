@@ -2,6 +2,7 @@ import { notification } from "antd";
 import axios, { AxiosError, AxiosRequestConfig } from "axios";
 import { getToken } from "../utils";
 import { AntdNotification } from "../utils/toast";
+import { HTTP_STATUS } from "../constants";
 
 async function Post<TInput, TResponse>(url: string, data?: TInput, isToken: boolean = true): Promise<TResponse> {
   const authToken = getToken();
@@ -21,9 +22,8 @@ async function Post<TInput, TResponse>(url: string, data?: TInput, isToken: bool
     const response = await axios(config);
     const resData = response.data;
 
-    if (response.status === 200) {
+    if (response.status === HTTP_STATUS.OK) {
       AntdNotification(notification, "success", resData.message);
-      
       return resData;
     } else {
       return null as TResponse;

@@ -6,7 +6,7 @@ export const AntdNotification = (notificationApi: NotificationInstance, type: An
   notification.config({
     placement: "topRight",
     stack: {
-      threshold: 1,
+      threshold: 2,
     },
   } as GlobalConfigPropsWithStack);
 
