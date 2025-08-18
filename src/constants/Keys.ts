@@ -11,4 +11,10 @@ export const KEYS = {
     EDIT: "edit-category",
     DELETE: "delete-category",
   },
+  WORKSHOP: {
+    ALL: "workshop",
+    ADD: "add-workshop",
+    EDIT: "edit-workshop",
+    DELETE: "delete-workshop",
+  },
 } as const;

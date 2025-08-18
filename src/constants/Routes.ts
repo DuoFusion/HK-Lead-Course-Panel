@@ -11,4 +11,8 @@ export const ROUTES = {
     CATEGORY: "/category",
     ADD_EDIT_CATEGORY: "/add-edit-category",
   },
+  WORKSHOP: {
+    WORKSHOP: "/workshop",
+    ADD_EDIT_WORKSHOP: "/add-edit-workshop",
+  },
 } as const;

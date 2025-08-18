@@ -14,6 +14,12 @@ const URL = {
     EDIT: "/category/edit",
     DELETE: "/category/delete",
   },
+  WORKSHOP: {
+    ALL: "/workshop",
+    ADD: "/workshop/add",
+    EDIT: "/workshop/edit",
+    DELETE: "/workshop/delete",
+  },
 } as const;
 
 // Construct the URL object
