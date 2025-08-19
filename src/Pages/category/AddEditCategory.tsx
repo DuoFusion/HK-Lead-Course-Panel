@@ -7,7 +7,7 @@ import { Mutations } from "../../api";
 import { ROUTES } from "../../constants";
 import Breadcrumbs from "../../coreComponents/Breadcrumbs";
 import CardWrapper from "../../coreComponents/CardWrapper";
-import { TextInput } from "../../shared/formFields";
+import { TextInput } from "../../attribute/formFields";
 import { CategoryFormValues } from "../../types";
 import { CategorySchema } from "../../utils/ValidationSchemas";
 

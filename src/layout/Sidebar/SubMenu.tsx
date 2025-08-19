@@ -3,7 +3,7 @@ import { Fragment, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { MenuItem, MenuListProps } from "../../types";
 import { Href } from "../../constants";
-import SvgIcon from "../../shared/icons/SvgIcon";
+import SvgIcon from "../../attribute/icons/SvgIcon";
 
 
 const SubMenu: React.FC<MenuListProps> = ({ menu, setActiveMenu, activeMenu, level }) => {

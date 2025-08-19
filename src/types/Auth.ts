@@ -1,4 +1,4 @@
-import { MessageStatus } from "./Shared";
+import { MessageStatus } from "./Common";
 
 // ************ Login ***********
 export interface LoginPayload {

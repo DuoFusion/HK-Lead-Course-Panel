@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Col, Container, Row } from "reactstrap";
 import { Mutations } from "../api";
 import { ROUTES } from "../constants";
-import { TextInput } from "../shared/formFields";
+import { TextInput } from "../attribute/formFields";
 import { useAppDispatch } from "../store/hooks";
 import { loginSuccess } from "../store/slices/AuthSlice";
 import { LoginPayload } from "../types";

@@ -4,7 +4,7 @@ import { Fragment } from "react/jsx-runtime";
 import { Col, Container, Row } from "reactstrap";
 import { Mutations } from "../api";
 import CardWrapper from "../coreComponents/CardWrapper";
-import { TextInput } from "../shared/formFields";
+import { TextInput } from "../attribute/formFields";
 import { ChangePasswordPayload } from "../types";
 import { useAppSelector } from "../store/hooks";
 import Breadcrumbs from "../coreComponents/Breadcrumbs";

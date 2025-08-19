@@ -1,4 +1,4 @@
-import { CommonDataType, MessageStatus, PageStatus } from "./Shared";
+import { CommonDataType, MessageStatus, PageStatus } from "./Common";
 
 export interface CategoryFormValues {
   name?: string;
