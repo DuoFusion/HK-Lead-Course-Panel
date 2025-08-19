@@ -17,4 +17,8 @@ export const KEYS = {
     EDIT: "edit-workshop",
     DELETE: "delete-workshop",
   },
+  UPLOAD: {
+    ADD: "upload",
+    DELETE: "upload",
+  },
 } as const;

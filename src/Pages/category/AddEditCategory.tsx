@@ -5,11 +5,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Col, Container, Row } from "reactstrap";
 import { Mutations } from "../../api";
 import { ROUTES } from "../../constants";
-import Breadcrumbs from "../../coreComponents/Breadcrumbs";
-import CardWrapper from "../../coreComponents/CardWrapper";
+import { CardWrapper } from "../../coreComponents";
 import { TextInput } from "../../attribute/formFields";
 import { CategoryFormValues } from "../../types";
 import { CategorySchema } from "../../utils/ValidationSchemas";
+import { Breadcrumbs } from "../../coreComponents";
 
 const AddEditCategory = () => {
   const navigate = useNavigate();
@@ -58,7 +58,7 @@ const AddEditCategory = () => {
                       <TextInput name="name" label="name" type="text" placeholder="Enter your name" required />
                     </Col>
                     <Col md="6">
-                      <TextInput name="priority" label="Priority" placeholder="Enter priority" />
+                      <TextInput name="priority" label="Priority" type="number" placeholder="Enter priority" />
                     </Col>
                     <Col sm="12">
                       <div className="text-center mt-1">

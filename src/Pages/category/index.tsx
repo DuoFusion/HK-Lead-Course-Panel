@@ -1,6 +1,6 @@
 import { Fragment } from "react";
-import Breadcrumbs from "../../coreComponents/Breadcrumbs";
-import CardWrapper from "../../coreComponents/CardWrapper";
+import { Breadcrumbs } from "../../coreComponents";
+import { CardWrapper } from "../../coreComponents";
 import { Container } from "reactstrap";
 import { useBasicTableFilterHelper } from "../../utils/hook";
 import { useNavigate } from "react-router-dom";

@@ -1,4 +1,4 @@
-import { ColorPickerProps, GetProp, UploadProps } from "antd";
+import { ColorPickerProps, DatePickerProps, GetProp, TimePickerProps, UploadProps } from "antd";
 import type { GlobalConfigProps } from "antd/es/config-provider";
 import { UploadListType } from "antd/es/upload/interface";
 import { FormikHelpers } from "formik";
@@ -6,6 +6,7 @@ import { ReactNode } from "react";
 import { Card, CardBody, InputProps } from "reactstrap";
 import * as Yup from "yup";
 import { Params } from "./Api";
+import { Dayjs } from "dayjs";
 
 export type AntdNotificationType = "success" | "error" | "info" | "warning" | "open";
 
@@ -59,8 +60,6 @@ export interface UploadResponse {
 export type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
 export interface ImageUploadProps {
-  fileList: string[];
-  setFileList: React.Dispatch<React.SetStateAction<string[]>>;
   multiple?: boolean;
   name?: string;
   accept?: string;
@@ -144,6 +143,8 @@ export interface CardHeaderProp {
   btnTitle?: string;
   btnClick?: () => void;
   typeFilter?: (id: string) => void;
+  onActiveFilterChange?: (checked: boolean) => void;
+  isActiveFilter?: boolean;
   typeFilterData?: TypeFilterData[];
   children?: React.ReactNode;
   cardProps?: React.ComponentProps<typeof Card>;
@@ -170,4 +171,16 @@ export interface FieldOptions<T> {
   required?: boolean;
   extraRules?: (schema: T) => T;
   minItems?: number;
+}
+
+// ************ Data and Time ***********
+
+export type PickerType = "time" | "date";
+export type AntdPickerProps = Partial<DatePickerProps<Dayjs>> & Partial<TimePickerProps>;
+
+export interface DataAndTimeProps extends AntdPickerProps {
+  name: string;
+  label?: string;
+  type: PickerType;
+  required?: boolean;
 }

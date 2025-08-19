@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import Breadcrumbs from "../../coreComponents/Breadcrumbs";
+import { Breadcrumbs } from "../../coreComponents";
 
 const DashboardContainer = () => {
   return (

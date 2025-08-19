@@ -17,6 +17,7 @@
     "antd": "^5.27.0",
     "axios": "^1.11.0",
     "bootstrap": "^5.3.7",
+    "dayjs": "^1.11.13",
     "formik": "^2.4.6",
     "iconsax-react": "^0.0.8",
     "react": "^19.1.1",

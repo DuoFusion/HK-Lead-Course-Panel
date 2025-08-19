@@ -9,6 +9,8 @@ import ChangePasswordContainer from "../auth/ChangePassword";
 import CategoryContainer from "../Pages/category";
 import AddEditCategory from "../Pages/category/AddEditCategory";
 import Error from "../Pages/error";
+import WorkshopContainer from "../Pages/workshop";
+import AddEditWorkshop from "../Pages/workshop/AddEditWorkshop";
 
 export const Router = createBrowserRouter([
   {
@@ -19,9 +21,12 @@ export const Router = createBrowserRouter([
         children: [
           { path: ROUTES.DASHBOARD, element: <DashboardContainer /> },
           { path: ROUTES.CHANGE_PASSWORD, element: <ChangePasswordContainer /> },
-          
+
           { path: ROUTES.CATEGORY.CATEGORY, element: <CategoryContainer /> },
           { path: ROUTES.CATEGORY.ADD_EDIT_CATEGORY, element: <AddEditCategory /> },
+
+          { path: ROUTES.WORKSHOP.WORKSHOP, element: <WorkshopContainer /> },
+          { path: ROUTES.WORKSHOP.ADD_EDIT_WORKSHOP, element: <AddEditWorkshop /> },
         ],
       },
     ],

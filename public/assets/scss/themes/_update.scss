@@ -1578,6 +1578,17 @@
         }
       }
     }
+    .action-btn {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      svg {
+        width: 40px;
+        stroke: variables.$white;
+      }
+    }
     label {
       font-size: calc(13px + (14 - 13) * ((100vw - 320px) / (1920 - 320)));
       font-weight: 500;
@@ -1665,7 +1676,7 @@
     .ant-picker-outlined {
       padding: 0px;
       background-color: #fff;
-      padding: 10px 16px;
+      padding: 11px 16px;
       border: 1px dashed #dedbdb;
       width: 100%;
       border-radius: 4px;
@@ -1675,6 +1686,13 @@
         padding: 0px;
         border: none;
         width: 100%;
+        &::placeholder {
+          color: #858484 !important;
+          font-weight: 500;
+        }
+      }
+      &.ant-picker-status-error {
+        border: 1px dashed variables.$danger-text-color !important;
       }
     }
 
@@ -1934,6 +1952,27 @@
 }
 .ant-spin .ant-spin-dot-item {
   background: var(--theme-default) !important;
+}
+
+// ************ data and time picker ***********
+.ant-picker-dropdown .ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner::before {
+  border-color: var(--theme-default) !important;
+}
+.ant-picker-dropdown .ant-picker-cell-in-view.ant-picker-cell-selected:not(.ant-picker-cell-disabled) .ant-picker-cell-inner {
+  background: var(--theme-default) !important;
+}
+.ant-picker-dropdown .ant-picker-time-panel-column > li.ant-picker-time-panel-cell-selected .ant-picker-time-panel-cell-inner {
+  background: var(--theme-default) !important;
+  color: var(--white);
+}
+
+.ant-upload-wrapper.ant-upload-picture-card-wrapper .ant-upload.ant-upload-select:not(.ant-upload-disabled):hover,
+.ant-upload-wrapper.ant-upload-picture-card-wrapper .ant-upload.ant-upload-select {
+  background-color: #fff;
+  border-color: #dedbdb;
+}
+.ant-upload-wrapper.ant-upload-picture-card-wrapper.is-invalid .ant-upload.ant-upload-select {
+  border-color: variables.$danger-text-color !important;
 }
 /**=====================
     4.3 Update CSS Ends

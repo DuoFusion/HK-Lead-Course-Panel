@@ -1,9 +1,9 @@
+import { Select, Switch } from "antd";
 import { FC } from "react";
 import { Button, Card, CardBody, CardHeader, Col, Input, Row } from "reactstrap";
 import { CardHeaderProp } from "../types";
-import { Select } from "antd";
 
-const CardWrapper: FC<CardHeaderProp> = ({ title, headClass, Search, searchClass, btnTitle, btnClick, typeFilter, typeFilterData, children, bodyProps = {}, cardProps = {} }) => {
+const CardWrapper: FC<CardHeaderProp> = ({ title, headClass, Search, searchClass, btnTitle, btnClick, typeFilter, onActiveFilterChange, isActiveFilter, typeFilterData, children, bodyProps = {}, cardProps = {} }) => {
   return (
     <Card {...cardProps}>
       <CardHeader className={`card-header-box ${headClass ? headClass : ""}`}>
@@ -24,16 +24,21 @@ const CardWrapper: FC<CardHeaderProp> = ({ title, headClass, Search, searchClass
           {typeFilter && (
             <Col xl="2" md="3" sm="7" xs="12">
               {/* <div className="form-group"> */}
-                <Select showSearch allowClear optionFilterProp="label" placeholder="Select a user" options={typeFilterData} onChange={typeFilter} onClear={() => typeFilter("")} filterOption={(input, option) => (option?.label ?? "").toString().toLowerCase().includes(input.toLowerCase())} />
+              <Select showSearch allowClear optionFilterProp="label" placeholder="Select a user" options={typeFilterData} onChange={typeFilter} onClear={() => typeFilter("")} filterOption={(input, option) => (option?.label ?? "").toString().toLowerCase().includes(input.toLowerCase())} />
               {/* </div> */}
+            </Col>
+          )}
+          {onActiveFilterChange && (
+            <Col xl="2" md="3" sm="7" xs="12">
+                isActive: <Switch checked={!!isActiveFilter} onChange={onActiveFilterChange} />
             </Col>
           )}
           {btnClick && (
             <Col xl="2" md="3" sm="5" xs="12">
               {/* <div className="form-group"> */}
-                <Button color="primary" className="w-100" onClick={btnClick}>
-                  {btnTitle}
-                </Button>
+              <Button color="primary" className="w-100" onClick={btnClick}>
+                {btnTitle}
+              </Button>
               {/* </div> */}
             </Col>
           )}

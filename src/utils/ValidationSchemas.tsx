@@ -30,7 +30,7 @@ export const fieldSchema = <K extends keyof FieldTypeMap>(type: K, label: string
   }
 
   return extraRules ? extraRules(schema) : schema;
-}
+};
 
 // ************ Login ***********
 
@@ -52,6 +52,34 @@ export const CategorySchema = Yup.object({
   name: fieldSchema("string", "Name"),
   priority: fieldSchema("string", "Priority"),
   // title: fieldSchema("string", "Priority", { required: false }),
+});
+
+// ************ Workshop ***********
+
+export const WorkshopSchema = Yup.object({
+  // title: fieldSchema("string", "title"),
+  // shortDescription: fieldSchema("string", "short Description"),
+  // date: fieldSchema("string", "date"),
+  // time: fieldSchema("string", "time"),
+  // duration: fieldSchema("string", "duration"),
+  // instructorImage: fieldSchema("array", "instructor Image", { required: false }),
+  // instructorName: fieldSchema("string", "instructor Name"),
+  // thumbnailImage: fieldSchema("array", "thumbnail Image", { minItems: 1 }),
+  // workshopImage: fieldSchema("array", "workshop Image", { minItems: 1 }),
+  price: fieldSchema("string", "price", { required: false }),
+  category: fieldSchema("string", "category", { required: false }),
+  status: fieldSchema("string", "status", { required: false }),
+  // priority: fieldSchema("string", "Priority"),
+  syllabus: fieldSchema("string", "syllabus", { required: false }),
+  fullDescription: fieldSchema("string", "full Description", { required: false }),
+  faq: Yup.array()
+    .of(
+      Yup.object().shape({
+        question: Yup.string().required("FAQ question is required"),
+        answer: Yup.string().required("FAQ answer is required"),
+      })
+    )
+    .min(1, "At least one FAQ is required"),
 });
 
 // export const SettingSchema = Yup.object({

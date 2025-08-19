@@ -20,6 +20,10 @@ const URL = {
     EDIT: "/workshop/edit",
     DELETE: "/workshop/delete",
   },
+  UPLOAD: {
+    ADD: "/upload",
+    DELETE: "/upload",
+  },
 } as const;
 
 // Construct the URL object

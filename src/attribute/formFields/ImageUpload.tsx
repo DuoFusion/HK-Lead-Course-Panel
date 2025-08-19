@@ -2,11 +2,10 @@ import { PlusOutlined } from "@ant-design/icons";
 import type { UploadProps } from "antd";
 import { Image, Upload } from "antd";
 import { FC, useState } from "react";
-import { ErrorMessage } from "formik";
 import { Label } from "reactstrap";
 import { Mutations } from "../../api";
 import { FileType, ImageUploadProps } from "../../types";
-
+import { useField } from "formik";
 
 const getBase64 = (file: FileType): Promise<string> =>
   new Promise((resolve, reject) => {
@@ -16,11 +15,14 @@ const getBase64 = (file: FileType): Promise<string> =>
     reader.onerror = (error) => reject(error);
   });
 
-const ImageUpload: FC<ImageUploadProps> = ({ fileList, setFileList, multiple, name, accept, isListType, label, required }) => {
+const ImageUpload: FC<ImageUploadProps> = ({ multiple, name, accept, isListType, label, required }) => {
+  const [field, meta, helpers] = useField<string[]>({ name: name || "" });
+
+  const [fileList, setFileList] = useState<string[]>(Array.isArray(field.value) ? field.value : []);
+
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
-  // const { mutate: uploadImage, isPending: isUserUpdating } = Mutations.useUpload();
-  // const { mutate } = Mutations.useDeleteUpload();
+  const { mutate: uploadImage, isPending: isUserUpdating } = Mutations.useUpload();
 
   const handlePreview = async (file: any) => {
     if (!file.url && !file.preview) {
@@ -35,13 +37,14 @@ const ImageUpload: FC<ImageUploadProps> = ({ fileList, setFileList, multiple, na
     formData.append("image", file);
 
     try {
-      // uploadImage(formData, {
-      //   onSuccess: (response) => {
-      //     const uploadedUrl = response.data as string;
-      //     const updatedList = multiple ? [...fileList, uploadedUrl] : [uploadedUrl];
-      //     setFileList(updatedList);
-      //   },
-      // });
+      uploadImage(formData, {
+        onSuccess: (response) => {
+          const uploadedUrl = response.data as string;
+          const updatedList = multiple ? [...fileList, uploadedUrl] : [uploadedUrl];
+          setFileList(updatedList);
+          helpers.setValue(updatedList);
+        },
+      });
     } catch (error) {}
 
     return false;
@@ -50,8 +53,9 @@ const ImageUpload: FC<ImageUploadProps> = ({ fileList, setFileList, multiple, na
   const removeFile = async (imageSrc: string) => {
     try {
       const updatedList = fileList.filter((img) => img !== imageSrc);
-      // mutate({ imageUrl: imageSrc });
       setFileList(updatedList);
+
+      helpers.setValue(updatedList);
     } catch (err) {}
   };
 
@@ -72,8 +76,8 @@ const ImageUpload: FC<ImageUploadProps> = ({ fileList, setFileList, multiple, na
         listType={isListType ?? "picture-card"}
         fileList={fileList.map((url, index) => ({
           uid: String(index),
-          name: `file-${index}${name === "pdf" ? ".pdf" : ".jpg"}`,
-          status: "done",
+          name: `file-${index}.jpg`,
+          status: isUserUpdating ? "uploading" : "done",
           url,
         }))}
         beforeUpload={customUpload}
@@ -82,9 +86,11 @@ const ImageUpload: FC<ImageUploadProps> = ({ fileList, setFileList, multiple, na
           if (file.url) removeFile(file.url);
         }}
         multiple={multiple}
+        className={meta.touched && meta.error ? "is-invalid" : ""}
       >
         {multiple || fileList.length < 1 ? uploadButton : null}
       </Upload>
+
       {previewImage && (
         <Image
           wrapperStyle={{ display: "none" }}
@@ -96,7 +102,9 @@ const ImageUpload: FC<ImageUploadProps> = ({ fileList, setFileList, multiple, na
           src={previewImage}
         />
       )}
-      <ErrorMessage name={name || ""}>{(msg) => <div className="text-danger mt-1">{msg}</div>}</ErrorMessage>
+
+      {/* ✅ Formik validation error */}
+      {meta.touched && meta.error ? <div className="text-danger mt-1 invalid-feedback">{meta.error}</div> : null}
     </div>
   );
 };
