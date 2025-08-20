@@ -130,25 +130,26 @@ export interface BreadcrumbsProps {
 
 // ************ CardHeaderProp ***********
 
-export interface TypeFilterData {
-  value?: string;
-  label?: string;
+export interface TypeFilterOption {
+  label: string;
+  value: string;
 }
 
-export interface CardHeaderProp {
+export interface CardHeaderProps {
   title?: string;
-  headClass?: string;
-  Search?: (key: string) => void;
-  searchClass?: string;
-  btnTitle?: string;
-  btnClick?: () => void;
-  typeFilter?: (id: string) => void;
+  headClassName?: string;
+  onSearch?: (key: string) => void;
+  searchClassName?: string;
+  buttonLabel?: string;
+  onButtonClick?: () => void;
+  onTypeFilterChange?: (id: string) => void;
   onActiveFilterChange?: (checked: boolean) => void;
-  isActiveFilter?: boolean;
-  typeFilterData?: TypeFilterData[];
-  children?: React.ReactNode;
+  isActive?: boolean;
+  typeFilterOptions?: TypeFilterOption[];
   cardProps?: React.ComponentProps<typeof Card>;
   bodyProps?: React.ComponentProps<typeof CardBody>;
+  children?: React.ReactNode;
+  typeFilterPlaceholder?: string;
 }
 
 // ************ Basic Table Filter Helper Options ***********
@@ -164,6 +165,7 @@ export interface UseBasicTableFilterHelperOptions {
 export type FieldTypeMap = {
   string: Yup.StringSchema<string | null | undefined>;
   number: Yup.NumberSchema<number | null | undefined>;
+  boolean: Yup.BooleanSchema<boolean | null | undefined>;
   array: Yup.ArraySchema<any[], Yup.AnyObject>;
 };
 
@@ -183,4 +185,11 @@ export interface DataAndTimeProps extends AntdPickerProps {
   label?: string;
   type: PickerType;
   required?: boolean;
+}
+
+// ************ Switch ***********
+
+export interface CustomSwitchProps {
+  name: string;
+  title?: string;
 }

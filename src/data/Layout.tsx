@@ -7,7 +7,7 @@ export const menuList: MenuItem[] = [
   { id: 1, title: "dashboard", url: ROUTES.DASHBOARD, icon: "home", type: "link" },
   { id: 2, title: "category", url: ROUTES.CATEGORY.CATEGORY, icon: "user", type: "link" },
   { id: 3, title: "Workshop", url: ROUTES.WORKSHOP.WORKSHOP, icon: "knowledgebase", type: "link" },
-  // { id: 4, title: "Product", url: ROUTES.PRODUCT, icon: "ecommerce", type: "link" },
+  { id: 4, title: "Courses", url: ROUTES.COURSES.COURSES, icon: "ecommerce", type: "link" },
   // { id: 5, title: "Inquiry", url: ROUTES.INQUIRY, icon: "faq", type: "link" },
   // { id: 6, title: "Order", url: ROUTES.ORDER, icon: "editors", type: "link" },
 ];

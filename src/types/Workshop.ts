@@ -1,3 +1,4 @@
+import { CategoryType } from "./Category";
 import { CommonDataType, MessageStatus, PageStatus } from "./Common";
 
 export interface WorkshopFormValues {
@@ -17,6 +18,7 @@ export interface WorkshopFormValues {
   fullDescription?: string;
   syllabus?: string;
   faq: FAQ[];
+  features?: boolean;
 }
 
 interface FAQ {
@@ -24,8 +26,9 @@ interface FAQ {
   answer: string;
 }
 
-export interface WorkshopType extends WorkshopFormValues, CommonDataType {
+export interface WorkshopType extends Omit<Required<WorkshopFormValues>, "category">, CommonDataType {
   _id: string;
+  category: CategoryType;
   features: boolean;
 }
 

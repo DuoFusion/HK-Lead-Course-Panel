@@ -1,5 +1,5 @@
 import { KEYS, URL_KEYS } from "../constants";
-import { CategoryApiResponse, Params, WorkshopApiResponse } from "../types";
+import { CategoryApiResponse, CoursesApiResponse, Params, WorkshopApiResponse } from "../types";
 import Get from "./Get";
 import { useApiGet } from "./hooks";
 
@@ -10,6 +10,9 @@ const Queries = {
 
   // ************ Workshop ***********
   useGetWorkshop: (params: Params) => useApiGet<WorkshopApiResponse>([KEYS.WORKSHOP.ALL, params], () => Get(URL_KEYS.WORKSHOP.ALL, params)),
+
+  // ************ Courses ***********
+  useGetCourses: (params: Params) => useApiGet<CoursesApiResponse>([KEYS.COURSES.ALL, params], () => Get(URL_KEYS.COURSES.ALL, params)),
 };
 
 export default Queries;

@@ -15,4 +15,8 @@ export const ROUTES = {
     WORKSHOP: "/workshop",
     ADD_EDIT_WORKSHOP: "/add-edit-workshop",
   },
+  COURSES: {
+    COURSES: "/coursers",
+    ADD_EDIT_COURSES: "/add-edit-coursers",
+  },
 } as const;

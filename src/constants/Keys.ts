@@ -21,4 +21,10 @@ export const KEYS = {
     ADD: "upload",
     DELETE: "upload",
   },
+  COURSES: {
+    ALL: "courses",
+    ADD: "add-courses",
+    EDIT: "edit-courses",
+    DELETE: "delete-courses",
+  },
 } as const;

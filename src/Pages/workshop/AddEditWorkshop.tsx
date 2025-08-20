@@ -1,15 +1,17 @@
 import { Button } from "antd";
-import { Form, Formik, FormikHelpers, FieldArray } from "formik";
+import { FieldArray, Form, Formik, FormikHelpers } from "formik";
+import { Add, Minus } from "iconsax-react";
 import { Fragment } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Col, Container, Label, Row } from "reactstrap";
-import { Mutations } from "../../api";
-import { DataAndTime, ImageUpload, TextInput } from "../../attribute/formFields";
+import { Mutations, Queries } from "../../api";
+import { CustomSwitch, DataAndTime, ImageUpload, SelectInput, TextInput } from "../../attribute/formFields";
 import { ROUTES } from "../../constants";
 import { Breadcrumbs, CardWrapper } from "../../coreComponents";
 import { WorkshopFormValues } from "../../types";
 import { WorkshopSchema } from "../../utils/ValidationSchemas";
-import { Add, Minus } from "iconsax-react";
+import { WorkshopStatus } from "../../data";
+import { generateOptions } from "../../utils";
 
 const AddEditWorkshop = () => {
   const navigate = useNavigate();
@@ -19,6 +21,7 @@ const AddEditWorkshop = () => {
 
   const { mutate: useWorkshop, isPending: isWorkshopAdding } = Mutations.useWorkshop();
   const { mutate: upEditWorkshop, isPending: isWorkshopUpdating } = Mutations.useEditWorkshop();
+  const { data: category, isLoading: isCategoryLoading } = Queries.useGetCategory({});
 
   const initialValues: WorkshopFormValues = {
     title: initialData?.title || "",
@@ -31,12 +34,13 @@ const AddEditWorkshop = () => {
     thumbnailImage: initialData?.thumbnailImage ? [initialData.thumbnailImage] : [],
     workshopImage: initialData?.workshopImage ? [initialData.workshopImage] : [],
     price: initialData?.price || "",
-    category: initialData?.category || "",
+    category: initialData?.category?._id || "",
     status: initialData?.status || "",
     priority: initialData?.priority || "",
     fullDescription: initialData?.fullDescription || "",
     syllabus: initialData?.syllabus || "",
     faq: initialData?.faq || [{ question: "", answer: "" }],
+    features: initialData?.features,
   };
 
   const handleSubmit = async (values: WorkshopFormValues, { resetForm }: FormikHelpers<WorkshopFormValues>) => {
@@ -57,6 +61,7 @@ const AddEditWorkshop = () => {
       ...(values.thumbnailImage?.length && { thumbnailImage: values.thumbnailImage[0] }),
       ...(values.workshopImage?.length && { workshopImage: values.workshopImage[0] }),
       ...(values.faq && { faq: values.faq }),
+      ...(values.features !== undefined && { features: values.features }),
     };
 
     const onSuccessHandler = () => {
@@ -90,12 +95,6 @@ const AddEditWorkshop = () => {
                     <Col md="6" xl="4">
                       <DataAndTime name="time" type="time" label="Meeting Time" format="HH:mm:ss" />
                     </Col>
-                    <Col md="6">
-                      <TextInput name="shortDescription" label="Short Description" type="textarea" placeholder="Enter short description" required />
-                    </Col>
-                    <Col md="6">
-                      <TextInput name="fullDescription" label="Full Description" type="textarea" placeholder="Enter full description" />
-                    </Col>
                     <Col md="6" xl="4">
                       <TextInput name="duration" label="Duration" type="text" placeholder="Enter duration" required />
                     </Col>
@@ -103,19 +102,25 @@ const AddEditWorkshop = () => {
                       <TextInput name="price" label="Price" type="text" placeholder="Enter price" />
                     </Col>
                     <Col md="6" xl="4">
-                      <TextInput name="category" label="Category" type="text" placeholder="Enter category" />
+                      <SelectInput name="category" label="category" options={generateOptions(category?.data?.category_data)} loading={isCategoryLoading} required />
                     </Col>
                     <Col md="6" xl="4">
-                      <TextInput name="status" label="Status" type="text" placeholder="Enter status" />
+                      <SelectInput name="status" label="status" options={WorkshopStatus} required />
                     </Col>
                     <Col md="6" xl="4">
                       <TextInput name="priority" label="Priority" type="number" placeholder="Enter priority" required />
                     </Col>
                     <Col md="6" xl="4">
+                      <TextInput name="instructorName" label="Instructor Name" type="text" placeholder="Enter instructor name" required />
+                    </Col>
+                    <Col md="12">
                       <TextInput name="syllabus" label="Syllabus" type="text" placeholder="Enter syllabus" />
                     </Col>
-                    <Col md="6" xl="4">
-                      <TextInput name="instructorName" label="Instructor Name" type="text" placeholder="Enter instructor name" required />
+                    <Col md="12">
+                      <TextInput name="shortDescription" label="Short Description" type="textarea" placeholder="Enter short description" required />
+                    </Col>
+                    <Col md="12">
+                      <TextInput name="fullDescription" label="Full Description" type="textarea" placeholder="Enter full description" />
                     </Col>
                     <Col>
                       <ImageUpload name="instructorImage" label="Instructor Image" />
@@ -126,7 +131,6 @@ const AddEditWorkshop = () => {
                     <Col>
                       <ImageUpload name="workshopImage" label="Workshop Image" required />
                     </Col>
-
                     {/* FAQ Section */}
                     <Col md="12" className="input-box">
                       <Label className="mb-3">
@@ -161,7 +165,9 @@ const AddEditWorkshop = () => {
                         )}
                       </FieldArray>
                     </Col>
-
+                    <Col md="12">
+                      <CustomSwitch name="features" title="features" />
+                    </Col>
                     <Col sm="12">
                       <div className="text-center mt-1">
                         <Button htmlType="submit" type="primary" className="btn btn-primary" size="large" loading={isWorkshopAdding || isWorkshopUpdating}>

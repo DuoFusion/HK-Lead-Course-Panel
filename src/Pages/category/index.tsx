@@ -87,7 +87,7 @@ const CategoryContainer = () => {
     <Fragment>
       <Breadcrumbs mainTitle="Category" parent="Pages" />
       <Container fluid className="custom-table">
-        <CardWrapper Search={(e) => handleSetSearch(e)} searchClass="col-xl-10 col-md-9 col-sm-7" btnTitle="Add Category" btnClick={() => navigate(ROUTES.CATEGORY.ADD_EDIT_CATEGORY)}>
+        <CardWrapper onSearch={(e) => handleSetSearch(e)} searchClassName="col-xl-10 col-md-9 col-sm-7" buttonLabel="Add Category" onButtonClick={() => navigate(ROUTES.CATEGORY.ADD_EDIT_CATEGORY)}>
           <Table
             className="custom-table"
             dataSource={All_Category?.category_data}

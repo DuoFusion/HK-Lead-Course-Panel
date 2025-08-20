@@ -11,6 +11,8 @@ import AddEditCategory from "../Pages/category/AddEditCategory";
 import Error from "../Pages/error";
 import WorkshopContainer from "../Pages/workshop";
 import AddEditWorkshop from "../Pages/workshop/AddEditWorkshop";
+import CoursesContainer from "../Pages/courses";
+import AddEditCourses from "../Pages/courses/AddEditCourses";
 
 export const Router = createBrowserRouter([
   {
@@ -27,6 +29,9 @@ export const Router = createBrowserRouter([
 
           { path: ROUTES.WORKSHOP.WORKSHOP, element: <WorkshopContainer /> },
           { path: ROUTES.WORKSHOP.ADD_EDIT_WORKSHOP, element: <AddEditWorkshop /> },
+
+          { path: ROUTES.COURSES.COURSES, element: <CoursesContainer /> },
+          { path: ROUTES.COURSES.ADD_EDIT_COURSES, element: <AddEditCourses /> },
         ],
       },
     ],

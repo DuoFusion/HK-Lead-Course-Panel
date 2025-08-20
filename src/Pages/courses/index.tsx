@@ -7,12 +7,12 @@ import { Container } from "reactstrap";
 import { Mutations, Queries } from "../../api";
 import { ROUTES } from "../../constants";
 import { Breadcrumbs, CardWrapper } from "../../coreComponents";
-import { CategoryType, WorkshopType } from "../../types";
 import { FormatDate, FormatTime } from "../../utils/DateFormatted";
 import { useBasicTableFilterHelper } from "../../utils/hook";
 import { ActiveStatus } from "../../data";
+import { CoursesType } from "../../types";
 
-const WorkshopContainer = () => {
+const CoursesContainer = () => {
   const { pageNumber, pageSize, params, handleSetSearch, handlePaginationChange, handleSetSortBy } = useBasicTableFilterHelper({
     initialParams: { page: 1, limit: 10 },
     debounceDelay: 500,
@@ -20,15 +20,14 @@ const WorkshopContainer = () => {
   });
 
   const navigate = useNavigate();
-  const { mutate: DeleteWorkshop } = Mutations.useDeleteWorkshop();
-  const { mutate: HandleActive, isPending: isHandleActiveLoading } = Mutations.useHandleActive();
+  const { mutate: DeleteCourses } = Mutations.useDeleteCourses();
+  const { mutate: HandleActive, isPending: isHandleActiveLoading } = Mutations.useCoursesHandleActive();
 
-  const { data: Workshop, isLoading: isWorkshopLoading } = Queries.useGetWorkshop(params);
-  const All_Workshop = Workshop?.data;
-  console.log(All_Workshop?.workshop_data[0].category.name);
+  const { data: Courses, isLoading: isCoursesLoading } = Queries.useGetCourses(params);
+  const All_Courses = Courses?.data;
 
-  const handleEdit = (item: WorkshopType) => {
-    navigate(ROUTES.WORKSHOP.ADD_EDIT_WORKSHOP, {
+  const handleEdit = (item: CoursesType) => {
+    navigate(ROUTES.COURSES.ADD_EDIT_COURSES, {
       state: {
         editData: item,
         edit: true,
@@ -36,16 +35,14 @@ const WorkshopContainer = () => {
     });
   };
 
-  const columns: ColumnsType<WorkshopType> = [
+  const columns: ColumnsType<CoursesType> = [
     { title: "#", key: "index", width: 10, fixed: "left", render: (_, __, index) => (pageNumber - 1) * pageSize + index + 1 },
-    { title: "Workshop Id", dataIndex: "_id", key: "_id" },
-    { title: "Workshop Name", dataIndex: "title", key: "title" },
-    { title: "date", dataIndex: "date", key: "date", render: (date: string) => (FormatDate(date) ? <Tag color="geekblue">{FormatDate(date)}</Tag> : "-") },
-    { title: "time", dataIndex: "time", key: "time", render: (time: string) => (FormatTime(time) ? <Tag color="green">{FormatTime(time)}</Tag> : "-") },
+    { title: "Courses Id", dataIndex: "_id", key: "_id" },
+    { title: "Courses Name", dataIndex: "title", key: "title" },
     { title: "duration", dataIndex: "duration", key: "duration" },
     { title: "price", dataIndex: "price", key: "price" },
     { title: "priority", dataIndex: "priority", key: "priority" },
-    { title: "category", dataIndex: "category", key: "category", render: (category: CategoryType) => category?.name },
+    { title: "category", dataIndex: "category", key: "category" },
     { title: "status", dataIndex: "status", key: "status" },
     { title: "syllabus", dataIndex: "syllabus", key: "syllabus" },
     { title: "instructor Name", dataIndex: "instructorName", key: "instructorName" },
@@ -62,16 +59,16 @@ const WorkshopContainer = () => {
       render: (thumbnailImage: string) => (thumbnailImage ? <Image src={thumbnailImage} width={60} height={60} alt="qr" fallback="/placeholder.png" /> : "-"),
     },
     {
-      title: "workshop Image",
-      dataIndex: "workshopImage",
-      key: "workshopImage",
-      render: (workshopImage: string) => (workshopImage ? <Image src={workshopImage} width={60} height={60} alt="qr" fallback="/placeholder.png" /> : "-"),
+      title: "Courses Image",
+      dataIndex: "CoursesImage",
+      key: "CoursesImage",
+      render: (CoursesImage: string) => (CoursesImage ? <Image src={CoursesImage} width={60} height={60} alt="qr" fallback="/placeholder.png" /> : "-"),
     },
     {
       title: "features",
       dataIndex: "features",
       key: "features",
-      render: (features: boolean, record: WorkshopType) => <Switch checked={features} className="switch-xsm" onChange={(checked) => HandleActive({ workshopId: record._id.toString(), features: checked })} />,
+      render: (features: boolean, record: CoursesType) => <Switch checked={features} className="switch-xsm" onChange={(checked) => HandleActive({ courseId: record._id.toString(), features: checked })} />,
       fixed: "right",
       width: 90,
     },
@@ -93,7 +90,7 @@ const WorkshopContainer = () => {
                 okText: "ok",
                 cancelText: "Cancel",
                 onOk: async () => {
-                  await HandleActive({ workshopId: record?._id, isBlocked: !record?.isBlocked });
+                  await HandleActive({ courseId: record?._id, isBlocked: !record?.isBlocked });
                 },
               });
             }}
@@ -113,7 +110,7 @@ const WorkshopContainer = () => {
                 content: `Do you really want to delete "${record?.title}"?`,
                 okText: "Yes, Delete",
                 cancelText: "Cancel",
-                onOk: () => DeleteWorkshop(record?._id),
+                onOk: () => DeleteCourses(record?._id),
               });
             }}
             title="Delete"
@@ -127,20 +124,20 @@ const WorkshopContainer = () => {
 
   return (
     <Fragment>
-      <Breadcrumbs mainTitle="Workshop" parent="Pages" />
+      <Breadcrumbs mainTitle="Courses" parent="Pages" />
       <Container fluid className="custom-table">
-        <CardWrapper onSearch={(e) => handleSetSearch(e)} searchClassName="col-md-6 col-xl-8" typeFilterPlaceholder="Select Status" typeFilterOptions={ActiveStatus} onTypeFilterChange={handleSetSortBy} buttonLabel="Add Workshop" onButtonClick={() => navigate(ROUTES.WORKSHOP.ADD_EDIT_WORKSHOP)}>
+        <CardWrapper onSearch={(e) => handleSetSearch(e)} searchClassName="col-md-6 col-xl-8" typeFilterPlaceholder="Select Status" typeFilterOptions={ActiveStatus} onTypeFilterChange={handleSetSortBy} buttonLabel="Add Courses" onButtonClick={() => navigate(ROUTES.COURSES.ADD_EDIT_COURSES)}>
           <Table
             className="custom-table"
-            dataSource={All_Workshop?.workshop_data}
+            dataSource={All_Courses?.course_data}
             columns={columns}
             rowKey={(record) => record._id}
             scroll={{ x: "max-content" }}
-            loading={isWorkshopLoading || isHandleActiveLoading}
+            loading={isCoursesLoading || isHandleActiveLoading}
             pagination={{
               current: pageNumber,
               pageSize: pageSize,
-              total: All_Workshop?.totalData,
+              total: All_Courses?.totalData,
               showSizeChanger: true,
               onChange: handlePaginationChange,
             }}
@@ -151,4 +148,4 @@ const WorkshopContainer = () => {
   );
 };
 
-export default WorkshopContainer;
+export default CoursesContainer;

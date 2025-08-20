@@ -1748,8 +1748,12 @@
       &.is-invalid .ant-select-selector {
         border: 1px dashed #d62131 !important;
       }
+      .ant-select-selection-placeholder {
+        color: #858484 !important;
+        font-weight: 500;
+      }
     }
-    :where(.css-dev-only-do-not-override-l9pxc0).ant-select-outlined:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer):hover .ant-select-selector {
+    .ant-select-outlined:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer):hover .ant-select-selector {
       border-color: #dedbdb !important;
     }
     .switch {
@@ -1823,12 +1827,16 @@
       input {
         box-shadow: none;
       }
+      .ant-select-selection-placeholder {
+        color: #5e5d5d !important;
+        font-weight: 400;
+      }
     }
     &.is-invalid .ant-select-selector {
       border: 1px dashed #d62131 !important;
     }
   }
-  :where(.css-dev-only-do-not-override-l9pxc0).ant-select-outlined:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer):hover .ant-select-selector {
+  .ant-select-outlined:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer):hover .ant-select-selector {
     border-color: #dedbdb !important;
   }
 }
