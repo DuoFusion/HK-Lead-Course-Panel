@@ -28,7 +28,7 @@ const Header = () => {
         <Col className="header-logo-wrapper col-auto p-0">
           <div className="logo-wrapper">
             <Link to={ROUTES.DASHBOARD}>
-              <Image className="img-fluid for-light" src={`${ImagePath}logo/logo.png`} alt="" />
+              <Image className="img-fluid for-light" src={`${ImagePath}logo/logo.png`} alt="logo" />
             </Link>
           </div>
           <div className="toggle-sidebar" onClick={() => dispatch(toggleSidebar())}>

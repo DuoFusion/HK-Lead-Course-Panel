@@ -1,38 +1,49 @@
 import { CommonDataType, MessageStatus, PageStatus } from "./Common";
 
+export interface FAQType {
+  question: string;
+  answer: string;
+}
+
+export interface ListOfLectureType {
+  title: string;
+  description: string;
+}
+
+export interface TestimonialsType {
+  image: string | string[] | null;
+  name: string;
+  role: string;
+  message: string;
+  rating: number;
+}
+
 export interface CoursesFormValues {
   title?: string;
   subtitle?: string;
   background?: string;
   duration?: string;
-  skillLevel?: string;
-  price?: string;
-  totalLectures?: string;
-  totalHours?: string; 
-  priority?: string;
-  rating?: string;
-  whatYouLearn?: string;
+  skillLevelId?: string;
+  price?: number;
+  totalLectures?: number;
+  totalHours?: string;
+  priority?: number;
+  rating?: number;
+  whatYouLearnId?: string;
   instructorName?: string;
-  courseLanguage?: string;
-  mrp?: string;
+  courseLanguageId?: string;
+  mrp?: number;
   discount?: string;
-  listOfLectureTitle?: string;
   shortDescription?: string;
-  listOfLectureDescription?: string;
   instructorImage?: string | string[];
-  courseImage?: string | string[]; 
-  faq: FAQ[];
-  features?: boolean;
-}
-
-interface FAQ {
-  question: string;
-  answer: string;
+  courseImage?: string | string[];
+  faq: FAQType[];
+  listOfLecture: ListOfLectureType[];
+  testimonials: TestimonialsType[];
 }
 
 export interface CoursesType extends CoursesFormValues, CommonDataType {
   _id: string;
-  features: boolean;
 }
 
 export interface CoursesDataResponse extends PageStatus {

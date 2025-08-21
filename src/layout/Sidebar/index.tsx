@@ -41,7 +41,7 @@ const Sidebar = () => {
                       <div className="simplebar-content">
                         <li className="back-btn">
                           <Link to={ROUTES.DASHBOARD}>
-                            <Image className="img-fluid" src={`${ImagePath}logo/logo-icon.png`} alt="" />
+                            <Image className="img-fluid" src={`${ImagePath}logo/logo-icon.png`} alt="logo" />
                           </Link>
                           <div className="mobile-back text-end">
                             <span>Back </span>

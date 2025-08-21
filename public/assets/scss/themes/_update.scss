@@ -1599,7 +1599,13 @@
         color: variables.$danger-text-color;
       }
     }
-
+    .rate-input {
+      background-color: #fff;
+      width: 100%;
+      border: 1px dashed #dedbdb;
+      border-radius: 4px;
+      padding: 10px 16px;
+    }
     input {
       background-color: #fff;
       padding: 10px 16px;
@@ -1751,6 +1757,7 @@
       .ant-select-selection-placeholder {
         color: #858484 !important;
         font-weight: 500;
+        text-transform: capitalize;
       }
     }
     .ant-select-outlined:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer):hover .ant-select-selector {
@@ -1830,6 +1837,7 @@
       .ant-select-selection-placeholder {
         color: #5e5d5d !important;
         font-weight: 400;
+        text-transform: capitalize;
       }
     }
     &.is-invalid .ant-select-selector {
@@ -1981,6 +1989,15 @@
 }
 .ant-upload-wrapper.ant-upload-picture-card-wrapper.is-invalid .ant-upload.ant-upload-select {
   border-color: variables.$danger-text-color !important;
+}
+
+.ant-rate {
+	.ant-rate-star-first {
+		color: var(--theme-default);
+	}
+	.ant-rate-star-second {
+		color: var(--theme-default);
+	}
 }
 /**=====================
     4.3 Update CSS Ends

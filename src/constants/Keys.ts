@@ -27,4 +27,22 @@ export const KEYS = {
     EDIT: "edit-courses",
     DELETE: "delete-courses",
   },
+  LANGUAGE: {
+    ALL: "language",
+    ADD: "add-language",
+    EDIT: "edit-language",
+    DELETE: "delete-language",
+  },
+  SKILL_LEVEL: {
+    ALL: "skill-level",
+    ADD: "add-skill-level",
+    EDIT: "edit-skill-level",
+    DELETE: "delete-skill-level",
+  },
+  WHAT_YOU_LEARN: {
+    ALL: "what-you-learn",
+    ADD: "add-what-you-learn",
+    EDIT: "edit-what-you-learn",
+    DELETE: "delete-what-you-learn",
+  },
 } as const;

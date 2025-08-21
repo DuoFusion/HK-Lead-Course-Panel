@@ -25,7 +25,7 @@ const SelectInput = ({ label, name, required, options, placeholder, ...props }: 
         </Label>
       )}
 
-      <Select {...props} className={meta.error ? "is-invalid" : ""} id={props.id || name} value={field.value || undefined} onChange={handleChange} placeholder={placeholder || "Select an option"} status={meta.touched && meta.error ? "error" : ""} style={{ width: "100%" }}>
+      <Select {...props} allowClear className={meta.error ? "is-invalid" : ""} id={props.id || name} value={field.value || undefined} onChange={handleChange} placeholder={placeholder || "Select an option"} status={meta.touched && meta.error ? "error" : ""} style={{ width: "100%" }}>
         {options.map((opt) => (
           <Option key={opt.value} value={opt.value} disabled={opt.disabled}>
             {opt.label}

@@ -19,4 +19,16 @@ export const ROUTES = {
     COURSES: "/coursers",
     ADD_EDIT_COURSES: "/add-edit-coursers",
   },
+  LANGUAGE: {
+    LANGUAGE: "/languages",
+    ADD_EDIT_LANGUAGE: "/add-edit-languages",
+  },
+  SKILL_LEVEL: {
+    SKILL_LEVEL: "/skill-level",
+    ADD_EDIT_SKILL_LEVEL: "/add-edit-skill-level",
+  },
+  WHAT_YOU_LEARN: {
+    WHAT_YOU_LEARN: "/what-you-learn",
+    ADD_EDIT_WHAT_YOU_LEARN: "/add-edit-what-you-learn",
+  },
 } as const;

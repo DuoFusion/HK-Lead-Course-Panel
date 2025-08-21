@@ -11,10 +11,10 @@ export interface WorkshopFormValues {
   instructorName?: string;
   thumbnailImage?: string | string[];
   workshopImage?: string | string[];
-  price?: string;
-  category?: string;
+  price?: number;
+  categoryId?: string;
   status?: string;
-  priority?: string;
+  priority?: number;
   fullDescription?: string;
   syllabus?: string;
   faq: FAQ[];
@@ -26,10 +26,9 @@ interface FAQ {
   answer: string;
 }
 
-export interface WorkshopType extends Omit<Required<WorkshopFormValues>, "category">, CommonDataType {
+export interface WorkshopType extends Omit<Required<WorkshopFormValues>, "categoryId">, CommonDataType {
   _id: string;
-  category: CategoryType;
-  features: boolean;
+  categoryId: CategoryType;
 }
 
 export interface WorkshopDataResponse extends PageStatus {

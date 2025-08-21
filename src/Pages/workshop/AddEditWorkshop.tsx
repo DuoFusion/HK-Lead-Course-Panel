@@ -23,6 +23,8 @@ const AddEditWorkshop = () => {
   const { mutate: upEditWorkshop, isPending: isWorkshopUpdating } = Mutations.useEditWorkshop();
   const { data: category, isLoading: isCategoryLoading } = Queries.useGetCategory({});
 
+  const handleNavigate = () => navigate(ROUTES.WORKSHOP.WORKSHOP);
+
   const initialValues: WorkshopFormValues = {
     title: initialData?.title || "",
     shortDescription: initialData?.shortDescription || "",
@@ -33,10 +35,10 @@ const AddEditWorkshop = () => {
     instructorName: initialData?.instructorName || "",
     thumbnailImage: initialData?.thumbnailImage ? [initialData.thumbnailImage] : [],
     workshopImage: initialData?.workshopImage ? [initialData.workshopImage] : [],
-    price: initialData?.price || "",
-    category: initialData?.category?._id || "",
+    price: initialData?.price || null,
+    categoryId: initialData?.categoryId?._id || "",
     status: initialData?.status || "",
-    priority: initialData?.priority || "",
+    priority: initialData?.priority || null,
     fullDescription: initialData?.fullDescription || "",
     syllabus: initialData?.syllabus || "",
     faq: initialData?.faq || [{ question: "", answer: "" }],
@@ -52,7 +54,7 @@ const AddEditWorkshop = () => {
       ...(values.duration && { duration: values.duration }),
       ...(values.instructorName && { instructorName: values.instructorName }),
       ...(values.price && { price: values.price }),
-      ...(values.category && { category: values.category }),
+      ...(values.categoryId && { categoryId: values.categoryId }),
       ...(values.status && { status: values.status }),
       ...(values.priority && { priority: values.priority }),
       ...(values.fullDescription && { fullDescription: values.fullDescription }),
@@ -66,7 +68,7 @@ const AddEditWorkshop = () => {
 
     const onSuccessHandler = () => {
       resetForm();
-      navigate(ROUTES.WORKSHOP.WORKSHOP);
+      handleNavigate();
     };
 
     if (state?.edit) {
@@ -99,10 +101,10 @@ const AddEditWorkshop = () => {
                       <TextInput name="duration" label="Duration" type="text" placeholder="Enter duration" required />
                     </Col>
                     <Col md="6" xl="4">
-                      <TextInput name="price" label="Price" type="text" placeholder="Enter price" />
+                      <TextInput name="price" label="Price" type="number" placeholder="Enter price" />
                     </Col>
                     <Col md="6" xl="4">
-                      <SelectInput name="category" label="category" options={generateOptions(category?.data?.category_data)} loading={isCategoryLoading} required />
+                      <SelectInput name="categoryId" label="category" options={generateOptions(category?.data?.category_data)} loading={isCategoryLoading} />
                     </Col>
                     <Col md="6" xl="4">
                       <SelectInput name="status" label="status" options={WorkshopStatus} required />
@@ -133,9 +135,7 @@ const AddEditWorkshop = () => {
                     </Col>
                     {/* FAQ Section */}
                     <Col md="12" className="input-box">
-                      <Label className="mb-3">
-                        Workshop FAQ <span className="required">*</span>
-                      </Label>
+                      <Label className="mb-3">Workshop FAQ</Label>
                       <FieldArray name="faq">
                         {({ push, remove }) => (
                           <>
@@ -173,7 +173,7 @@ const AddEditWorkshop = () => {
                         <Button htmlType="submit" type="primary" className="btn btn-primary" size="large" loading={isWorkshopAdding || isWorkshopUpdating}>
                           Save
                         </Button>
-                        <Button htmlType="button" className="btn btn-light ms-3" size="large" onClick={() => navigate(ROUTES.WORKSHOP.WORKSHOP)}>
+                        <Button htmlType="button" className="btn btn-light ms-3" size="large" onClick={() => handleNavigate()}>
                           Cancel
                         </Button>
                       </div>

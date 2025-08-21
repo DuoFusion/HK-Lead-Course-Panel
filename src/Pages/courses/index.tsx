@@ -1,4 +1,4 @@
-import { Button, Flex, Image, Modal, Switch, Table, Tag } from "antd";
+import { Button, Flex, Image, Modal, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { Edit, Forbidden, Trash } from "iconsax-react";
 import { Fragment } from "react";
@@ -7,10 +7,9 @@ import { Container } from "reactstrap";
 import { Mutations, Queries } from "../../api";
 import { ROUTES } from "../../constants";
 import { Breadcrumbs, CardWrapper } from "../../coreComponents";
-import { FormatDate, FormatTime } from "../../utils/DateFormatted";
-import { useBasicTableFilterHelper } from "../../utils/hook";
 import { ActiveStatus } from "../../data";
-import { CoursesType } from "../../types";
+import { CoursesType, LanguagesType, SkillLevelType, WhatYouLearnType } from "../../types";
+import { useBasicTableFilterHelper } from "../../utils/hook";
 
 const CoursesContainer = () => {
   const { pageNumber, pageSize, params, handleSetSearch, handlePaginationChange, handleSetSortBy } = useBasicTableFilterHelper({
@@ -25,9 +24,10 @@ const CoursesContainer = () => {
 
   const { data: Courses, isLoading: isCoursesLoading } = Queries.useGetCourses(params);
   const All_Courses = Courses?.data;
+  const handleNavigate = ROUTES.COURSES.ADD_EDIT_COURSES;
 
   const handleEdit = (item: CoursesType) => {
-    navigate(ROUTES.COURSES.ADD_EDIT_COURSES, {
+    navigate(handleNavigate, {
       state: {
         editData: item,
         edit: true,
@@ -36,41 +36,34 @@ const CoursesContainer = () => {
   };
 
   const columns: ColumnsType<CoursesType> = [
-    { title: "#", key: "index", width: 10, fixed: "left", render: (_, __, index) => (pageNumber - 1) * pageSize + index + 1 },
-    { title: "Courses Id", dataIndex: "_id", key: "_id" },
-    { title: "Courses Name", dataIndex: "title", key: "title" },
-    { title: "duration", dataIndex: "duration", key: "duration" },
-    { title: "price", dataIndex: "price", key: "price" },
+    { title: "Sr No.", key: "index", width: 100, fixed: "left", render: (_, __, index) => (pageNumber - 1) * pageSize + index + 1 },
     { title: "priority", dataIndex: "priority", key: "priority" },
-    { title: "category", dataIndex: "category", key: "category" },
-    { title: "status", dataIndex: "status", key: "status" },
-    { title: "syllabus", dataIndex: "syllabus", key: "syllabus" },
+    { title: "Courses Id", dataIndex: "_id", key: "_id" },
+    { title: "Courses title", dataIndex: "title", key: "title" },
+    { title: "background", dataIndex: "background", key: "background" },
+    { title: "short Description", dataIndex: "shortDescription", key: "shortDescription", width: 400 },
+    { title: "duration", dataIndex: "duration", key: "duration" },
+    { title: "skill Level", dataIndex: "skillLevelId", key: "skillLevelId", render: (skillLevelId: SkillLevelType) => skillLevelId?.title },
+    { title: "price", dataIndex: "price", key: "price" },
+    { title: "total Lectures", dataIndex: "totalLectures", key: "totalLectures" },
+    { title: "total Hours", dataIndex: "totalHours", key: "totalHours" },
+    { title: "rating", dataIndex: "rating", key: "rating" },
+    { title: "what You Learn", dataIndex: "whatYouLearnId", key: "whatYouLearnId", render: (whatYouLearnId: WhatYouLearnType) => whatYouLearnId?.title },
     { title: "instructor Name", dataIndex: "instructorName", key: "instructorName" },
+    { title: "courseLanguageId", dataIndex: "courseLanguageId", key: "courseLanguageId", render: (courseLanguageId: LanguagesType) => courseLanguageId?.name },
+    { title: "mrp", dataIndex: "mrp", key: "mrp" },
+    { title: "discount", dataIndex: "discount", key: "discount" },
     {
       title: "instructor Image",
       dataIndex: "instructorImage",
       key: "instructorImage",
-      render: (instructorImage: string) => (instructorImage ? <Image src={instructorImage} width={60} height={60} alt="qr" fallback="/placeholder.png" /> : "-"),
-    },
-    {
-      title: "thumbnail Image",
-      dataIndex: "thumbnailImage",
-      key: "thumbnailImage",
-      render: (thumbnailImage: string) => (thumbnailImage ? <Image src={thumbnailImage} width={60} height={60} alt="qr" fallback="/placeholder.png" /> : "-"),
+      render: (instructorImage: string) => (instructorImage ? <Image src={instructorImage} width={60} height={60} alt="instructor_image" fallback="/placeholder.png" /> : "-"),
     },
     {
       title: "Courses Image",
-      dataIndex: "CoursesImage",
-      key: "CoursesImage",
-      render: (CoursesImage: string) => (CoursesImage ? <Image src={CoursesImage} width={60} height={60} alt="qr" fallback="/placeholder.png" /> : "-"),
-    },
-    {
-      title: "features",
-      dataIndex: "features",
-      key: "features",
-      render: (features: boolean, record: CoursesType) => <Switch checked={features} className="switch-xsm" onChange={(checked) => HandleActive({ courseId: record._id.toString(), features: checked })} />,
-      fixed: "right",
-      width: 90,
+      dataIndex: "courseImage",
+      key: "courseImage",
+      render: (courseImage: string) => (courseImage ? <Image src={courseImage} width={60} height={60} alt="courses_image" fallback="/placeholder.png" /> : "-"),
     },
     {
       title: "Option",
@@ -81,7 +74,7 @@ const CoursesContainer = () => {
         <Flex gap="middle" justify="center">
           <Button
             type="text"
-            title="Active/UnActive"
+            title={record?.isBlocked ? "UnActive" : "Active"}
             className={`m-1 p-1 btn ${record?.isBlocked ? "btn-danger" : "btn-success"}`}
             onClick={() => {
               Modal.confirm({
@@ -126,7 +119,7 @@ const CoursesContainer = () => {
     <Fragment>
       <Breadcrumbs mainTitle="Courses" parent="Pages" />
       <Container fluid className="custom-table">
-        <CardWrapper onSearch={(e) => handleSetSearch(e)} searchClassName="col-md-6 col-xl-8" typeFilterPlaceholder="Select Status" typeFilterOptions={ActiveStatus} onTypeFilterChange={handleSetSortBy} buttonLabel="Add Courses" onButtonClick={() => navigate(ROUTES.COURSES.ADD_EDIT_COURSES)}>
+        <CardWrapper onSearch={(e) => handleSetSearch(e)} searchClassName="col-md-6 col-xl-8" typeFilterPlaceholder="Select Status" typeFilterOptions={ActiveStatus} onTypeFilterChange={handleSetSortBy} buttonLabel="Add Courses" onButtonClick={() => navigate(handleNavigate)}>
           <Table
             className="custom-table"
             dataSource={All_Courses?.course_data}

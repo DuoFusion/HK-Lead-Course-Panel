@@ -15,6 +15,9 @@ async function Get<T>(url: string, params?: Params, headers?: Record<string, str
     method: "GET",
     headers: {
       Authorization: token,
+      "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+      Pragma: "no-cache",
+      Expires: "0",
       ...headers,
     },
     params,

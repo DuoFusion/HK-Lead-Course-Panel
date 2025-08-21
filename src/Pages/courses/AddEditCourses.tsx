@@ -3,14 +3,15 @@ import { FieldArray, Form, Formik, FormikHelpers } from "formik";
 import { Add, Minus } from "iconsax-react";
 import { Fragment } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Col, Container, Label, Row } from "reactstrap";
-import { Mutations } from "../../api";
-import { ImageUpload, SelectInput, TextInput } from "../../attribute/formFields";
+import { Col, Container, Row } from "reactstrap";
+import { Mutations, Queries } from "../../api";
+import { ImageUpload, RateInput, SelectInput, TextInput } from "../../attribute/formFields";
 import { ROUTES } from "../../constants";
 import { Breadcrumbs, CardWrapper } from "../../coreComponents";
-import { CoursesFormValues } from "../../types";
-import { CoursesSchema } from "../../utils/ValidationSchemas";
 import { DiscountStatus } from "../../data";
+import { CoursesFormValues, TestimonialsType } from "../../types";
+import { generateOptions } from "../../utils";
+import { CoursesSchema } from "../../utils/ValidationSchemas";
 
 const AddEditCourses = () => {
   const navigate = useNavigate();
@@ -20,31 +21,35 @@ const AddEditCourses = () => {
 
   const { mutate: useCourses, isPending: isCoursesAdding } = Mutations.useCourses();
   const { mutate: upEditCourses, isPending: isCoursesUpdating } = Mutations.useEditCourses();
+  const { data: SkillLevel, isLoading: isSkillLevelLoading } = Queries.useGetSkillLevel({});
+  const { data: WhatYouLearn, isLoading: isWhatYouLearnLoading } = Queries.useGetWhatYouLearn({});
+  const { data: Languages, isLoading: isLanguagesLoading } = Queries.useGetLanguages({});
 
   const initialValues: CoursesFormValues = {
     title: initialData?.title || "",
     subtitle: initialData?.subtitle || "",
     background: initialData?.background || "",
     duration: initialData?.duration || "",
-    skillLevel: initialData?.skillLevel || "",
-    price: initialData?.price || "",
-    totalLectures: initialData?.totalLectures || "",
+    skillLevelId: initialData?.skillLevelId?._id || "",
+    price: initialData?.price || null,
+    totalLectures: initialData?.totalLectures || null,
     totalHours: initialData?.totalHours || "",
-    priority: initialData?.priority || "",
-    rating: initialData?.rating || "",
-    whatYouLearn: initialData?.whatYouLearn || "",
+    priority: initialData?.priority || null,
+    rating: initialData?.rating || null,
+    whatYouLearnId: initialData?.whatYouLearnId?._id || "",
     instructorName: initialData?.instructorName || "",
-    courseLanguage: initialData?.courseLanguage || "",
-    mrp: initialData?.mrp || "",
+    courseLanguageId: initialData?.courseLanguageId?._id || "",
+    mrp: initialData?.mrp || null,
     discount: initialData?.discount || "",
-    listOfLectureTitle: initialData?.listOfLectureTitle || "",
     shortDescription: initialData?.shortDescription || "",
-    listOfLectureDescription: initialData?.listOfLectureDescription || "",
     instructorImage: initialData?.instructorImage ? [initialData.instructorImage] : [],
     courseImage: initialData?.courseImage ? [initialData.courseImage] : [],
     faq: initialData?.faq || [{ question: "", answer: "" }],
-    features: initialData?.features || false,
+    listOfLecture: initialData?.listOfLecture || [{ title: "", description: "" }],
+    testimonials: initialData?.testimonials?.length ? initialData.testimonials.map((t: TestimonialsType) => ({ ...t, image: t.image ? [t.image] : [] })) : [{ name: "", role: "", message: "", rating: null, image: [] }],
   };
+
+  const handleNavigate = () => navigate(ROUTES.COURSES.COURSES);
 
   const handleSubmit = async (values: CoursesFormValues, { resetForm }: FormikHelpers<CoursesFormValues>) => {
     const payload = {
@@ -52,31 +57,29 @@ const AddEditCourses = () => {
       ...(values.subtitle && { subtitle: values.subtitle }),
       ...(values.background && { background: values.background }),
       ...(values.duration && { duration: values.duration }),
-      ...(values.skillLevel && { skillLevel: values.skillLevel }),
-      ...(values.price && { price: values.price.toString() }),
+      ...(values.skillLevelId && { skillLevelId: values.skillLevelId }),
+      ...(values.price && { price: values.price }),
       ...(values.totalLectures && { totalLectures: values.totalLectures }),
       ...(values.totalHours && { totalHours: values.totalHours }),
       ...(values.priority && { priority: values.priority }),
       ...(values.rating && { rating: values.rating }),
-      ...(values.whatYouLearn && { whatYouLearn: values.whatYouLearn }),
+      ...(values.whatYouLearnId && { whatYouLearnId: values.whatYouLearnId }),
       ...(values.instructorName && { instructorName: values.instructorName }),
-      ...(values.courseLanguage && { courseLanguage: values.courseLanguage }),
+      ...(values.courseLanguageId && { courseLanguageId: values.courseLanguageId }),
       ...(values.mrp && { mrp: values.mrp }),
       ...(values.discount && { discount: values.discount }),
-      ...(values.listOfLectureTitle && { listOfLectureTitle: values.listOfLectureTitle }),
       ...(values.shortDescription && { shortDescription: values.shortDescription }),
-      ...(values.listOfLectureDescription && { listOfLectureDescription: values.listOfLectureDescription }),
       ...(values.instructorImage?.length && { instructorImage: values.instructorImage[0] }),
       ...(values.courseImage?.length && { courseImage: values.courseImage[0] }),
       ...(values.faq && { faq: values.faq }),
-      ...(values.features !== undefined && { features: values.features }),
+      ...(values.listOfLecture && { listOfLecture: values.listOfLecture }),
+      ...(values.testimonials && { testimonials: values.testimonials.map((t) => ({ ...t, image: t.image?.length ? t.image[0] : null })) }),
     };
 
     const onSuccessHandler = () => {
       resetForm();
-      navigate(ROUTES.COURSES.COURSES);
+      handleNavigate();
     };
-    console.log("payload", payload);
 
     if (state?.edit) {
       upEditCourses({ courseId: state?.editData?._id, ...payload }, { onSuccess: () => onSuccessHandler() });
@@ -108,13 +111,13 @@ const AddEditCourses = () => {
                       <TextInput name="duration" label="Duration" type="text" placeholder="Enter duration" required />
                     </Col>
                     <Col md="6" xl="4">
-                      <TextInput name="skillLevel" label="skill Level ===" type="text" placeholder="Enter skill Level" required />
+                      <SelectInput name="skillLevelId" label="skill Level" placeholder="Select skill Level" options={generateOptions(SkillLevel?.data?.skill_level_data)} loading={isSkillLevelLoading} required />
                     </Col>
                     <Col md="6" xl="4">
                       <TextInput name="price" label="Price" type="number" placeholder="Enter price" required />
                     </Col>
                     <Col md="6" xl="4">
-                      <TextInput name="totalLectures" label="Total Lectures" type="text" placeholder="Enter Total Lectures" required />
+                      <TextInput name="totalLectures" label="Total Lectures" type="number" placeholder="Enter Total Lectures" required />
                     </Col>
                     <Col md="6" xl="4">
                       <TextInput name="totalHours" label="total Hours" type="text" placeholder="Enter total Hours" required />
@@ -126,45 +129,38 @@ const AddEditCourses = () => {
                       <TextInput name="rating" label="rating" type="number" placeholder="Enter rating" required />
                     </Col>
                     <Col md="6" xl="4">
-                      <TextInput name="whatYouLearn" label="what You Learn ====" type="text" placeholder="Enter what You Learn" />
+                      <SelectInput name="whatYouLearnId" label="what You Learn" placeholder="Select what You Learn" options={generateOptions(WhatYouLearn?.data?.what_you_learn_data)} loading={isWhatYouLearnLoading}  />
                     </Col>
                     <Col md="6" xl="4">
                       <TextInput name="instructorName" label="Instructor Name" type="text" placeholder="Enter instructor name" />
                     </Col>
                     <Col md="6" xl="4">
-                      <TextInput name="courseLanguage" label="course Language ====" type="text" placeholder="Enter course Language" />
+                      <SelectInput name="courseLanguageId" label="course Language" placeholder="Select course Language" options={generateOptions(Languages?.data?.language_data)} loading={isLanguagesLoading}  />
                     </Col>
                     <Col md="6" xl="4">
-                      <TextInput name="mrp" label="mrp" type="text" placeholder="Enter mrp" />
+                      <TextInput name="mrp" label="mrp" type="number" placeholder="Enter mrp" />
                     </Col>
                     <Col md="6" xl="4">
-                      <SelectInput name="discount" label="discount" options={DiscountStatus} required />
+                      <SelectInput name="discount" label="discount" options={DiscountStatus} />
                     </Col>
-                    {/* <Col md="6" xl="4">
-                      <TextInput name="listOfLectureTitle" label="list of Lecture Title" type="text" placeholder="Enter list of Lecture Title" />
-                    </Col> */}
                     <Col md="12">
                       <TextInput name="shortDescription" label="Short Description" type="textarea" placeholder="Enter short description" required />
                     </Col>
-                    {/* <Col md="12">
-                      <TextInput name="listOfLectureDescription" label="List of Lecture Description" type="textarea" placeholder="Enter List of Lecture Description" />
-                    </Col> */}
                     <Col md="2">
                       <ImageUpload name="instructorImage" label="Instructor Image" />
                     </Col>
                     <Col md="3">
                       <ImageUpload name="courseImage" label="Courses Image" required />
                     </Col>
-                    {/* FAQ Section */}
                     <Col md="12" className="input-box">
-                      <Label className="mb-3">Courses FAQ</Label>
+                      <h2 className="my-3">FAQ</h2>
                       <FieldArray name="faq">
                         {({ push, remove }) => (
                           <>
                             {values.faq.map((_, index) => (
                               <Row key={index} className="mb-3 gy-4">
                                 <Col md="5">
-                                  <TextInput name={`faq[${index}].question`} label={`FAQ Question ${index + 1}`} type="text" placeholder="Enter FAQ question" />
+                                  <TextInput name={`faq[${index}].question`} label={`FAQ Question ${index + 1}`} type="textarea" placeholder="Enter FAQ question" />
                                 </Col>
                                 <Col md="5">
                                   <TextInput name={`faq[${index}].answer`} label={`FAQ Answer ${index + 1}`} type="textarea" placeholder="Enter FAQ answer" />
@@ -188,26 +184,70 @@ const AddEditCourses = () => {
                       </FieldArray>
                     </Col>
                     <Col md="12" className="input-box">
-                      <Label className="mb-3">List of Lecture</Label>
-                      <FieldArray name="faq">
+                      <h2 className="my-3">List of Lecture</h2>
+                      <FieldArray name="listOfLecture">
                         {({ push, remove }) => (
                           <>
-                            {values.faq.map((_, index) => (
+                            {values.listOfLecture.map((_, index) => (
                               <Row key={index} className="mb-3 gy-4">
                                 <Col md="5">
-                                  <TextInput name={`faq[${index}].question`} label={`Title ${index + 1}`} type="text" placeholder="Enter list of Lecture Title" />
+                                  <TextInput name={`listOfLecture[${index}].title`} label={`Title ${index + 1}`} type="textarea" placeholder="Enter list of Lecture Title" />
                                 </Col>
                                 <Col md="5">
-                                  <TextInput name={`faq[${index}].answer`} label={`Description ${index + 1}`} type="textarea" placeholder="Enter List of Lecture Description" />
+                                  <TextInput name={`listOfLecture[${index}].description`} label={`Description ${index + 1}`} type="textarea" placeholder="Enter List of Lecture Description" />
                                 </Col>
                                 <Col md="2" className="d-flex align-items-center gap-2">
-                                  {values.faq.length > 1 && (
+                                  {values.listOfLecture.length > 1 && (
                                     <Button type="text" onClick={() => remove(index)} danger className="m-1 p-1 action-btn btn-danger">
                                       <Minus className="action" />
                                     </Button>
                                   )}
-                                  {index === values.faq.length - 1 && (
-                                    <Button type="text" onClick={() => push({ question: "", answer: "" })} className="m-1 p-1 btn btn-primary action-btn">
+                                  {index === values.listOfLecture.length - 1 && (
+                                    <Button type="text" onClick={() => push({ title: "", description: "" })} className="m-1 p-1 btn btn-primary action-btn">
+                                      <Add className="action" />
+                                    </Button>
+                                  )}
+                                </Col>
+                              </Row>
+                            ))}
+                          </>
+                        )}
+                      </FieldArray>
+                    </Col>
+                    <Col md="12" className="input-box">
+                      <h2 className="mt-3">Testimonials</h2>
+                      <FieldArray name="testimonials">
+                        {({ push, remove }) => (
+                          <>
+                            {values.testimonials.map((_, index) => (
+                              <Row key={index} className="mb-3">
+                                <Col md="10" className="row gy-4 m-0">
+                                  <Col md="4">
+                                    <TextInput name={`testimonials[${index}].name`} label="name" type="text" placeholder="Enter Your Name" />
+                                  </Col>
+                                  <Col md="4">
+                                    <TextInput name={`testimonials[${index}].role`} label="role" type="text" placeholder="Enter your role" />
+                                  </Col>
+                                  <Col md="4">
+                                    <RateInput name={`testimonials[${index}].rating`} label="Course Rating" allowHalf />
+                                  </Col>
+                                  <Col md="12" className="row gy-4 m-0">
+                                    <Col md="9" className="ps-0">
+                                      <TextInput name={`testimonials[${index}].message`} label="message" type="textarea" placeholder="Enter Your message" />
+                                    </Col>
+                                    <Col md="3">
+                                      <ImageUpload name={`testimonials[${index}].image`} label="Image" />
+                                    </Col>
+                                  </Col>
+                                </Col>
+                                <Col md="2" className="d-flex align-items-center gap-2">
+                                  {values.testimonials.length > 1 && (
+                                    <Button type="text" onClick={() => remove(index)} danger className="m-1 p-1 action-btn btn-danger">
+                                      <Minus className="action" />
+                                    </Button>
+                                  )}
+                                  {index === values.testimonials.length - 1 && (
+                                    <Button type="text" onClick={() => push({ name: "", role: "", message: "", rating: null })} className="m-1 p-1 btn btn-primary action-btn">
                                       <Add className="action" />
                                     </Button>
                                   )}
@@ -223,7 +263,7 @@ const AddEditCourses = () => {
                         <Button htmlType="submit" type="primary" className="btn btn-primary" size="large" loading={isCoursesAdding || isCoursesUpdating}>
                           Save
                         </Button>
-                        <Button htmlType="button" className="btn btn-light ms-3" size="large" onClick={() => navigate(ROUTES.COURSES.COURSES)}>
+                        <Button htmlType="button" className="btn btn-light ms-3" size="large" onClick={() => handleNavigate()}>
                           Cancel
                         </Button>
                       </div>

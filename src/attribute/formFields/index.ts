@@ -5,5 +5,6 @@ import ColorPickerInput from "./ColorPickerInput";
 import OtpInput from "./OtpInput";
 import DataAndTime from "./DataAndTime";
 import CustomSwitch from "./CustomSwitch";
+import RateInput from "./RateInput";
 
-export { TextInput, SelectInput, ImageUpload, ColorPickerInput, OtpInput, DataAndTime, CustomSwitch };
+export { TextInput, SelectInput, ImageUpload, ColorPickerInput, OtpInput, DataAndTime, CustomSwitch, RateInput };

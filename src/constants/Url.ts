@@ -30,6 +30,24 @@ const URL = {
     EDIT: "/courses/edit",
     DELETE: "/courses/delete",
   },
+  LANGUAGE: {
+    ALL: "/language",
+    ADD: "/language/add",
+    EDIT: "/language/edit",
+    DELETE: "/language/delete",
+  },
+  SKILL_LEVEL: {
+    ALL: "/skill-level",
+    ADD: "/skill-level/add",
+    EDIT: "/skill-level/edit",
+    DELETE: "/skill-level/delete",
+  },
+  WHAT_YOU_LEARN: {
+    ALL: "/what-you-learn",
+    ADD: "/what-you-learn/add",
+    EDIT: "/what-you-learn/edit",
+    DELETE: "/what-you-learn/delete",
+  },
 } as const;
 
 // Construct the URL object

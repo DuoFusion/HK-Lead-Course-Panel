@@ -1,29 +1,29 @@
-import { Fragment } from "react";
-import { Breadcrumbs } from "../../coreComponents";
-import { CardWrapper } from "../../coreComponents";
-import { Container } from "reactstrap";
-import { useBasicTableFilterHelper } from "../../utils/hook";
-import { useNavigate } from "react-router-dom";
-import { ROUTES } from "../../constants";
-import { Mutations, Queries } from "../../api";
 import { Button, Flex, Modal, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
-import { CategoryType } from "../../types";
 import { Edit, Trash } from "iconsax-react";
+import { Fragment } from "react";
+import { useNavigate } from "react-router-dom";
+import { Container } from "reactstrap";
+import { Mutations, Queries } from "../../api";
+import { ROUTES } from "../../constants";
+import { Breadcrumbs, CardWrapper } from "../../coreComponents";
+import { LanguagesType } from "../../types";
+import { useBasicTableFilterHelper } from "../../utils/hook";
 
-const CategoryContainer = () => {
+const LanguagesContainer = () => {
   const { pageNumber, pageSize, params, handleSetSearch, handlePaginationChange } = useBasicTableFilterHelper({
     initialParams: { page: 1, limit: 10 },
     debounceDelay: 500,
   });
+
   const navigate = useNavigate();
-  const { mutate: DeleteCategory } = Mutations.useDeleteCategory();
+  const { mutate: DeleteLanguages } = Mutations.useDeleteLanguages();
 
-  const { data: category, isLoading: isCategoryLoading } = Queries.useGetCategory(params);
-  const All_Category = category?.data;
-  const handleNavigate = ROUTES.CATEGORY.ADD_EDIT_CATEGORY;
+  const { data: Languages, isLoading: isLanguagesLoading } = Queries.useGetLanguages(params);
+  const All_Languages = Languages?.data;
+  const handleNavigate = ROUTES.LANGUAGE.ADD_EDIT_LANGUAGE;
 
-  const handleEdit = (item: CategoryType) => {
+  const handleEdit = (item: LanguagesType) => {
     navigate(handleNavigate, {
       state: {
         editData: item,
@@ -32,27 +32,11 @@ const CategoryContainer = () => {
     });
   };
 
-  const columns: ColumnsType<CategoryType> = [
-    {
-      title: "Sr No",
-      key: "index",
-      render: (_, __, index) => (pageNumber - 1) * pageSize + index + 1,
-    },
-    {
-      title: "priority",
-      dataIndex: "priority",
-      key: "priority",
-    },
-    {
-      title: "Category Id",
-      dataIndex: "_id",
-      key: "_id",
-    },
-    {
-      title: "Category Name",
-      dataIndex: "name",
-      key: "name",
-    },
+  const columns: ColumnsType<LanguagesType> = [
+    { title: "Sr No.", key: "index", fixed: "left", render: (_, __, index) => (pageNumber - 1) * pageSize + index + 1 },
+    { title: "priority", dataIndex: "priority", key: "priority" },
+    { title: "Languages Id", dataIndex: "_id", key: "_id" },
+    { title: "Languages Name", dataIndex: "name", key: "name" },
     {
       title: "Option",
       key: "actionIcons",
@@ -70,10 +54,10 @@ const CategoryContainer = () => {
             onClick={() => {
               Modal.confirm({
                 title: "Are you sure?",
-                content: `Do you really want to delete "${record.name}"?`,
+                content: `Do you really want to delete "${record?.name}"?`,
                 okText: "Yes, Delete",
                 cancelText: "Cancel",
-                onOk: () => DeleteCategory(record?._id),
+                onOk: () => DeleteLanguages(record?._id),
               });
             }}
             title="Delete"
@@ -87,20 +71,20 @@ const CategoryContainer = () => {
 
   return (
     <Fragment>
-      <Breadcrumbs mainTitle="Category" parent="Pages" />
+      <Breadcrumbs mainTitle="Languages" parent="Pages" />
       <Container fluid className="custom-table">
-        <CardWrapper onSearch={(e) => handleSetSearch(e)} searchClassName="col-xl-10 col-md-9 col-sm-7" buttonLabel="Add Category" onButtonClick={() => navigate(handleNavigate)}>
+        <CardWrapper onSearch={(e) => handleSetSearch(e)} searchClassName="col-xl-10 col-md-9 col-sm-7" buttonLabel="Add Languages" onButtonClick={() => navigate(handleNavigate)}>
           <Table
             className="custom-table"
-            dataSource={All_Category?.category_data}
+            dataSource={All_Languages?.language_data}
             columns={columns}
             rowKey={(record) => record._id}
             scroll={{ x: "max-content" }}
-            loading={isCategoryLoading}
+            loading={isLanguagesLoading}
             pagination={{
               current: pageNumber,
               pageSize: pageSize,
-              total: All_Category?.totalData,
+              total: All_Languages?.totalData,
               showSizeChanger: true,
               onChange: handlePaginationChange,
             }}
@@ -111,4 +95,4 @@ const CategoryContainer = () => {
   );
 };
 
-export default CategoryContainer;
+export default LanguagesContainer;

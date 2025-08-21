@@ -25,10 +25,10 @@ export default function TextInput({ label, children, name, autoComplete = "off",
       {inputGroupIcon ? (
         <InputGroup>
           <InputGroupText className="list-light-primary">{inputGroupIcon}</InputGroupText>
-          <Input {...field} {...inputProps} autoComplete={autoComplete} type={inputType} placeholder={props.placeholder ? props.placeholder : undefined} invalid={meta.touched && !!meta.error} />
+          <Input {...field} {...inputProps} value={field.value ?? ""} autoComplete={autoComplete} type={inputType} placeholder={props.placeholder ? props.placeholder : undefined} invalid={meta.touched && !!meta.error} />
         </InputGroup>
       ) : (
-        <Input {...field} {...inputProps} autoComplete={autoComplete} type={inputType} placeholder={props.placeholder ? props.placeholder : undefined} invalid={meta.touched && !!meta.error} />
+        <Input {...field} {...inputProps} value={field.value ?? ""} autoComplete={autoComplete} type={inputType} placeholder={props.placeholder ? props.placeholder : undefined} invalid={meta.touched && !!meta.error} />
       )}
       {meta.touched && meta.error ? <FormFeedback>{meta.error}</FormFeedback> : null}
 

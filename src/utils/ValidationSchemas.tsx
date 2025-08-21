@@ -1,9 +1,23 @@
 import * as Yup from "yup";
 import { FieldOptions, FieldTypeMap } from "../types";
 
-export const fieldSchema = <K extends keyof FieldTypeMap>(type: K, label: string = "Field", options?: FieldOptions<FieldTypeMap[K]>): FieldTypeMap[K] => {
-  const { required = true, extraRules, minItems } = options || {};
+// ---------- Generic field schema factory ----------
 
+type FieldSchemaArgs<K extends keyof FieldTypeMap> = [type: K, options?: FieldOptions<FieldTypeMap[K]>] | [type: K, label: string, options?: FieldOptions<FieldTypeMap[K]>];
+
+export function fieldSchema<K extends keyof FieldTypeMap>(...args: FieldSchemaArgs<K>): FieldTypeMap[K] {
+  let type: K;
+  let label: string;
+  let options: FieldOptions<FieldTypeMap[K]> | undefined;
+
+  if (typeof args[1] === "string") {
+    [type, label, options] = args as [K, string, FieldOptions<FieldTypeMap[K]>?];
+  } else {
+    [type, options] = args as [K, FieldOptions<FieldTypeMap[K]>?];
+    label = "Field";
+  }
+
+  const { required = true, extraRules, minItems } = options || {};
   let schema: FieldTypeMap[K];
 
   switch (type) {
@@ -35,89 +49,111 @@ export const fieldSchema = <K extends keyof FieldTypeMap>(type: K, label: string
   }
 
   return extraRules ? extraRules(schema) : schema;
-};
+}
 
-// ************ Login ***********
+// ---------- Reusable helpers ----------
 
+const faqSchema = Yup.object({
+  question: fieldSchema("string", { required: false }),
+  answer: fieldSchema("string", { required: false }),
+});
+
+const lectureSchema = Yup.object({
+  title: fieldSchema("string", { required: false }),
+  description: fieldSchema("string", { required: false }),
+});
+
+const testimonialSchema = (required: boolean) =>
+  Yup.object({
+    name: fieldSchema("string", { required }),
+    role: fieldSchema("string", { required }),
+    message: fieldSchema("string", { required }),
+    rating: fieldSchema("number", { required }),
+    image: imageSchema("Testimonial Image", required),
+  });
+
+const imageSchema = (label: string, required = true) => fieldSchema("array", label, required ? { minItems: 1 } : { required: false });
+
+// ---------- Schemas ----------
+
+// Login
 export const LoginSchema = Yup.object({
   email: fieldSchema("string", "Email", { extraRules: (s) => s.email("Invalid email address") }),
   password: fieldSchema("string", "Password", { extraRules: (s) => s.matches(/[!@#$%^&*()_+={}:;"'<>,.?/-]/, "Password must include at least one special character") }),
 });
 
-// ************ Change Password ***********
-
+// Change Password
 export const ChangePasswordSchema = Yup.object({
   password: fieldSchema("string", "New Password", { extraRules: (s) => s.matches(/[!@#$%^&*()_+={}:;"'<>,.?/-]/, "New Password must include at least one special character") }),
-  confirmPassword: fieldSchema("string", "Confirm Password", { extraRules: (s) => s.matches(/[!@#$%^&*()_+={}:;"'<>,.?/-]/, "Confirm Password must include at least one special character") }),
+  confirmPassword: fieldSchema("string", "Confirm Password", { extraRules: (s) => s.oneOf([Yup.ref("password")], "Passwords must match") }),
 });
 
-// ************ Category ***********
-
+// Category
 export const CategorySchema = Yup.object({
   name: fieldSchema("string", "Name"),
-  priority: fieldSchema("string", "Priority"),
-  // title: fieldSchema("string", "Priority", { required: false }),
+  priority: fieldSchema("number", "Priority"),
 });
 
-// ************ Workshop ***********
-
+// Workshop
 export const WorkshopSchema = Yup.object({
-  title: fieldSchema("string", "title"),
-  shortDescription: fieldSchema("string", "short Description"),
-  date: fieldSchema("string", "date"),
-  time: fieldSchema("string", "time"),
-  duration: fieldSchema("string", "duration"),
-  instructorImage: fieldSchema("array", "instructor Image", { required: false }),
-  instructorName: fieldSchema("string", "instructor Name"),
-  thumbnailImage: fieldSchema("array", "thumbnail Image", { minItems: 1 }),
-  workshopImage: fieldSchema("array", "workshop Image", { minItems: 1 }),
-  price: fieldSchema("string", "price", { required: false }),
-  category: fieldSchema("string", "category", { required: false }),
-  status: fieldSchema("string", "status", { required: false }),
-  priority: fieldSchema("string", "Priority"),
-  syllabus: fieldSchema("string", "syllabus", { required: false }),
-  fullDescription: fieldSchema("string", "full Description", { required: false }),
-  features: fieldSchema("boolean", "features", { required: false }),
-  faq: Yup.array()
-    .of(
-      Yup.object().shape({
-        question: fieldSchema("string", "FAQ question"),
-        answer: fieldSchema("string", "FAQ answer"),
-      })
-    )
-    .min(1, "At least one FAQ is required"),
+  title: fieldSchema("string", "Title"),
+  shortDescription: fieldSchema("string", "Short Description"),
+  date: fieldSchema("string", "Date"),
+  time: fieldSchema("string", "Time"),
+  duration: fieldSchema("string", "Duration"),
+  instructorImage: imageSchema("Instructor Image", false),
+  instructorName: fieldSchema("string", "Instructor Name"),
+  thumbnailImage: imageSchema("Thumbnail Image"),
+  workshopImage: imageSchema("Workshop Image"),
+  price: fieldSchema("number", { required: false, extraRules: (s) => s.min(0, "Price must be greater than or equal to 0") }),
+  categoryId: fieldSchema("string", { required: false }),
+  status: fieldSchema("string", { required: false }),
+  priority: fieldSchema("number", "Priority"),
+  syllabus: fieldSchema("string", { required: false }),
+  fullDescription: fieldSchema("string", { required: false }),
+  features: fieldSchema("boolean", { required: false }),
+  faq: Yup.array().of(faqSchema).min(1, "At least one FAQ is required"),
 });
 
-// ************ Courses ***********
-
+// Courses
 export const CoursesSchema = Yup.object({
   title: fieldSchema("string", "Title"),
   subtitle: fieldSchema("string", "Sub Title"),
   background: fieldSchema("string", "Background"),
   duration: fieldSchema("string", "Duration"),
-  skillLevel: fieldSchema("string", "Skill Level"),
-  price: fieldSchema("string", "Price"),
-  totalLectures: fieldSchema("string", "Total Lectures"),
+  skillLevelId: fieldSchema("string", "Skill Level"),
+  price: fieldSchema("number", "Price", { extraRules: (s) => s.min(0, "Price must be greater than or equal to 0") }),
+  totalLectures: fieldSchema("number", "Total Lectures"),
   totalHours: fieldSchema("string", "Total Hours"),
-  priority: fieldSchema("string", "Priority"),
-  rating: fieldSchema("string", "Rating"),
-  whatYouLearn: fieldSchema("string", "What You Learn", { required: false }),
-  instructorName: fieldSchema("string", "Instructor Name", { required: false }),
-  courseLanguage: fieldSchema("string", "Course Language", { required: false }),
-  mrp: fieldSchema("string", "MRP", { required: false }),
-  discount: fieldSchema("string", "Discount", { required: false }),
-  listOfLectureTitle: fieldSchema("string", "List of Lecture Title", { required: false }),
+  priority: fieldSchema("number", "Priority"),
+  rating: fieldSchema("number", "Rating"),
+  whatYouLearnId: fieldSchema("string", { required: false }),
+  instructorName: fieldSchema("string", { required: false }),
+  courseLanguageId: fieldSchema("string", { required: false }),
+  mrp: fieldSchema("number", { required: false, extraRules: (s) => s.min(0, "MRP must be greater than or equal to 0") }),
+  discount: fieldSchema("string", { required: false }),
   shortDescription: fieldSchema("string", "Short Description"),
-  listOfLectureDescription: fieldSchema("string", "List of Lecture Description", { required: false }),
-  instructorImage: fieldSchema("array", "Instructor Image", { required: false }),
-  courseImage: fieldSchema("array", "Course Image", { minItems: 1 }),
-  features: fieldSchema("boolean", "Features", { required: false }),
-  faq: Yup.array()
-    .of(
-      Yup.object().shape({
-        question: fieldSchema("string", "FAQ Question", { required: false }),
-        answer: fieldSchema("string", "FAQ Answer", { required: false }),
-      })
-    )
-    .min(1, "At least one FAQ is required"),
+  instructorImage: imageSchema("Instructor Image", false),
+  courseImage: imageSchema("Course Image"),
+  faq: Yup.array().of(faqSchema).min(1, "At least one FAQ is required"),
+  listOfLecture: Yup.array().of(lectureSchema).min(1, "At least one Lecture is required"),
+  testimonials: Yup.array().of(testimonialSchema(false)).min(1, "At least one Testimonial is required"),
+});
+
+// Languages
+export const LanguagesSchema = Yup.object({
+  name: fieldSchema("string", "Name"),
+  priority: fieldSchema("number", "Priority"),
+});
+
+// Skill Level
+export const SkillLevelSchema = Yup.object({
+  title: fieldSchema("string", "title"),
+  priority: fieldSchema("number", "Priority"),
+});
+
+// What You Learn
+export const WhatYouLearnSchema = Yup.object({
+  title: fieldSchema("string", "title"),
+  priority: fieldSchema("number", "Priority"),
 });

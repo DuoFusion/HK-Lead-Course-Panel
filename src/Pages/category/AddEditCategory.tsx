@@ -25,6 +25,8 @@ const AddEditCategory = () => {
     priority: initialData?.priority || "",
   };
 
+  const handleNavigate = () => navigate(ROUTES.CATEGORY.CATEGORY);
+
   const handleSubmit = async (values: CategoryFormValues, { resetForm }: FormikHelpers<CategoryFormValues>) => {
     const payload = {
       ...(values.name && { name: values.name }),
@@ -34,7 +36,7 @@ const AddEditCategory = () => {
 
     const onSuccessHandler = () => {
       resetForm();
-      navigate(ROUTES.CATEGORY.CATEGORY);
+      handleNavigate();
     };
 
     if (state?.edit) {
@@ -65,7 +67,7 @@ const AddEditCategory = () => {
                         <Button htmlType="submit" type="primary" className="btn btn-primary" size="large" loading={isCategoryAdding || isCategoryUpdating}>
                           Save
                         </Button>
-                        <Button htmlType="button" className="btn btn-light ms-3" size="large" onClick={() => navigate(ROUTES.CATEGORY.CATEGORY)}>
+                        <Button htmlType="button" className="btn btn-light ms-3" size="large" onClick={() => handleNavigate()}>
                           Cancel
                         </Button>
                       </div>

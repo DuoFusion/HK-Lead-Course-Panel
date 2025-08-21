@@ -5,3 +5,6 @@ export * from "./Layout";
 export * from "./Category";
 export * from "./Workshop";
 export * from "./Courses";
+export * from "./Languages";
+export * from "./SkillLevel";
+export * from "./WhatYouLearn";
