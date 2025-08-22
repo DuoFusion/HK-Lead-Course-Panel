@@ -10,6 +10,7 @@ import { Breadcrumbs, CardWrapper } from "../../coreComponents";
 import { ActiveStatus } from "../../data";
 import { CoursesType, LanguagesType, SkillLevelType, WhatYouLearnType } from "../../types";
 import { useBasicTableFilterHelper } from "../../utils/hook";
+import { ColumnsWithFallback } from "../../utils/ColumnsWithFallback";
 
 const CoursesContainer = () => {
   const { pageNumber, pageSize, params, handleSetSearch, handlePaginationChange, handleSetSortBy } = useBasicTableFilterHelper({
@@ -123,7 +124,7 @@ const CoursesContainer = () => {
           <Table
             className="custom-table"
             dataSource={All_Courses?.course_data}
-            columns={columns}
+            columns={ColumnsWithFallback(columns)}
             rowKey={(record) => record._id}
             scroll={{ x: "max-content" }}
             loading={isCoursesLoading || isHandleActiveLoading}

@@ -11,6 +11,7 @@ import { CategoryType, WorkshopType } from "../../types";
 import { FormatDate, FormatTime } from "../../utils/DateFormatted";
 import { useBasicTableFilterHelper } from "../../utils/hook";
 import { ActiveStatus } from "../../data";
+import { ColumnsWithFallback } from "../../utils/ColumnsWithFallback";
 
 const WorkshopContainer = () => {
   const { pageNumber, pageSize, params, handleSetSearch, handlePaginationChange, handleSetSortBy } = useBasicTableFilterHelper({
@@ -46,7 +47,7 @@ const WorkshopContainer = () => {
     { title: "time", dataIndex: "time", key: "time", render: (time: string) => (FormatTime(time) ? <Tag color="green">{FormatTime(time)}</Tag> : "-") },
     { title: "duration", dataIndex: "duration", key: "duration" },
     { title: "price", dataIndex: "price", key: "price" },
-    { title: "category", dataIndex: "categoryId", key: "categoryId", render: (categoryId: CategoryType) => categoryId?.name },
+    { title: "category", dataIndex: "categoryId", key: "categoryId", render: (categoryId: CategoryType) => categoryId?.name ?? "-" },
     { title: "status", dataIndex: "status", key: "status" },
     { title: "syllabus", dataIndex: "syllabus", key: "syllabus" },
     { title: "instructor Name", dataIndex: "instructorName", key: "instructorName" },
@@ -134,7 +135,7 @@ const WorkshopContainer = () => {
           <Table
             className="custom-table"
             dataSource={All_Workshop?.workshop_data}
-            columns={columns}
+            columns={ColumnsWithFallback(columns)}
             rowKey={(record) => record._id}
             scroll={{ x: "max-content" }}
             loading={isWorkshopLoading || isHandleActiveLoading}

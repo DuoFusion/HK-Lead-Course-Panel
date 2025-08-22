@@ -157,3 +157,43 @@ export const WhatYouLearnSchema = Yup.object({
   title: fieldSchema("string", "title"),
   priority: fieldSchema("number", "Priority"),
 });
+
+// Banner
+export const BannerSchema = Yup.object({
+  title: fieldSchema("string", "title"),
+  type: fieldSchema("string", "type"),
+  subTitle: fieldSchema("string", { required: false }),
+  cta: fieldSchema("string", { required: false }),
+  priority: fieldSchema("number", "Priority"),
+  image: imageSchema("Banner Image"),
+});
+
+// Mentors
+export const MentorsSchema = Yup.object({
+  name: fieldSchema("string", "name"),
+  role: fieldSchema("string", "role"),
+  priority: fieldSchema("number", "Priority"),
+  image: imageSchema("Mentor Image"),
+  experience: fieldSchema("string", { required: false }),
+  instagram: fieldSchema("string", { required: false }),
+  linkedin: fieldSchema("string", { required: false }),
+  facebook: fieldSchema("string", { required: false }),
+  x: fieldSchema("string", { required: false }),
+});
+
+// Testomonials
+export const TestomonialsSchema = Yup.object({
+  name: fieldSchema("string", "name"),
+  role: fieldSchema("string", { required: false }),
+  message: fieldSchema("string", "message"),
+  rating: fieldSchema("number", { required: false }),
+  priority: fieldSchema("number", "Priority"),
+  image: imageSchema("Testimonial Image", false),
+});
+
+// FAQ
+
+export const FaqSchema = Yup.object({
+  question: fieldSchema("string", { required: false }),
+  answer: fieldSchema("string", { required: false }),
+});

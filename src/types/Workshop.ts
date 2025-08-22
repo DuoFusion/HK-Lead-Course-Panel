@@ -17,7 +17,7 @@ export interface WorkshopFormValues {
   priority?: number;
   fullDescription?: string;
   syllabus?: string;
-  faq: FAQ[];
+  faq?: FAQ[];
   features?: boolean;
 }
 

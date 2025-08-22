@@ -31,4 +31,22 @@ export const ROUTES = {
     WHAT_YOU_LEARN: "/what-you-learn",
     ADD_EDIT_WHAT_YOU_LEARN: "/add-edit-what-you-learn",
   },
+  BANNER: {
+    BANNER: "/banner",
+    ADD_EDIT_BANNER: "/add-edit-banner",
+  },
+  MENTORS: {
+    MENTORS: "/mentors",
+    ADD_EDIT_MENTORS: "/add-edit-mentors",
+  },
+  ABOUT: "/about",
+  TESTOMONIALS: {
+    TESTOMONIALS: "/testomonials",
+    ADD_EDIT_TESTOMONIALS: "/add-edit-testomonials",
+  },
+  FAQ: {
+    FAQ: "/faq",
+    ADD_EDIT_FAQ: "/add-edit-faq",
+  },
+  LEAD_FORM: "/lead-form",
 } as const;

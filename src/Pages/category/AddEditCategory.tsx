@@ -60,7 +60,7 @@ const AddEditCategory = () => {
                       <TextInput name="name" label="name" type="text" placeholder="Enter your name" required />
                     </Col>
                     <Col md="6">
-                      <TextInput name="priority" label="Priority" type="number" placeholder="Enter priority" />
+                      <TextInput name="priority" label="Priority" type="number" placeholder="Enter priority" required/>
                     </Col>
                     <Col sm="12">
                       <div className="text-center mt-1">

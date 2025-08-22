@@ -2,7 +2,7 @@ import { ColorPickerProps, DatePickerProps, GetProp, TimePickerProps, UploadProp
 import type { GlobalConfigProps } from "antd/es/config-provider";
 import { UploadListType } from "antd/es/upload/interface";
 import { FormikHelpers } from "formik";
-import { ReactNode } from "react";
+import { FormEvent, ReactNode } from "react";
 import { Card, CardBody, InputProps } from "reactstrap";
 import * as Yup from "yup";
 import { Params } from "./Api";
@@ -36,7 +36,7 @@ export interface SelectInputProps {
   label?: string;
   name: string;
   required?: boolean;
-  options: { value: string | number; label: string; disabled?: boolean }[];
+  options: { value: string | number | null; label: string; disabled?: boolean }[];
   placeholder?: string;
   [key: string]: any;
 }
@@ -141,9 +141,11 @@ export interface CardHeaderProps {
   onSearch?: (key: string) => void;
   searchClassName?: string;
   buttonLabel?: string;
+  isEditing?: boolean;
   onButtonClick?: () => void;
   onTypeFilterChange?: (id: string) => void;
   onActiveFilterChange?: (checked: boolean) => void;
+  setIsEditing?: (val: boolean) => void;
   isActive?: boolean;
   typeFilterOptions?: TypeFilterOption[];
   cardProps?: React.ComponentProps<typeof Card>;
@@ -192,4 +194,16 @@ export interface DataAndTimeProps extends AntdPickerProps {
 export interface CustomSwitchProps {
   name: string;
   title?: string;
+}
+
+// ************ Information ***********
+
+export interface InformationProp {
+  headerTitle?: string;
+  editorContent: string;
+  setEditorContent: (content: string) => void;
+  handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
+  isEditing: boolean;
+  setIsEditing: (val: boolean) => void;
+  loading: boolean;
 }

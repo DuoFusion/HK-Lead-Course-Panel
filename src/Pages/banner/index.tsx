@@ -1,4 +1,4 @@
-import { Button, Flex, Modal, Table } from "antd";
+import { Button, Flex, Image, Modal, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { Edit, Trash } from "iconsax-react";
 import { Fragment } from "react";
@@ -7,24 +7,26 @@ import { Container } from "reactstrap";
 import { Mutations, Queries } from "../../api";
 import { ROUTES } from "../../constants";
 import { Breadcrumbs, CardWrapper } from "../../coreComponents";
-import { LanguagesType } from "../../types";
+import { BannerType } from "../../types";
 import { useBasicTableFilterHelper } from "../../utils/hook";
 import { ColumnsWithFallback } from "../../utils/ColumnsWithFallback";
+import { BannerStatus } from "../../data";
 
-const LanguagesContainer = () => {
-  const { pageNumber, pageSize, params, handleSetSearch, handlePaginationChange } = useBasicTableFilterHelper({
+const BannerContainer = () => {
+  const { pageNumber, pageSize, params, handleSetSearch, handlePaginationChange, handleSetSortBy } = useBasicTableFilterHelper({
     initialParams: { page: 1, limit: 10 },
     debounceDelay: 500,
+    sortKey: "bannerFilter",
   });
 
   const navigate = useNavigate();
-  const { mutate: DeleteLanguages } = Mutations.useDeleteLanguages();
+  const { mutate: DeleteBanner } = Mutations.useDeleteBanner();
 
-  const { data: Languages, isLoading: isLanguagesLoading } = Queries.useGetLanguages(params);
-  const All_Languages = Languages?.data;
-  const handleNavigate = ROUTES.LANGUAGE.ADD_EDIT_LANGUAGE;
+  const { data: Banner, isLoading: isBannerLoading } = Queries.useGetBanner(params);
+  const All_Banner = Banner?.data;
+  const handleNavigate = ROUTES.BANNER.ADD_EDIT_BANNER;
 
-  const handleEdit = (item: LanguagesType) => {
+  const handleEdit = (item: BannerType) => {
     navigate(handleNavigate, {
       state: {
         editData: item,
@@ -33,11 +35,20 @@ const LanguagesContainer = () => {
     });
   };
 
-  const columns: ColumnsType<LanguagesType> = [
+  const columns: ColumnsType<BannerType> = [
     { title: "Sr No.", key: "index", fixed: "left", render: (_, __, index) => (pageNumber - 1) * pageSize + index + 1 },
     { title: "priority", dataIndex: "priority", key: "priority" },
-    { title: "Languages Id", dataIndex: "_id", key: "_id" },
-    { title: "Languages Name", dataIndex: "name", key: "name" },
+    { title: "Id", dataIndex: "_id", key: "_id" },
+    { title: "title", dataIndex: "title", key: "title" },
+    { title: "sub Title", dataIndex: "subTitle", key: "subTitle" },
+    { title: "type", dataIndex: "type", key: "type" },
+    { title: "cta", dataIndex: "cta", key: "cta" },
+    {
+      title: "Image",
+      dataIndex: "image",
+      key: "image",
+      render: (image: string) => (image ? <Image src={image} width={60} height={60} alt="courses_image" fallback="/placeholder.png" /> : "-"),
+    },
     {
       title: "Option",
       key: "actionIcons",
@@ -55,10 +66,10 @@ const LanguagesContainer = () => {
             onClick={() => {
               Modal.confirm({
                 title: "Are you sure?",
-                content: `Do you really want to delete "${record?.name}"?`,
+                content: `Do you really want to delete "${record?.title}"?`,
                 okText: "Yes, Delete",
                 cancelText: "Cancel",
-                onOk: () => DeleteLanguages(record?._id),
+                onOk: () => DeleteBanner(record?._id),
               });
             }}
             title="Delete"
@@ -72,20 +83,20 @@ const LanguagesContainer = () => {
 
   return (
     <Fragment>
-      <Breadcrumbs mainTitle="Languages" parent="Pages" />
+      <Breadcrumbs mainTitle="Banner" parent="Pages" />
       <Container fluid className="custom-table">
-        <CardWrapper onSearch={(e) => handleSetSearch(e)} searchClassName="col-xl-10 col-md-9 col-sm-7" buttonLabel="Add Languages" onButtonClick={() => navigate(handleNavigate)}>
+        <CardWrapper onSearch={(e) => handleSetSearch(e)} searchClassName="col-md-6 col-xl-8" typeFilterPlaceholder="Select Banner" typeFilterOptions={BannerStatus} onTypeFilterChange={handleSetSortBy} buttonLabel="Add Banner" onButtonClick={() => navigate(handleNavigate)}>
           <Table
             className="custom-table"
-            dataSource={All_Languages?.language_data}
+            dataSource={All_Banner?.banner_data}
             columns={ColumnsWithFallback(columns)}
             rowKey={(record) => record._id}
             scroll={{ x: "max-content" }}
-            loading={isLanguagesLoading}
+            loading={isBannerLoading}
             pagination={{
               current: pageNumber,
               pageSize: pageSize,
-              total: All_Languages?.totalData,
+              total: All_Banner?.totalData,
               showSizeChanger: true,
               onChange: handlePaginationChange,
             }}
@@ -96,4 +107,4 @@ const LanguagesContainer = () => {
   );
 };
 
-export default LanguagesContainer;
+export default BannerContainer;

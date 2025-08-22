@@ -19,6 +19,16 @@ import SkillLevelContainer from "../Pages/SkillLevel";
 import AddEditSkillLevel from "../Pages/SkillLevel/AddEditSkillLevel";
 import WhatYouLearnContainer from "../Pages/WhatYouLearn";
 import AddEditWhatYouLearn from "../Pages/WhatYouLearn/AddEditSkillLevel";
+import BannerContainer from "../Pages/banner";
+import AddEditBanner from "../Pages/banner/AddEditBanner";
+import MentorsContainer from "../Pages/mentors";
+import AddEditMentors from "../Pages/mentors/AddEditMentors";
+import AboutContainer from "../Pages/about";
+import TestomonialsContainer from "../Pages/testomonials";
+import AddEditTestomonials from "../Pages/testomonials/AddEditTestomonials";
+import FaqContainer from "../Pages/faq";
+import AddEditFaq from "../Pages/faq/AddEditFaq";
+import LeadFormContainer from "../Pages/leadForm";
 
 export const Router = createBrowserRouter([
   {
@@ -47,6 +57,22 @@ export const Router = createBrowserRouter([
 
           { path: ROUTES.WHAT_YOU_LEARN.WHAT_YOU_LEARN, element: <WhatYouLearnContainer /> },
           { path: ROUTES.WHAT_YOU_LEARN.ADD_EDIT_WHAT_YOU_LEARN, element: <AddEditWhatYouLearn /> },
+
+          { path: ROUTES.BANNER.BANNER, element: <BannerContainer /> },
+          { path: ROUTES.BANNER.ADD_EDIT_BANNER, element: <AddEditBanner /> },
+
+          { path: ROUTES.MENTORS.MENTORS, element: <MentorsContainer /> },
+          { path: ROUTES.MENTORS.ADD_EDIT_MENTORS, element: <AddEditMentors /> },
+
+          { path: ROUTES.ABOUT, element: <AboutContainer /> },
+
+          { path: ROUTES.TESTOMONIALS.TESTOMONIALS, element: <TestomonialsContainer /> },
+          { path: ROUTES.TESTOMONIALS.ADD_EDIT_TESTOMONIALS, element: <AddEditTestomonials /> },
+
+          { path: ROUTES.FAQ.FAQ, element: <FaqContainer /> },
+          { path: ROUTES.FAQ.ADD_EDIT_FAQ, element: <AddEditFaq /> },
+
+          { path: ROUTES.LEAD_FORM, element: <LeadFormContainer /> },
         ],
       },
     ],

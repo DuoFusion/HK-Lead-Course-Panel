@@ -48,6 +48,38 @@ const URL = {
     EDIT: "/what-you-learn/edit",
     DELETE: "/what-you-learn/delete",
   },
+  BANNER: {
+    ALL: "/banner",
+    ADD: "/banner/add",
+    EDIT: "/banner/edit",
+    DELETE: "/banner/delete",
+  },
+  MENTORS: {
+    ALL: "/mentors",
+    ADD: "/mentors/add",
+    EDIT: "/mentors/edit",
+    DELETE: "/mentors/delete",
+  },
+  ABOUT: {
+    ALL: "/about",
+    ADD_EDIT: "/about/add/edit",
+  },
+  TESTOMONIALS: {
+    ALL: "/testomonial",
+    ADD: "/testomonial/add",
+    EDIT: "/testomonial/edit",
+    DELETE: "/testomonial/delete",
+  },
+  FAQ: {
+    ALL: "/faq",
+    ADD: "/faq/add",
+    EDIT: "/faq/edit",
+    DELETE: "/faq/delete",
+  },
+  LEAD_FORM: {
+    ALL: "/lead-form",
+    DELETE: "/lead-form/delete",
+  },
 } as const;
 
 // Construct the URL object

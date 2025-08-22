@@ -1,5 +1,5 @@
 import { KEYS, URL_KEYS } from "../constants";
-import { CategoryFormValues, ChangePasswordPayload, CoursesFormValues, LanguagesFormValues, LoginPayload, LoginResponse, SkillLevelFormValues, UploadResponse, WhatYouLearnFormValues, WorkshopFormValues } from "../types";
+import { AboutType, BannerFormValues, CategoryFormValues, ChangePasswordPayload, CoursesFormValues, FaqFormValues, LanguagesFormValues, LoginPayload, LoginResponse, MentorsFormValues, SkillLevelFormValues, TestomonialsFormValues, UploadResponse, WhatYouLearnFormValues, WorkshopFormValues } from "../types";
 import Delete from "./Delete";
 import { useApiDelete, useApiPost } from "./hooks";
 import Post from "./Post";
@@ -44,6 +44,33 @@ const Mutations = {
   useWhatYouLearn: () => useApiPost<WhatYouLearnFormValues, void>([KEYS.WHAT_YOU_LEARN.ADD, KEYS.WHAT_YOU_LEARN.ALL], (input) => Post(URL_KEYS.WHAT_YOU_LEARN.ADD, input)),
   useEditWhatYouLearn: () => useApiPost<{ whatYouLearnId: string } & WhatYouLearnFormValues, void>([KEYS.WHAT_YOU_LEARN.EDIT, KEYS.WHAT_YOU_LEARN.ALL], (input) => Post(URL_KEYS.WHAT_YOU_LEARN.EDIT, input)),
   useDeleteWhatYouLearn: () => useApiDelete<string, void>([KEYS.WHAT_YOU_LEARN.DELETE, KEYS.WHAT_YOU_LEARN.ALL], (id) => Delete(`${URL_KEYS.WHAT_YOU_LEARN.DELETE}/${id}`)),
+
+  // ************ Banner ***********
+  useBanner: () => useApiPost<BannerFormValues, void>([KEYS.BANNER.ADD, KEYS.BANNER.ALL], (input) => Post(URL_KEYS.BANNER.ADD, input)),
+  useEditBanner: () => useApiPost<{ bannerId: string } & BannerFormValues, void>([KEYS.BANNER.EDIT, KEYS.BANNER.ALL], (input) => Post(URL_KEYS.BANNER.EDIT, input)),
+  useDeleteBanner: () => useApiDelete<string, void>([KEYS.BANNER.DELETE, KEYS.BANNER.ALL], (id) => Delete(`${URL_KEYS.BANNER.DELETE}/${id}`)),
+
+  // ************ Mentors ***********
+  useMentors: () => useApiPost<MentorsFormValues, void>([KEYS.MENTORS.ADD, KEYS.MENTORS.ALL], (input) => Post(URL_KEYS.MENTORS.ADD, input)),
+  useEditMentors: () => useApiPost<{ mentorsId: string } & MentorsFormValues, void>([KEYS.MENTORS.EDIT, KEYS.MENTORS.ALL], (input) => Post(URL_KEYS.MENTORS.EDIT, input)),
+  useDeleteMentors: () => useApiDelete<string, void>([KEYS.MENTORS.DELETE, KEYS.MENTORS.ALL], (id) => Delete(`${URL_KEYS.MENTORS.DELETE}/${id}`)),
+
+  // ************ About ***********
+  useAbout: () => useApiPost<Partial<AboutType>, void>([KEYS.ABOUT.ADD_EDIT, KEYS.ABOUT.ALL], (input) => Post(URL_KEYS.ABOUT.ADD_EDIT, input)),
+
+  // ************ Testomonials ***********
+  useTestomonials: () => useApiPost<TestomonialsFormValues, void>([KEYS.TESTOMONIALS.ADD, KEYS.TESTOMONIALS.ALL], (input) => Post(URL_KEYS.TESTOMONIALS.ADD, input)),
+  useEditTestomonials: () => useApiPost<{ testimonialId: string } & TestomonialsFormValues, void>([KEYS.TESTOMONIALS.EDIT, KEYS.TESTOMONIALS.ALL], (input) => Post(URL_KEYS.TESTOMONIALS.EDIT, input)),
+  useDeleteTestomonials: () => useApiDelete<string, void>([KEYS.TESTOMONIALS.DELETE, KEYS.TESTOMONIALS.ALL], (id) => Delete(`${URL_KEYS.TESTOMONIALS.DELETE}/${id}`)),
+
+  // ************ Faq ***********
+  useFaq: () => useApiPost<FaqFormValues, void>([KEYS.FAQ.ADD, KEYS.FAQ.ALL], (input) => Post(URL_KEYS.FAQ.ADD, input)),
+  useEditFaq: () => useApiPost<{ faqId: string } & FaqFormValues, void>([KEYS.FAQ.EDIT, KEYS.FAQ.ALL], (input) => Post(URL_KEYS.FAQ.EDIT, input)),
+  useDeleteFaq: () => useApiDelete<string, void>([KEYS.FAQ.DELETE, KEYS.FAQ.ALL], (id) => Delete(`${URL_KEYS.FAQ.DELETE}/${id}`)),
+
+  // ************ Lead Form ***********
+  useDeleteLeadForm: () => useApiDelete<string, void>([KEYS.LEAD_FORM.DELETE, KEYS.LEAD_FORM.ALL], (id) => Delete(`${URL_KEYS.LEAD_FORM.DELETE}/${id}`)),
+
 };
 
 export default Mutations;

@@ -55,7 +55,7 @@ const AddEditWhatYouLearn = () => {
                 <Form>
                   <Row className="gy-3">
                     <Col md="6">
-                      <TextInput name="title" label="title" type="text" placeholder="Enter course title" required />
+                      <TextInput name="title" label="title" type="text" placeholder="Enter title" required />
                     </Col>
                     <Col md="6">
                       <TextInput name="priority" label="Priority" type="number" placeholder="Enter priority" required />

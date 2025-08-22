@@ -1,5 +1,5 @@
 import { KEYS, URL_KEYS } from "../constants";
-import { CategoryApiResponse, CoursesApiResponse, LanguagesApiResponse, Params, SkillLevelApiResponse, WhatYouLearnApiResponse, WorkshopApiResponse } from "../types";
+import { AboutApiResponse, BannerApiResponse, CategoryApiResponse, CoursesApiResponse, FaqApiResponse, LanguagesApiResponse, LeadFormApiResponse, MentorsApiResponse, Params, SkillLevelApiResponse, TestomonialsApiResponse, WhatYouLearnApiResponse, WorkshopApiResponse } from "../types";
 import Get from "./Get";
 import { useApiGet } from "./hooks";
 
@@ -22,6 +22,24 @@ const Queries = {
 
   // ************ What You Learn ***********
   useGetWhatYouLearn: (params: Params) => useApiGet<WhatYouLearnApiResponse>([KEYS.WHAT_YOU_LEARN.ALL, params], () => Get(URL_KEYS.WHAT_YOU_LEARN.ALL, params)),
+
+  // ************ Banner ***********
+  useGetBanner: (params: Params) => useApiGet<BannerApiResponse>([KEYS.BANNER.ALL, params], () => Get(URL_KEYS.BANNER.ALL, params)),
+
+  // ************ Mentors ***********
+  useGetMentors: (params: Params) => useApiGet<MentorsApiResponse>([KEYS.MENTORS.ALL, params], () => Get(URL_KEYS.MENTORS.ALL, params)),
+
+  // ************ About ***********
+  useGetAbout: () => useApiGet<AboutApiResponse>([KEYS.ABOUT.ALL], () => Get(URL_KEYS.ABOUT.ALL)),
+
+  // ************ Testomonials ***********
+  useGetTestomonials: (params: Params) => useApiGet<TestomonialsApiResponse>([KEYS.TESTOMONIALS.ALL, params], () => Get(URL_KEYS.TESTOMONIALS.ALL, params)),
+
+  // ************ Faq ***********
+  useGetFaq: (params: Params) => useApiGet<FaqApiResponse>([KEYS.FAQ.ALL, params], () => Get(URL_KEYS.FAQ.ALL, params)),
+
+  // ************ Lead Form ***********
+  useGetLeadForm: (params: Params) => useApiGet<LeadFormApiResponse>([KEYS.LEAD_FORM.ALL, params], () => Get(URL_KEYS.LEAD_FORM.ALL, params)),
 };
 
 export default Queries;

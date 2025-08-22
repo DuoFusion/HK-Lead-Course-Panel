@@ -9,6 +9,7 @@ import { ROUTES } from "../../constants";
 import { Breadcrumbs, CardWrapper } from "../../coreComponents";
 import { SkillLevelType } from "../../types";
 import { useBasicTableFilterHelper } from "../../utils/hook";
+import { ColumnsWithFallback } from "../../utils/ColumnsWithFallback";
 
 const SkillLevelContainer = () => {
   const { pageNumber, pageSize, params, handleSetSearch, handlePaginationChange } = useBasicTableFilterHelper({
@@ -77,7 +78,7 @@ const SkillLevelContainer = () => {
           <Table
             className="custom-table"
             dataSource={All_SkillLevel?.skill_level_data}
-            columns={columns}
+           columns={ColumnsWithFallback(columns)}
             rowKey={(record) => record._id}
             scroll={{ x: "max-content" }}
             loading={isSkillLevelLoading}

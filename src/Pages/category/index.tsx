@@ -10,6 +10,7 @@ import { Button, Flex, Modal, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { CategoryType } from "../../types";
 import { Edit, Trash } from "iconsax-react";
+import { ColumnsWithFallback } from "../../utils/ColumnsWithFallback";
 
 const CategoryContainer = () => {
   const { pageNumber, pageSize, params, handleSetSearch, handlePaginationChange } = useBasicTableFilterHelper({
@@ -93,7 +94,7 @@ const CategoryContainer = () => {
           <Table
             className="custom-table"
             dataSource={All_Category?.category_data}
-            columns={columns}
+            columns={ColumnsWithFallback(columns)}
             rowKey={(record) => record._id}
             scroll={{ x: "max-content" }}
             loading={isCategoryLoading}

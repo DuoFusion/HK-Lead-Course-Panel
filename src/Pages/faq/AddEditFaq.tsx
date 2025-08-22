@@ -7,29 +7,29 @@ import { Mutations } from "../../api";
 import { TextInput } from "../../attribute/formFields";
 import { ROUTES } from "../../constants";
 import { Breadcrumbs, CardWrapper } from "../../coreComponents";
-import { LanguagesFormValues } from "../../types";
-import { LanguagesSchema } from "../../utils/ValidationSchemas";
+import { FaqFormValues } from "../../types";
+import { buildPayload } from "../../utils/FormHelpers";
+import { FaqSchema } from "../../utils/ValidationSchemas";
 
-const AddEditLanguages = () => {
+const AddEditFaq = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state;
   const initialData = state?.editData;
 
-  const { mutate: useLanguages, isPending: isLanguagesAdding } = Mutations.useLanguages();
-  const { mutate: upEditLanguages, isPending: isLanguagesUpdating } = Mutations.useEditLanguages();
+  const { mutate: useFaq, isPending: isFaqAdding } = Mutations.useFaq();
+  const { mutate: upEditFaq, isPending: isFaqUpdating } = Mutations.useEditFaq();
 
-  const initialValues: LanguagesFormValues = {
-    name: initialData?.name || "",
+  const initialValues: FaqFormValues = {
+    question: initialData?.question || "",
+    answer: initialData?.answer || "",
     priority: initialData?.priority || null,
   };
-  const handleNavigate = () => navigate(ROUTES.LANGUAGE.LANGUAGE);
 
-  const handleSubmit = async (values: LanguagesFormValues, { resetForm }: FormikHelpers<LanguagesFormValues>) => {
-    const payload = {
-      ...(values.name && { name: values.name }),
-      ...(values.priority && { priority: values.priority }),
-    };
+  const handleNavigate = () => navigate(ROUTES.FAQ.FAQ);
+
+  const handleSubmit = async (values: FaqFormValues, { resetForm }: FormikHelpers<FaqFormValues>) => {
+    const payload = buildPayload(values, initialData);
 
     const onSuccessHandler = () => {
       resetForm();
@@ -37,31 +37,34 @@ const AddEditLanguages = () => {
     };
 
     if (state?.edit) {
-      upEditLanguages({ languageId: initialData?._id, ...payload }, { onSuccess: () => onSuccessHandler() });
+      upEditFaq({ faqId: initialData?._id, ...payload }, { onSuccess: () => onSuccessHandler() });
     } else {
-      useLanguages(payload, { onSuccess: () => onSuccessHandler() });
+      useFaq(payload, { onSuccess: () => onSuccessHandler() });
     }
   };
 
   return (
     <Fragment>
-      <Breadcrumbs mainTitle={`${state?.edit ? "Edit" : "Add"} Languages`} parent="Languages" />
+      <Breadcrumbs mainTitle={`${state?.edit ? "Edit" : "Add"} Faq`} parent="Faq" />
       <Container fluid>
-        <CardWrapper title={`${state?.edit ? "Edit" : "Add"} Languages`}>
+        <CardWrapper title={`${state?.edit ? "Edit" : "Add"} Faq`}>
           <div className="input-items">
-            <Formik<LanguagesFormValues> initialValues={initialValues} validationSchema={LanguagesSchema} onSubmit={handleSubmit} enableReinitialize>
+            <Formik<FaqFormValues> initialValues={initialValues} validationSchema={FaqSchema} onSubmit={handleSubmit} enableReinitialize>
               {() => (
                 <Form>
                   <Row className="gy-3">
-                    <Col md="6">
-                      <TextInput name="name" label="name" type="text" placeholder="Enter Language name" required />
+                    <Col md="12">
+                      <TextInput name="question" label="question" type="text" placeholder="Enter Your question" required />
                     </Col>
-                    <Col md="6">
+                    <Col md="12">
+                      <TextInput name="answer" label="answer" type="textarea" placeholder="Enter Your answer" required />
+                    </Col>
+                    <Col md="12">
                       <TextInput name="priority" label="Priority" type="number" placeholder="Enter priority" required />
                     </Col>
                     <Col sm="12">
                       <div className="text-center mt-1">
-                        <Button htmlType="submit" type="primary" className="btn btn-primary" size="large" loading={isLanguagesAdding || isLanguagesUpdating}>
+                        <Button htmlType="submit" type="primary" className="btn btn-primary" size="large" loading={isFaqAdding || isFaqUpdating}>
                           Save
                         </Button>
                         <Button htmlType="button" className="btn btn-light ms-3" size="large" onClick={() => handleNavigate()}>
@@ -80,4 +83,4 @@ const AddEditLanguages = () => {
   );
 };
 
-export default AddEditLanguages;
+export default AddEditFaq;

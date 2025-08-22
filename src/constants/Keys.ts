@@ -45,4 +45,36 @@ export const KEYS = {
     EDIT: "edit-what-you-learn",
     DELETE: "delete-what-you-learn",
   },
+  BANNER: {
+    ALL: "banner",
+    ADD: "add-banner",
+    EDIT: "edit-banner",
+    DELETE: "delete-banner",
+  },
+  MENTORS: {
+    ALL: "mentors",
+    ADD: "add-mentors",
+    EDIT: "edit-mentors",
+    DELETE: "delete-mentors",
+  },
+  ABOUT: {
+    ALL: "about",
+    ADD_EDIT: "add-edit-about",
+  },
+  TESTOMONIALS: {
+    ALL: "testomonials",
+    ADD: "add-testomonials",
+    EDIT: "edit-testomonials",
+    DELETE: "delete-testomonials",
+  },
+  FAQ: {
+    ALL: "faq",
+    ADD: "add-faq",
+    EDIT: "edit-faq",
+    DELETE: "delete-faq",
+  },
+  LEAD_FORM: {
+    ALL: "lead-form",
+    DELETE: "delete-lead-form",
+  },
 } as const;

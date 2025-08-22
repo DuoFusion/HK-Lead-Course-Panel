@@ -10,11 +10,13 @@ const SelectInput = ({ label, name, required, options, placeholder, ...props }: 
   const [field, meta, helpers] = useField(fieldConfig);
 
   const handleChange = (value: any) => {
-    helpers.setValue(value);
+    helpers.setValue(value === undefined ? null : value);
     if (props.onChange) {
-      props.onChange(value);
+      props.onChange(value === undefined ? null : value);
     }
   };
+
+  const selectOptions = [{ value: "", label: `Select ${label}`, disabled: true }, ...options];
 
   return (
     <div className="input-box">
@@ -25,8 +27,8 @@ const SelectInput = ({ label, name, required, options, placeholder, ...props }: 
         </Label>
       )}
 
-      <Select {...props} allowClear className={meta.error ? "is-invalid" : ""} id={props.id || name} value={field.value || undefined} onChange={handleChange} placeholder={placeholder || "Select an option"} status={meta.touched && meta.error ? "error" : ""} style={{ width: "100%" }}>
-        {options.map((opt) => (
+      <Select {...props} allowClear className={meta.error ? "is-invalid" : ""} id={props.id || name} value={field.value === null ? undefined : field.value} onChange={handleChange} placeholder={placeholder || "Select an option"} status={meta.touched && meta.error ? "error" : ""} style={{ width: "100%" }}>
+        {selectOptions.map((opt) => (
           <Option key={opt.value} value={opt.value} disabled={opt.disabled}>
             {opt.label}
           </Option>

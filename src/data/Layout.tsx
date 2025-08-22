@@ -11,4 +11,10 @@ export const menuList: MenuItem[] = [
   { id: 5, title: "Language", url: ROUTES.LANGUAGE.LANGUAGE, icon: "faq", type: "link" },
   { id: 6, title: "Skill Level", url: ROUTES.SKILL_LEVEL.SKILL_LEVEL, icon: "faq", type: "link" },
   { id: 7, title: "What You Learn", url: ROUTES.WHAT_YOU_LEARN.WHAT_YOU_LEARN, icon: "editors", type: "link" },
+  { id: 8, title: "Banner", url: ROUTES.BANNER.BANNER, icon: "editors", type: "link" },
+  { id: 9, title: "Mentors", url: ROUTES.MENTORS.MENTORS, icon: "editors", type: "link" },
+  { id: 10, title: "About", url: ROUTES.ABOUT, icon: "editors", type: "link" },
+  { id: 11, title: "Testimonials", url: ROUTES.TESTOMONIALS.TESTOMONIALS, icon: "editors", type: "link" },
+  { id: 12, title: "FAQ", url: ROUTES.FAQ.FAQ, icon: "editors", type: "link" },
+  { id: 13, title: "Lead Form", url: ROUTES.LEAD_FORM, icon: "editors", type: "link" },
 ];
