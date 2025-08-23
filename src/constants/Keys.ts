@@ -77,4 +77,16 @@ export const KEYS = {
     ALL: "lead-form",
     DELETE: "delete-lead-form",
   },
+  COUPON_CODE: {
+    ALL: "coupon-code",
+    ADD: "add-coupon-code",
+    EDIT: "edit-coupon-code",
+    DELETE: "delete-coupon-code",
+  },
+  INTEREST: {
+    ALL: "interest",
+    ADD: "add-interest",
+    EDIT: "edit-interest",
+    DELETE: "delete-interest",
+  },
 } as const;

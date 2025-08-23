@@ -56,7 +56,7 @@ import { DataAndTimeProps } from "../../types";
 
 dayjs.extend(utc);
 
-const DataAndTime: FC<DataAndTimeProps & FieldHookConfig<Date | null>> = ({ name, label, type, required, validate, ...rest }) => {
+const DataAndTime: FC<DataAndTimeProps & FieldHookConfig<Date | null>> = ({ name, label, type, required, validate, disablePast, ...rest }) => {
   const [field, meta, helpers] = useField<Date | null>({ name, validate });
 
   const handleChange: DatePickerProps<Dayjs>["onChange"] | TimePickerProps["onChange"] = (value) => {
@@ -82,7 +82,7 @@ const DataAndTime: FC<DataAndTimeProps & FieldHookConfig<Date | null>> = ({ name
           {required && <span className="required ps-1">*</span>}
         </Label>
       )}
-      {type === "time" ? <TimePicker {...commonProps} /> : <DatePicker {...commonProps} />}
+      {type === "time" ? <TimePicker {...commonProps} /> : <DatePicker {...commonProps} disabledDate={disablePast ? (current) => current && current < dayjs().startOf("day") : undefined} />}
       {meta.touched && meta.error ? <FormFeedback style={{ display: "block" }}>{meta.error}</FormFeedback> : null}
     </div>
   );

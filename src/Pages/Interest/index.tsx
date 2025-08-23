@@ -1,38 +1,43 @@
 import { Button, Flex, Modal, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
-import { Trash } from "iconsax-react";
+import { Edit, Trash } from "iconsax-react";
 import { Fragment } from "react";
+import { useNavigate } from "react-router-dom";
 import { Container } from "reactstrap";
 import { Mutations, Queries } from "../../api";
+import { ROUTES } from "../../constants";
 import { Breadcrumbs, CardWrapper } from "../../coreComponents";
-import { LeadFormType } from "../../types";
-import { ColumnsWithFallback } from "../../utils/ColumnsWithFallback";
+import { InterestType } from "../../types";
 import { useBasicTableFilterHelper } from "../../utils/hook";
+import { ColumnsWithFallback } from "../../utils/ColumnsWithFallback";
 
-const LeadFormContainer = () => {
+const InterestContainer = () => {
   const { pageNumber, pageSize, params, handleSetSearch, handlePaginationChange } = useBasicTableFilterHelper({
     initialParams: { page: 1, limit: 10 },
     debounceDelay: 500,
   });
 
-  const { mutate: DeleteLeadForm } = Mutations.useDeleteLeadForm();
+  const navigate = useNavigate();
+  const { mutate: DeleteInterest } = Mutations.useDeleteInterest();
 
-  const { data: LeadForm, isLoading: isLeadFormLoading } = Queries.useGetLeadForm(params);
-  const All_LeadForm = LeadForm?.data;
+  const { data: Interest, isLoading: isInterestLoading } = Queries.useGetInterest(params);
+  const All_Interest = Interest?.data;
+  const handleNavigate = ROUTES.INTEREST.ADD_EDIT_INTEREST;
 
-  const columns: ColumnsType<LeadFormType> = [
+  const handleEdit = (item: InterestType) => {
+    navigate(handleNavigate, {
+      state: {
+        editData: item,
+        edit: true,
+      },
+    });
+  };
+
+  const columns: ColumnsType<InterestType> = [
     { title: "Sr No.", key: "index", fixed: "left", render: (_, __, index) => (pageNumber - 1) * pageSize + index + 1 },
     { title: "priority", dataIndex: "priority", key: "priority" },
-    { title: "Id", dataIndex: "_id", key: "_id" },
-    { title: "full Name", dataIndex: "fullName", key: "fullName" },
-    { title: "email", dataIndex: "email", key: "email" },
-    { title: "phone", dataIndex: "phone", key: "phone" },
-    { title: "city", dataIndex: "city", key: "city" },
-    { title: "interestId", dataIndex: "interestId", key: "interestId", render: (interestId) => interestId?.name ?? "-" },
-    { title: "preferred Learning Mode", dataIndex: "preferredLearningMode", key: "preferredLearningMode" },
-    { title: "background", dataIndex: "background", key: "background" },
-    { title: "it Knowledge Level", dataIndex: "itKnowledgeLevel", key: "itKnowledgeLevel" },
-    { title: "additional Message", dataIndex: "additionalMessage", key: "additionalMessage" },
+    { title: "Interest Id", dataIndex: "_id", key: "_id" },
+    { title: "Interest Name", dataIndex: "name", key: "name" },
     {
       title: "Option",
       key: "actionIcons",
@@ -40,6 +45,9 @@ const LeadFormContainer = () => {
       fixed: "right",
       render: (_, record) => (
         <Flex gap="middle" justify="center">
+          <Button type="text" onClick={() => handleEdit(record)} title="Edit" className="m-1 p-1 btn btn-primary">
+            <Edit className="action" />
+          </Button>
           <Button
             type="text"
             danger
@@ -47,10 +55,10 @@ const LeadFormContainer = () => {
             onClick={() => {
               Modal.confirm({
                 title: "Are you sure?",
-                content: `Do you really want to delete "${record?.fullName}"?`,
+                content: `Do you really want to delete "${record?.name}"?`,
                 okText: "Yes, Delete",
                 cancelText: "Cancel",
-                onOk: () => DeleteLeadForm(record?._id),
+                onOk: () => DeleteInterest(record?._id),
               });
             }}
             title="Delete"
@@ -64,20 +72,20 @@ const LeadFormContainer = () => {
 
   return (
     <Fragment>
-      <Breadcrumbs mainTitle="LeadForm" parent="Pages" />
+      <Breadcrumbs mainTitle="Interest" parent="Pages" />
       <Container fluid className="custom-table">
-        <CardWrapper onSearch={(e) => handleSetSearch(e)} searchClassName="col-xl-12 ">
+        <CardWrapper onSearch={(e) => handleSetSearch(e)} searchClassName="col-xl-10 col-md-9 col-sm-7" buttonLabel="Add Interest" onButtonClick={() => navigate(handleNavigate)}>
           <Table
             className="custom-table"
-            dataSource={All_LeadForm?.leadForm_data}
-            columns={ColumnsWithFallback(columns)}
+            dataSource={All_Interest?.interest_data}
+           columns={ColumnsWithFallback(columns)}
             rowKey={(record) => record._id}
             scroll={{ x: "max-content" }}
-            loading={isLeadFormLoading}
+            loading={isInterestLoading}
             pagination={{
               current: pageNumber,
               pageSize: pageSize,
-              total: All_LeadForm?.totalData,
+              total: All_Interest?.totalData,
               showSizeChanger: true,
               onChange: handlePaginationChange,
             }}
@@ -88,4 +96,4 @@ const LeadFormContainer = () => {
   );
 };
 
-export default LeadFormContainer;
+export default InterestContainer;

@@ -8,9 +8,9 @@ import { Mutations, Queries } from "../../api";
 import { ROUTES } from "../../constants";
 import { Breadcrumbs, CardWrapper } from "../../coreComponents";
 import { ActiveStatus } from "../../data";
-import { CoursesType, LanguagesType, SkillLevelType, WhatYouLearnType } from "../../types";
-import { useBasicTableFilterHelper } from "../../utils/hook";
+import { CoursesType } from "../../types";
 import { ColumnsWithFallback } from "../../utils/ColumnsWithFallback";
+import { useBasicTableFilterHelper } from "../../utils/hook";
 
 const CoursesContainer = () => {
   const { pageNumber, pageSize, params, handleSetSearch, handlePaginationChange, handleSetSortBy } = useBasicTableFilterHelper({
@@ -44,27 +44,27 @@ const CoursesContainer = () => {
     { title: "background", dataIndex: "background", key: "background" },
     { title: "short Description", dataIndex: "shortDescription", key: "shortDescription", width: 400 },
     { title: "duration", dataIndex: "duration", key: "duration" },
-    { title: "skill Level", dataIndex: "skillLevelId", key: "skillLevelId", render: (skillLevelId: SkillLevelType) => skillLevelId?.title },
+    { title: "skill Level", dataIndex: "skillLevelId", key: "skillLevelId", render: (skillLevelId) => skillLevelId?.title ?? "-" },
     { title: "price", dataIndex: "price", key: "price" },
     { title: "total Lectures", dataIndex: "totalLectures", key: "totalLectures" },
     { title: "total Hours", dataIndex: "totalHours", key: "totalHours" },
     { title: "rating", dataIndex: "rating", key: "rating" },
-    { title: "what You Learn", dataIndex: "whatYouLearnId", key: "whatYouLearnId", render: (whatYouLearnId: WhatYouLearnType) => whatYouLearnId?.title },
+    { title: "what You Learn", dataIndex: "whatYouLearnId", key: "whatYouLearnId", render: (whatYouLearnId) => whatYouLearnId?.title ?? "-" },
     { title: "instructor Name", dataIndex: "instructorName", key: "instructorName" },
-    { title: "courseLanguageId", dataIndex: "courseLanguageId", key: "courseLanguageId", render: (courseLanguageId: LanguagesType) => courseLanguageId?.name },
+    { title: "courseLanguageId", dataIndex: "courseLanguageId", key: "courseLanguageId", render: (courseLanguageId) => courseLanguageId?.name ?? "-" },
     { title: "mrp", dataIndex: "mrp", key: "mrp" },
     { title: "discount", dataIndex: "discount", key: "discount" },
     {
       title: "instructor Image",
       dataIndex: "instructorImage",
       key: "instructorImage",
-      render: (instructorImage: string) => (instructorImage ? <Image src={instructorImage} width={60} height={60} alt="instructor_image" fallback="/placeholder.png" /> : "-"),
+      render: (instructorImage) => (instructorImage ? <Image src={instructorImage} width={60} height={60} alt="instructor_image" fallback="/placeholder.png" /> : "-"),
     },
     {
       title: "Courses Image",
       dataIndex: "courseImage",
       key: "courseImage",
-      render: (courseImage: string) => (courseImage ? <Image src={courseImage} width={60} height={60} alt="courses_image" fallback="/placeholder.png" /> : "-"),
+      render: (courseImage) => (courseImage ? <Image src={courseImage} width={60} height={60} alt="courses_image" fallback="/placeholder.png" /> : "-"),
     },
     {
       title: "Option",

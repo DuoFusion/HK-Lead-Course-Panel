@@ -1,5 +1,5 @@
 import { KEYS, URL_KEYS } from "../constants";
-import { AboutApiResponse, BannerApiResponse, CategoryApiResponse, CoursesApiResponse, FaqApiResponse, LanguagesApiResponse, LeadFormApiResponse, MentorsApiResponse, Params, SkillLevelApiResponse, TestomonialsApiResponse, WhatYouLearnApiResponse, WorkshopApiResponse } from "../types";
+import { AboutApiResponse, BannerApiResponse, CategoryApiResponse, CouponCodeApiResponse, CoursesApiResponse, FaqApiResponse, InterestApiResponse, LanguagesApiResponse, LeadFormApiResponse, MentorsApiResponse, Params, SkillLevelApiResponse, TestomonialsApiResponse, WhatYouLearnApiResponse, WorkshopApiResponse } from "../types";
 import Get from "./Get";
 import { useApiGet } from "./hooks";
 
@@ -40,6 +40,12 @@ const Queries = {
 
   // ************ Lead Form ***********
   useGetLeadForm: (params: Params) => useApiGet<LeadFormApiResponse>([KEYS.LEAD_FORM.ALL, params], () => Get(URL_KEYS.LEAD_FORM.ALL, params)),
+
+  // ************ Coupon Code ***********
+  useGetCouponCode: (params: Params) => useApiGet<CouponCodeApiResponse>([KEYS.COUPON_CODE.ALL, params], () => Get(URL_KEYS.COUPON_CODE.ALL, params)),
+
+  // ************ Interest ***********
+  useGetInterest: (params: Params) => useApiGet<InterestApiResponse>([KEYS.INTEREST.ALL, params], () => Get(URL_KEYS.INTEREST.ALL, params)),
 };
 
 export default Queries;

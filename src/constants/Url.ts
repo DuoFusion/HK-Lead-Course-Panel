@@ -80,6 +80,18 @@ const URL = {
     ALL: "/lead-form",
     DELETE: "/lead-form/delete",
   },
+  COUPON_CODE: {
+    ALL: "/coupon-code",
+    ADD: "/coupon-code/add",
+    EDIT: "/coupon-code/edit",
+    DELETE: "/coupon-code/delete",
+  },
+  INTEREST: {
+    ALL: "/interest",
+    ADD: "/interest/add",
+    EDIT: "/interest/edit",
+    DELETE: "/interest/delete",
+  },
 } as const;
 
 // Construct the URL object

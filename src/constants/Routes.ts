@@ -49,4 +49,12 @@ export const ROUTES = {
     ADD_EDIT_FAQ: "/add-edit-faq",
   },
   LEAD_FORM: "/lead-form",
+  COUPON_CODE: {
+    COUPON_CODE: "/coupon-code",
+    ADD_EDIT_COUPON_CODE: "/add-edit-coupon-code",
+  },
+  INTEREST: {
+    INTEREST: "/interest",
+    ADD_EDIT_INTEREST: "/add-edit-interest",
+  },
 } as const;

@@ -29,6 +29,10 @@ import AddEditTestomonials from "../Pages/testomonials/AddEditTestomonials";
 import FaqContainer from "../Pages/faq";
 import AddEditFaq from "../Pages/faq/AddEditFaq";
 import LeadFormContainer from "../Pages/leadForm";
+import CouponCodeContainer from "../Pages/couponCode";
+import AddEditCouponCode from "../Pages/couponCode/AddEditCouponCode";
+import InterestContainer from "../Pages/Interest";
+import AddEditInterest from "../Pages/Interest/AddEditInterest";
 
 export const Router = createBrowserRouter([
   {
@@ -73,6 +77,12 @@ export const Router = createBrowserRouter([
           { path: ROUTES.FAQ.ADD_EDIT_FAQ, element: <AddEditFaq /> },
 
           { path: ROUTES.LEAD_FORM, element: <LeadFormContainer /> },
+
+          { path: ROUTES.COUPON_CODE.COUPON_CODE, element: <CouponCodeContainer /> },
+          { path: ROUTES.COUPON_CODE.ADD_EDIT_COUPON_CODE, element: <AddEditCouponCode /> },
+
+          { path: ROUTES.INTEREST.INTEREST, element: <InterestContainer /> },
+          { path: ROUTES.INTEREST.ADD_EDIT_INTEREST, element: <AddEditInterest /> },
         ],
       },
     ],

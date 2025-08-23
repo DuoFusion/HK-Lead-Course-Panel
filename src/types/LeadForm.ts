@@ -1,4 +1,5 @@
 import { CommonDataType, MessageStatus, PageStatus } from "./Common";
+import { InterestType } from "./Interest";
 
 export interface LeadFormType extends CommonDataType {
   _id: string;
@@ -6,7 +7,7 @@ export interface LeadFormType extends CommonDataType {
   email: string;
   phone: string;
   city: string;
-  interest: string[];
+  interestId: InterestType;
   preferredLearningMode: string;
   background: string;
   itKnowledgeLevel: string;

@@ -187,6 +187,7 @@ export interface DataAndTimeProps extends AntdPickerProps {
   label?: string;
   type: PickerType;
   required?: boolean;
+  disablePast?: boolean;
 }
 
 // ************ Switch ***********

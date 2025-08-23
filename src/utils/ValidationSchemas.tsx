@@ -192,8 +192,25 @@ export const TestomonialsSchema = Yup.object({
 });
 
 // FAQ
-
 export const FaqSchema = Yup.object({
   question: fieldSchema("string", { required: false }),
   answer: fieldSchema("string", { required: false }),
+});
+
+// Coupon Code
+
+export const CouponCodeSchema = Yup.object({
+  name: fieldSchema("string", "Name"),
+  code: fieldSchema("string", "Code"),
+  description: fieldSchema("string", "description"),
+  discount: fieldSchema("string", "discount"),
+  discountType: fieldSchema("string", "discountType"),
+  expiresAt: fieldSchema("string", { required: false }),
+  numberOfUses: fieldSchema("string", { required: false }),
+});
+
+// Interest
+export const InterestSchema = Yup.object({
+  name: fieldSchema("string", "name"),
+  priority: fieldSchema("number", "Priority"),
 });

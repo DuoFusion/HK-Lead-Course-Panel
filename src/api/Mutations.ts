@@ -1,5 +1,5 @@
 import { KEYS, URL_KEYS } from "../constants";
-import { AboutType, BannerFormValues, CategoryFormValues, ChangePasswordPayload, CoursesFormValues, FaqFormValues, LanguagesFormValues, LoginPayload, LoginResponse, MentorsFormValues, SkillLevelFormValues, TestomonialsFormValues, UploadResponse, WhatYouLearnFormValues, WorkshopFormValues } from "../types";
+import { AboutType, BannerFormValues, CategoryFormValues, ChangePasswordPayload, CouponCodeFormValues, CoursesFormValues, FaqFormValues, InterestFormValues, LanguagesFormValues, LoginPayload, LoginResponse, MentorsFormValues, SkillLevelFormValues, TestomonialsFormValues, UploadResponse, WhatYouLearnFormValues, WorkshopFormValues } from "../types";
 import Delete from "./Delete";
 import { useApiDelete, useApiPost } from "./hooks";
 import Post from "./Post";
@@ -71,6 +71,15 @@ const Mutations = {
   // ************ Lead Form ***********
   useDeleteLeadForm: () => useApiDelete<string, void>([KEYS.LEAD_FORM.DELETE, KEYS.LEAD_FORM.ALL], (id) => Delete(`${URL_KEYS.LEAD_FORM.DELETE}/${id}`)),
 
+  // ************ Coupon Code ***********
+  useCouponCode: () => useApiPost<CouponCodeFormValues, void>([KEYS.COUPON_CODE.ADD, KEYS.COUPON_CODE.ALL], (input) => Post(URL_KEYS.COUPON_CODE.ADD, input)),
+  useEditCouponCode: () => useApiPost<{ couponId: string } & CouponCodeFormValues, void>([KEYS.COUPON_CODE.EDIT, KEYS.COUPON_CODE.ALL], (input) => Post(URL_KEYS.COUPON_CODE.EDIT, input)),
+  useDeleteCouponCode: () => useApiDelete<string, void>([KEYS.COUPON_CODE.DELETE, KEYS.COUPON_CODE.ALL], (id) => Delete(`${URL_KEYS.COUPON_CODE.DELETE}/${id}`)),
+
+  // ************ Interest ***********
+  useInterest: () => useApiPost<InterestFormValues, void>([KEYS.INTEREST.ADD, KEYS.INTEREST.ALL], (input) => Post(URL_KEYS.INTEREST.ADD, input)),
+  useEditInterest: () => useApiPost<{ interestId: string } & InterestFormValues, void>([KEYS.INTEREST.EDIT, KEYS.INTEREST.ALL], (input) => Post(URL_KEYS.INTEREST.EDIT, input)),
+  useDeleteInterest: () => useApiDelete<string, void>([KEYS.INTEREST.DELETE, KEYS.INTEREST.ALL], (id) => Delete(`${URL_KEYS.INTEREST.DELETE}/${id}`)),
 };
 
 export default Mutations;

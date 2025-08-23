@@ -47,25 +47,6 @@ const AddEditWorkshop = () => {
   };
 
   const handleSubmit = async (values: WorkshopFormValues, { resetForm }: FormikHelpers<WorkshopFormValues>) => {
-    // const payload = {
-    //   ...(values.title && { title: values.title }),
-    //   ...(values.shortDescription && { shortDescription: values.shortDescription }),
-    //   ...(values.date && { date: values.date }),
-    //   ...(values.time && { time: values.time }),
-    //   ...(values.duration && { duration: values.duration }),
-    //   ...(values.instructorName && { instructorName: values.instructorName }),
-    //   ...(values.price && { price: values.price }),
-    //   ...(values.categoryId && { categoryId: values.categoryId }),
-    //   ...(values.status && { status: values.status }),
-    //   ...(values.priority && { priority: values.priority }),
-    //   ...(values.fullDescription && { fullDescription: values.fullDescription }),
-    //   ...(values.syllabus && { syllabus: values.syllabus }),
-    //   ...(values.instructorImage?.length && { instructorImage: values.instructorImage[0] }),
-    //   ...(values.thumbnailImage?.length && { thumbnailImage: values.thumbnailImage[0] }),
-    //   ...(values.workshopImage?.length && { workshopImage: values.workshopImage[0] }),
-    //   ...(values.faq && { faq: values.faq }),
-    //   ...(values.features !== undefined && { features: values.features }),
-    // };
     const payload = buildPayload(values, initialData);
 
     const onSuccessHandler = () => {
@@ -94,7 +75,7 @@ const AddEditWorkshop = () => {
                       <TextInput name="title" label="Title" type="text" placeholder="Enter workshop title" required />
                     </Col>
                     <Col md="6" xl="4">
-                      <DataAndTime name="date" type="date" label="Start Date" format="DD/MM/YYYY" placeholder="Start Date" required />
+                      <DataAndTime name="date" type="date" label="Start Date" format="DD/MM/YYYY" placeholder="Start Date" required disablePast />
                     </Col>
                     <Col md="6" xl="4">
                       <DataAndTime name="time" type="time" label="Meeting Time" format="HH:mm:ss" required />

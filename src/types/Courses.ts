@@ -1,4 +1,7 @@
 import { CommonDataType, MessageStatus, PageStatus } from "./Common";
+import { LanguagesType } from "./Languages";
+import { SkillLevelType } from "./SkillLevel";
+import { WhatYouLearnType } from "./WhatYouLearn";
 
 export interface FAQType {
   question: string;
@@ -42,8 +45,11 @@ export interface CoursesFormValues {
   testimonials: TestimonialsType[];
 }
 
-export interface CoursesType extends CoursesFormValues, CommonDataType {
+export interface CoursesType extends Omit<Required<CoursesFormValues>, "skillLevelId" | "whatYouLearnId" | "courseLanguageId">, CommonDataType {
   _id: string;
+  skillLevelId: SkillLevelType;
+  whatYouLearnId: WhatYouLearnType;
+  courseLanguageId: LanguagesType;
 }
 
 export interface CoursesDataResponse extends PageStatus {

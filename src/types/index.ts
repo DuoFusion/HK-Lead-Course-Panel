@@ -14,3 +14,5 @@ export * from "./About";
 export * from "./Testomonials";
 export * from "./Faq";
 export * from "./LeadForm";
+export * from "./CouponCode";
+export * from "./Interest";

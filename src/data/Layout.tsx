@@ -16,5 +16,7 @@ export const menuList: MenuItem[] = [
   { id: 10, title: "About", url: ROUTES.ABOUT, icon: "editors", type: "link" },
   { id: 11, title: "Testimonials", url: ROUTES.TESTOMONIALS.TESTOMONIALS, icon: "editors", type: "link" },
   { id: 12, title: "FAQ", url: ROUTES.FAQ.FAQ, icon: "editors", type: "link" },
-  { id: 13, title: "Lead Form", url: ROUTES.LEAD_FORM, icon: "editors", type: "link" },
+  { id: 13, title: "Interest", url: ROUTES.INTEREST.INTEREST, icon: "editors", type: "link" },
+  { id: 14, title: "Lead Form", url: ROUTES.LEAD_FORM, icon: "editors", type: "link" },
+  { id: 15, title: "Coupon Code", url: ROUTES.COUPON_CODE.COUPON_CODE, icon: "editors", type: "link" },
 ];
