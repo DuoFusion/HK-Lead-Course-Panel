@@ -27,7 +27,8 @@ const AddEditCouponCode = () => {
     description: initialData?.description || "",
     discount: initialData?.discount || null,
     discountType: initialData?.discountType || "",
-    expiresAt: initialData?.expiresAt || "",
+    endDate: initialData?.endDate || "",
+    startDate: initialData?.startDate || "",
     numberOfUses: initialData?.numberOfUses || null,
   };
 
@@ -71,9 +72,12 @@ const AddEditCouponCode = () => {
                       <TextInput name="discount" label="Discount" type="number" placeholder="Enter Discount" required />
                     </Col>
                     <Col md="6">
-                      <DataAndTime name="expiresAt" type="date" label="expires At" format="DD/MM/YYYY" placeholder="expires At" disablePast/>
+                      <DataAndTime name="startDate" type="date" label="start Date" format="DD/MM/YYYY" placeholder="start Date" disablePast />
                     </Col>
                     <Col md="6">
+                      <DataAndTime name="endDate" type="date" label="end Date" format="DD/MM/YYYY" placeholder="end Date" disablePast />
+                    </Col>
+                    <Col md="12">
                       <TextInput name="numberOfUses" label="Number of Uses" type="number" placeholder="Enter Number of Uses" />
                     </Col>
                     <Col md="12">

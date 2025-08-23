@@ -1,5 +1,5 @@
 import { KEYS, URL_KEYS } from "../constants";
-import { AboutType, BannerFormValues, CategoryFormValues, ChangePasswordPayload, CouponCodeFormValues, CoursesFormValues, FaqFormValues, InterestFormValues, LanguagesFormValues, LoginPayload, LoginResponse, MentorsFormValues, SkillLevelFormValues, TestomonialsFormValues, UploadResponse, WhatYouLearnFormValues, WorkshopFormValues } from "../types";
+import { AboutType, BannerFormValues, CategoryFormValues, ChangePasswordPayload, CouponCodeFormValues, CoursesFormValues, FaqFormValues, InterestFormValues, LanguagesFormValues, LoginPayload, LoginResponse, MentorsFormValues, SkillLevelFormValues, TestomonialsFormValues, UploadResponse, WebSettingFormValues, WhatYouLearnFormValues, WorkshopFormValues } from "../types";
 import Delete from "./Delete";
 import { useApiDelete, useApiPost } from "./hooks";
 import Post from "./Post";
@@ -19,6 +19,9 @@ const Mutations = {
   useEditWorkshop: () => useApiPost<{ workshopId: string } & WorkshopFormValues, void>([KEYS.WORKSHOP.EDIT, KEYS.WORKSHOP.ALL], (input) => Post(URL_KEYS.WORKSHOP.EDIT, input)),
   useDeleteWorkshop: () => useApiDelete<string, void>([KEYS.WORKSHOP.DELETE, KEYS.WORKSHOP.ALL], (id) => Delete(`${URL_KEYS.WORKSHOP.DELETE}/${id}`)),
   useHandleActive: () => useApiPost<{ workshopId: string; isBlocked?: boolean; features?: boolean }, void>([KEYS.WORKSHOP.EDIT, KEYS.WORKSHOP.ALL], (input) => Post(URL_KEYS.WORKSHOP.EDIT, input)),
+  
+  // ************ Workshop Register ***********
+  useDeleteWorkshopRegister: () => useApiDelete<string, void>([KEYS.WORKSHOP_REGISTER.DELETE, KEYS.WORKSHOP_REGISTER.ALL], (id) => Delete(`${URL_KEYS.WORKSHOP_REGISTER.DELETE}/${id}`)),
 
   // ************ Upload ***********
   useUpload: () => useApiPost<FormData, UploadResponse>([KEYS.UPLOAD.ADD], (input) => Post(URL_KEYS.UPLOAD.ADD, input)),
@@ -80,6 +83,9 @@ const Mutations = {
   useInterest: () => useApiPost<InterestFormValues, void>([KEYS.INTEREST.ADD, KEYS.INTEREST.ALL], (input) => Post(URL_KEYS.INTEREST.ADD, input)),
   useEditInterest: () => useApiPost<{ interestId: string } & InterestFormValues, void>([KEYS.INTEREST.EDIT, KEYS.INTEREST.ALL], (input) => Post(URL_KEYS.INTEREST.EDIT, input)),
   useDeleteInterest: () => useApiDelete<string, void>([KEYS.INTEREST.DELETE, KEYS.INTEREST.ALL], (id) => Delete(`${URL_KEYS.INTEREST.DELETE}/${id}`)),
+
+  // ************ Web Setting ***********
+  useWebSetting: () => useApiPost<Partial<WebSettingFormValues>, void>([KEYS.WEB_SETTING.ADD_EDIT, KEYS.WEB_SETTING.ALL], (input) => Post(URL_KEYS.WEB_SETTING.ADD_EDIT, input)),
 };
 
 export default Mutations;

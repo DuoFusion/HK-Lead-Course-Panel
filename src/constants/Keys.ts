@@ -89,4 +89,18 @@ export const KEYS = {
     EDIT: "edit-interest",
     DELETE: "delete-interest",
   },
+  WEB_SETTING: {
+    ALL: "web-setting",
+    ADD_EDIT: "add-edit-web-setting",
+  },
+  CATEGORY_REGISTER: {
+    ALL: "category-register",
+    EDIT: "edit-category-register",
+    DELETE: "delete-category-register",
+  },
+  WORKSHOP_REGISTER: {
+    ALL: "workshop-register",
+    EDIT: "edit-workshop-register",
+    DELETE: "delete-workshop-register",
+  },
 } as const;

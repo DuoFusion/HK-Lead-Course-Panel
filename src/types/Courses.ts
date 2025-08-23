@@ -40,9 +40,9 @@ export interface CoursesFormValues {
   shortDescription?: string;
   instructorImage?: string | string[];
   courseImage?: string | string[];
-  faq: FAQType[];
-  listOfLecture: ListOfLectureType[];
-  testimonials: TestimonialsType[];
+  faq?: FAQType[];
+  listOfLecture?: ListOfLectureType[];
+  testimonials?: TestimonialsType[];
 }
 
 export interface CoursesType extends Omit<Required<CoursesFormValues>, "skillLevelId" | "whatYouLearnId" | "courseLanguageId">, CommonDataType {

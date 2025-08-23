@@ -1,4 +1,4 @@
-import { Button, Flex, Modal, Table, Tag } from "antd";
+import { Button, Flex, Modal, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { Edit, Trash } from "iconsax-react";
 import { Fragment } from "react";
@@ -7,25 +7,25 @@ import { Container } from "reactstrap";
 import { Mutations, Queries } from "../../api";
 import { ROUTES } from "../../constants";
 import { Breadcrumbs, CardWrapper } from "../../coreComponents";
-import { CouponCodeType } from "../../types";
+import { WorkshopRegisterType } from "../../types";
 import { ColumnsWithFallback } from "../../utils/ColumnsWithFallback";
 import { useBasicTableFilterHelper } from "../../utils/hook";
-import { FormatDate } from "../../utils/DateFormatted";
 
-const CouponCodeContainer = () => {
+const WorkshopRegisterContainer = () => {
   const { pageNumber, pageSize, params, handleSetSearch, handlePaginationChange } = useBasicTableFilterHelper({
     initialParams: { page: 1, limit: 10 },
     debounceDelay: 500,
   });
 
   const navigate = useNavigate();
-  const { mutate: DeleteCouponCode } = Mutations.useDeleteCouponCode();
+  const { mutate: DeleteWorkshopRegister } = Mutations.useDeleteWorkshopRegister();
 
-  const { data: CouponCode, isLoading: isCouponCodeLoading } = Queries.useGetCouponCode(params);
-  const All_CouponCode = CouponCode?.data;
-  const handleNavigate = ROUTES.COUPON_CODE.ADD_EDIT_COUPON_CODE;
+  const { data: WorkshopRegister, isLoading: isWorkshopLoading } = Queries.useGetWorkshopRegister(params);
+  const All_WorkshopRegister = WorkshopRegister?.data;
 
-  const handleEdit = (item: CouponCodeType) => {
+  const handleNavigate = ROUTES.WORKSHOP_REGISTER.ADD_EDIT_WORKSHOP_REGISTER;
+
+  const handleEdit = (item: WorkshopRegisterType) => {
     navigate(handleNavigate, {
       state: {
         editData: item,
@@ -34,18 +34,19 @@ const CouponCodeContainer = () => {
     });
   };
 
-  const columns: ColumnsType<CouponCodeType> = [
-    { title: "Sr No.", key: "index", fixed: "left", render: (_, __, index) => (pageNumber - 1) * pageSize + index + 1 },
-    { title: "Id", dataIndex: "_id", key: "_id" },
-    { title: "name", dataIndex: "name", key: "name" },
-    { title: "code", dataIndex: "code", key: "code" },
-    { title: "startDate", dataIndex: "startDate", key: "startDate", render: (startDate) => (FormatDate(startDate) ? <Tag color="geekblue">{FormatDate(startDate)}</Tag> : "-") },
-    { title: "endDate", dataIndex: "endDate", key: "endDate", render: (endDate) => (FormatDate(endDate) ? <Tag color="geekblue">{FormatDate(endDate)}</Tag> : "-") },
-    { title: "discount Type", dataIndex: "discountType", key: "discountType" },
-    { title: "discount", dataIndex: "discount", key: "discount" },
-    { title: "number Of Uses", dataIndex: "numberOfUses", key: "numberOfUses" },
-    { title: "used Count", dataIndex: "usedCount", key: "usedCount" },
-    { title: "description", dataIndex: "description", key: "description", width: 400 },
+  const columns: ColumnsType<WorkshopRegisterType> = [
+    { title: "Sr No.", dataIndex: "index", key: "index", width: 100, fixed: "left", render: (_, __, index) => (pageNumber - 1) * pageSize + index + 1 },
+    { title: "Workshop Name", dataIndex: "workshopId", key: "workshopId", render: (workshopId) => workshopId?.title ?? "-" },
+    { title: "User Name", dataIndex: "name", key: "name" },
+    { title: "User email", dataIndex: "email", key: "email" },
+    { title: "User Phone Number", dataIndex: "phoneNumber", key: "phoneNumber" },
+    { title: "city", dataIndex: "city", key: "city" },
+    { title: "profession", dataIndex: "profession", key: "profession" },
+    { title: "payment Status", dataIndex: "paymentStatus", key: "paymentStatus" },
+    { title: "fees", dataIndex: "fees", key: "fees" },
+    { title: "coupon Code", dataIndex: "couponCodeId", key: "couponCodeId", render: (couponCodeId) => couponCodeId?.name ?? "-" },
+    { title: "payment Method", dataIndex: "paymentMethod", key: "paymentMethod" },
+    { title: "Transaction ID", dataIndex: "transactionId", key: "transactionId" },
     {
       title: "Option",
       key: "actionIcons",
@@ -63,10 +64,10 @@ const CouponCodeContainer = () => {
             onClick={() => {
               Modal.confirm({
                 title: "Are you sure?",
-                content: `Do you really want to delete "${record?.code}"?`,
+                content: `Do you really want to delete "${record?.name}"?`,
                 okText: "Yes, Delete",
                 cancelText: "Cancel",
-                onOk: () => DeleteCouponCode(record?._id),
+                onOk: () => DeleteWorkshopRegister(record?._id),
               });
             }}
             title="Delete"
@@ -80,20 +81,20 @@ const CouponCodeContainer = () => {
 
   return (
     <Fragment>
-      <Breadcrumbs mainTitle="Coupon Code" parent="Pages" />
+      <Breadcrumbs mainTitle="Workshop Register" parent="Pages" />
       <Container fluid className="custom-table">
-        <CardWrapper onSearch={(e) => handleSetSearch(e)} searchClassName="col-xl-10 col-md-9 col-sm-7" buttonLabel="Add Coupon Code" onButtonClick={() => navigate(handleNavigate)}>
+        <CardWrapper onSearch={(e) => handleSetSearch(e)}>
           <Table
             className="custom-table"
-            dataSource={All_CouponCode?.coupon_data}
+            dataSource={All_WorkshopRegister?.workshopRegister_data}
             columns={ColumnsWithFallback(columns)}
             rowKey={(record) => record._id}
             scroll={{ x: "max-content" }}
-            loading={isCouponCodeLoading}
+            loading={isWorkshopLoading}
             pagination={{
               current: pageNumber,
               pageSize: pageSize,
-              total: All_CouponCode?.totalData,
+              total: All_WorkshopRegister?.totalData,
               showSizeChanger: true,
               onChange: handlePaginationChange,
             }}
@@ -104,4 +105,4 @@ const CouponCodeContainer = () => {
   );
 };
 
-export default CouponCodeContainer;
+export default WorkshopRegisterContainer;

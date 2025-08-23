@@ -92,6 +92,20 @@ const URL = {
     EDIT: "/interest/edit",
     DELETE: "/interest/delete",
   },
+  WEB_SETTING: {
+    ALL: "/web-setting",
+    ADD_EDIT: "/web-setting/add/edit",
+  },
+  CATEGORY_REGISTER: {
+    ALL: "/category-register",
+    EDIT: "/category-register/edit",
+    DELETE: "/category-register/delete",
+  },
+  WORKSHOP_REGISTER: {
+    ALL: "/workshop-register",
+    EDIT: "/workshop-register/edit",
+    DELETE: "/workshop-register/delete",
+  },
 } as const;
 
 // Construct the URL object

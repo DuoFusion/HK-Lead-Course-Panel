@@ -9,28 +9,26 @@ import { ROUTES } from "../../constants";
 import { Breadcrumbs, CardWrapper } from "../../coreComponents";
 import { WhatYouLearnFormValues } from "../../types";
 import { WhatYouLearnSchema } from "../../utils/ValidationSchemas";
+import { buildPayload } from "../../utils/FormHelpers";
 
 const AddEditWhatYouLearn = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state;
   const initialData = state?.editData;
-  
+
   const { mutate: useWhatYouLearn, isPending: isWhatYouLearnAdding } = Mutations.useWhatYouLearn();
   const { mutate: upEditWhatYouLearn, isPending: isWhatYouLearnUpdating } = Mutations.useEditWhatYouLearn();
-  
+
   const initialValues: WhatYouLearnFormValues = {
     title: initialData?.title || "",
     priority: initialData?.priority || null,
   };
-  
+
   const handleNavigate = () => navigate(ROUTES.SKILL_LEVEL.SKILL_LEVEL);
-  
+
   const handleSubmit = async (values: WhatYouLearnFormValues, { resetForm }: FormikHelpers<WhatYouLearnFormValues>) => {
-    const payload = {
-      ...(values.title && { title: values.title }),
-      ...(values.priority && { priority: values.priority }),
-    };
+    const payload = buildPayload(values, initialData);
 
     const onSuccessHandler = () => {
       resetForm();

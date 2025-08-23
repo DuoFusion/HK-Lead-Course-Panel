@@ -27,10 +27,12 @@ const AddEditMentors = () => {
     experience: initialData?.experience || "",
     image: initialData?.image ? [initialData.image] : [],
     priority: initialData?.priority || null,
-    instagram: initialData?.socialMedia?.instagram || "",
-    facebook: initialData?.socialMedia?.facebook || "",
-    linkedin: initialData?.socialMedia?.linkedin || "",
-    x: initialData?.socialMedia?.x || "",
+    socialMedia: {
+      instagram: initialData?.socialMedia?.instagram || "",
+      facebook: initialData?.socialMedia?.facebook || "",
+      linkedin: initialData?.socialMedia?.linkedin || "",
+      x: initialData?.socialMedia?.x || "",
+    },
   };
 
   const handleNavigate = () => navigate(ROUTES.MENTORS.MENTORS);
@@ -73,16 +75,16 @@ const AddEditMentors = () => {
                       <TextInput name="priority" label="Priority" type="number" placeholder="Enter priority" required />
                     </Col>
                     <Col md="6">
-                      <TextInput name="instagram" label="Instagram" type="text" placeholder="Instagram Link" inputGroupIcon={<Instagram />} />
+                      <TextInput name="socialMedia.instagram" label="Instagram" type="text" placeholder="Instagram Link" inputGroupIcon={<Instagram />} />
                     </Col>
                     <Col md="6">
-                      <TextInput name="facebook" label="Facebook" type="text" placeholder="Facebook Link" inputGroupIcon={<Facebook />} />
+                      <TextInput name="socialMedia.facebook" label="Facebook" type="text" placeholder="Facebook Link" inputGroupIcon={<Facebook />} />
                     </Col>
                     <Col md="6">
-                      <TextInput name="linkedin" label="linkedin" type="text" placeholder="linkedin Link" inputGroupIcon={<LinkCircle />} />
+                      <TextInput name="socialMedia.linkedin" label="linkedin" type="text" placeholder="linkedin Link" inputGroupIcon={<LinkCircle />} />
                     </Col>
                     <Col md="6">
-                      <TextInput name="x" label="x" type="text" placeholder="x Link" inputGroupIcon={<Xrp />} />
+                      <TextInput name="socialMedia.x" label="x" type="text" placeholder="x Link" inputGroupIcon={<Xrp />} />
                     </Col>
                     <Col>
                       <ImageUpload name="image" label="Image" required />

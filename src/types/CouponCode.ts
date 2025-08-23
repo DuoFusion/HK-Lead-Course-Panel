@@ -6,7 +6,8 @@ export interface CouponCodeFormValues {
   description?: string;
   discount?: number;
   discountType?: string;
-  expiresAt?: string;
+  startDate?: string;
+  endDate?: string;
   numberOfUses?: number;
   usedCount?: number;
 }

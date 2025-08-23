@@ -9,6 +9,7 @@ import { ROUTES } from "../../constants";
 import { Breadcrumbs, CardWrapper } from "../../coreComponents";
 import { LanguagesFormValues } from "../../types";
 import { LanguagesSchema } from "../../utils/ValidationSchemas";
+import { buildPayload } from "../../utils/FormHelpers";
 
 const AddEditLanguages = () => {
   const navigate = useNavigate();
@@ -26,10 +27,7 @@ const AddEditLanguages = () => {
   const handleNavigate = () => navigate(ROUTES.LANGUAGE.LANGUAGE);
 
   const handleSubmit = async (values: LanguagesFormValues, { resetForm }: FormikHelpers<LanguagesFormValues>) => {
-    const payload = {
-      ...(values.name && { name: values.name }),
-      ...(values.priority && { priority: values.priority }),
-    };
+    const payload = buildPayload(values, initialData);
 
     const onSuccessHandler = () => {
       resetForm();

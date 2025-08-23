@@ -9,6 +9,7 @@ import { ROUTES } from "../../constants";
 import { Breadcrumbs, CardWrapper } from "../../coreComponents";
 import { SkillLevelFormValues } from "../../types";
 import { SkillLevelSchema } from "../../utils/ValidationSchemas";
+import { buildPayload } from "../../utils/FormHelpers";
 
 const AddEditSkillLevel = () => {
   const navigate = useNavigate();
@@ -27,10 +28,7 @@ const AddEditSkillLevel = () => {
   const handleNavigate = () => navigate(ROUTES.SKILL_LEVEL.SKILL_LEVEL);
 
   const handleSubmit = async (values: SkillLevelFormValues, { resetForm }: FormikHelpers<SkillLevelFormValues>) => {
-    const payload = {
-      ...(values.title && { title: values.title }),
-      ...(values.priority && { priority: values.priority }),
-    };
+    const payload = buildPayload(values, initialData);
 
     const onSuccessHandler = () => {
       resetForm();

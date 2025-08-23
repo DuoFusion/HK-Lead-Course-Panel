@@ -1,5 +1,6 @@
 import { KEYS, URL_KEYS } from "../constants";
-import { AboutApiResponse, BannerApiResponse, CategoryApiResponse, CouponCodeApiResponse, CoursesApiResponse, FaqApiResponse, InterestApiResponse, LanguagesApiResponse, LeadFormApiResponse, MentorsApiResponse, Params, SkillLevelApiResponse, TestomonialsApiResponse, WhatYouLearnApiResponse, WorkshopApiResponse } from "../types";
+import { AboutApiResponse, BannerApiResponse, CategoryApiResponse, CouponCodeApiResponse, CoursesApiResponse, FaqApiResponse, InterestApiResponse, LanguagesApiResponse, LeadFormApiResponse, MentorsApiResponse, Params, SkillLevelApiResponse, TestomonialsApiResponse, WebSettingApiResponse, WhatYouLearnApiResponse, WorkshopApiResponse } from "../types";
+import { WorkshopRegisterApiResponse } from "../types/WorkshopRegister";
 import Get from "./Get";
 import { useApiGet } from "./hooks";
 
@@ -10,6 +11,9 @@ const Queries = {
 
   // ************ Workshop ***********
   useGetWorkshop: (params: Params) => useApiGet<WorkshopApiResponse>([KEYS.WORKSHOP.ALL, params], () => Get(URL_KEYS.WORKSHOP.ALL, params)),
+
+  // ************ Workshop Register ***********
+  useGetWorkshopRegister: (params: Params) => useApiGet<WorkshopRegisterApiResponse>([KEYS.WORKSHOP_REGISTER.ALL, params], () => Get(URL_KEYS.WORKSHOP_REGISTER.ALL, params)),
 
   // ************ Courses ***********
   useGetCourses: (params: Params) => useApiGet<CoursesApiResponse>([KEYS.COURSES.ALL, params], () => Get(URL_KEYS.COURSES.ALL, params)),
@@ -46,6 +50,9 @@ const Queries = {
 
   // ************ Interest ***********
   useGetInterest: (params: Params) => useApiGet<InterestApiResponse>([KEYS.INTEREST.ALL, params], () => Get(URL_KEYS.INTEREST.ALL, params)),
+
+  // ************ Web Setting ***********
+  useGetWebSetting: () => useApiGet<WebSettingApiResponse>([KEYS.WEB_SETTING.ALL], () => Get(URL_KEYS.WEB_SETTING.ALL)),
 };
 
 export default Queries;

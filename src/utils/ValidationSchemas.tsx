@@ -205,7 +205,8 @@ export const CouponCodeSchema = Yup.object({
   description: fieldSchema("string", "description"),
   discount: fieldSchema("string", "discount"),
   discountType: fieldSchema("string", "discountType"),
-  expiresAt: fieldSchema("string", { required: false }),
+  startDate: fieldSchema("string", { required: false }),
+  endDate: fieldSchema("string", { required: false }),
   numberOfUses: fieldSchema("string", { required: false }),
 });
 
@@ -213,4 +214,17 @@ export const CouponCodeSchema = Yup.object({
 export const InterestSchema = Yup.object({
   name: fieldSchema("string", "name"),
   priority: fieldSchema("number", "Priority"),
+});
+
+// Web Setting
+export const WebSettingSchema = Yup.object({
+  email: fieldSchema("string", "email"),
+  phoneNumber: fieldSchema("number", "phoneNumber"),
+  whatsappNumber: fieldSchema("number", "whatsappNumber"),
+  whatsappMessage: fieldSchema("string", { required: false }),
+  address: fieldSchema("string", "address"),
+  instagram: fieldSchema("string", { required: false }),
+  linkedin: fieldSchema("string", { required: false }),
+  facebook: fieldSchema("string", { required: false }),
+  whatsapp: fieldSchema("string", { required: false }),
 });

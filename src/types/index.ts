@@ -16,3 +16,5 @@ export * from "./Faq";
 export * from "./LeadForm";
 export * from "./CouponCode";
 export * from "./Interest";
+export * from "./WebSetting";
+export * from "./WorkshopRegister";

@@ -33,6 +33,9 @@ import CouponCodeContainer from "../Pages/couponCode";
 import AddEditCouponCode from "../Pages/couponCode/AddEditCouponCode";
 import InterestContainer from "../Pages/Interest";
 import AddEditInterest from "../Pages/Interest/AddEditInterest";
+import WebSettingContainer from "../Pages/webSetting";
+import WorkshopRegisterContainer from "../Pages/workshopRegister";
+import AddEditWorkshopRegister from "../Pages/workshopRegister/AddEditRegister";
 
 export const Router = createBrowserRouter([
   {
@@ -49,6 +52,9 @@ export const Router = createBrowserRouter([
 
           { path: ROUTES.WORKSHOP.WORKSHOP, element: <WorkshopContainer /> },
           { path: ROUTES.WORKSHOP.ADD_EDIT_WORKSHOP, element: <AddEditWorkshop /> },
+
+          { path: ROUTES.WORKSHOP_REGISTER.WORKSHOP_REGISTER, element: <WorkshopRegisterContainer /> },
+          { path: ROUTES.WORKSHOP_REGISTER.ADD_EDIT_WORKSHOP_REGISTER, element: <AddEditWorkshopRegister /> },
 
           { path: ROUTES.COURSES.COURSES, element: <CoursesContainer /> },
           { path: ROUTES.COURSES.ADD_EDIT_COURSES, element: <AddEditCourses /> },
@@ -83,6 +89,8 @@ export const Router = createBrowserRouter([
 
           { path: ROUTES.INTEREST.INTEREST, element: <InterestContainer /> },
           { path: ROUTES.INTEREST.ADD_EDIT_INTEREST, element: <AddEditInterest /> },
+
+          { path: ROUTES.WEB_SETTING, element: <WebSettingContainer /> },
         ],
       },
     ],

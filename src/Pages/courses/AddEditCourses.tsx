@@ -12,6 +12,7 @@ import { DiscountStatus } from "../../data";
 import { CoursesFormValues, TestimonialsType } from "../../types";
 import { generateOptions } from "../../utils";
 import { CoursesSchema } from "../../utils/ValidationSchemas";
+import { buildPayload } from "../../utils/FormHelpers";
 
 const AddEditCourses = () => {
   const navigate = useNavigate();
@@ -52,29 +53,30 @@ const AddEditCourses = () => {
   const handleNavigate = () => navigate(ROUTES.COURSES.COURSES);
 
   const handleSubmit = async (values: CoursesFormValues, { resetForm }: FormikHelpers<CoursesFormValues>) => {
-    const payload = {
-      ...(values.title && { title: values.title }),
-      ...(values.subtitle && { subtitle: values.subtitle }),
-      ...(values.background && { background: values.background }),
-      ...(values.duration && { duration: values.duration }),
-      ...(values.skillLevelId && { skillLevelId: values.skillLevelId }),
-      ...(values.price && { price: values.price }),
-      ...(values.totalLectures && { totalLectures: values.totalLectures }),
-      ...(values.totalHours && { totalHours: values.totalHours }),
-      ...(values.priority && { priority: values.priority }),
-      ...(values.rating && { rating: values.rating }),
-      ...(values.whatYouLearnId && { whatYouLearnId: values.whatYouLearnId }),
-      ...(values.instructorName && { instructorName: values.instructorName }),
-      ...(values.courseLanguageId && { courseLanguageId: values.courseLanguageId }),
-      ...(values.mrp && { mrp: values.mrp }),
-      ...(values.discount && { discount: values.discount }),
-      ...(values.shortDescription && { shortDescription: values.shortDescription }),
-      ...(values.instructorImage?.length && { instructorImage: values.instructorImage[0] }),
-      ...(values.courseImage?.length && { courseImage: values.courseImage[0] }),
-      ...(values.faq && { faq: values.faq }),
-      ...(values.listOfLecture && { listOfLecture: values.listOfLecture }),
-      ...(values.testimonials && { testimonials: values.testimonials.map((t) => ({ ...t, image: t.image?.length ? t.image[0] : null })) }),
-    };
+    // const payload = {
+    //   ...(values.title && { title: values.title }),
+    //   ...(values.subtitle && { subtitle: values.subtitle }),
+    //   ...(values.background && { background: values.background }),
+    //   ...(values.duration && { duration: values.duration }),
+    //   ...(values.skillLevelId && { skillLevelId: values.skillLevelId }),
+    //   ...(values.price && { price: values.price }),
+    //   ...(values.totalLectures && { totalLectures: values.totalLectures }),
+    //   ...(values.totalHours && { totalHours: values.totalHours }),
+    //   ...(values.priority && { priority: values.priority }),
+    //   ...(values.rating && { rating: values.rating }),
+    //   ...(values.whatYouLearnId && { whatYouLearnId: values.whatYouLearnId }),
+    //   ...(values.instructorName && { instructorName: values.instructorName }),
+    //   ...(values.courseLanguageId && { courseLanguageId: values.courseLanguageId }),
+    //   ...(values.mrp && { mrp: values.mrp }),
+    //   ...(values.discount && { discount: values.discount }),
+    //   ...(values.shortDescription && { shortDescription: values.shortDescription }),
+    //   ...(values.instructorImage?.length && { instructorImage: values.instructorImage[0] }),
+    //   ...(values.courseImage?.length && { courseImage: values.courseImage[0] }),
+    //   ...(values.faq && { faq: values.faq }),
+    //   ...(values.listOfLecture && { listOfLecture: values.listOfLecture }),
+    //   ...(values.testimonials && { testimonials: values.testimonials.map((t) => ({ ...t, image: t.image?.length ? t.image[0] : null })) }),
+    // };
+    const payload = buildPayload(values, initialData);
 
     const onSuccessHandler = () => {
       resetForm();
@@ -129,13 +131,13 @@ const AddEditCourses = () => {
                       <TextInput name="rating" label="rating" type="number" placeholder="Enter rating" required />
                     </Col>
                     <Col md="6" xl="4">
-                      <SelectInput name="whatYouLearnId" label="what You Learn" placeholder="Select what You Learn" options={generateOptions(WhatYouLearn?.data?.what_you_learn_data)} loading={isWhatYouLearnLoading}  />
+                      <SelectInput name="whatYouLearnId" label="what You Learn" placeholder="Select what You Learn" options={generateOptions(WhatYouLearn?.data?.what_you_learn_data)} loading={isWhatYouLearnLoading} />
                     </Col>
                     <Col md="6" xl="4">
                       <TextInput name="instructorName" label="Instructor Name" type="text" placeholder="Enter instructor name" />
                     </Col>
                     <Col md="6" xl="4">
-                      <SelectInput name="courseLanguageId" label="course Language" placeholder="Select course Language" options={generateOptions(Languages?.data?.language_data)} loading={isLanguagesLoading}  />
+                      <SelectInput name="courseLanguageId" label="course Language" placeholder="Select course Language" options={generateOptions(Languages?.data?.language_data)} loading={isLanguagesLoading} />
                     </Col>
                     <Col md="6" xl="4">
                       <TextInput name="mrp" label="mrp" type="number" placeholder="Enter mrp" />
@@ -157,7 +159,7 @@ const AddEditCourses = () => {
                       <FieldArray name="faq">
                         {({ push, remove }) => (
                           <>
-                            {values.faq.map((_, index) => (
+                            {values.faq?.map((_, index) => (
                               <Row key={index} className="mb-3 gy-4">
                                 <Col md="5">
                                   <TextInput name={`faq[${index}].question`} label={`FAQ Question ${index + 1}`} type="textarea" placeholder="Enter FAQ question" />
@@ -166,12 +168,12 @@ const AddEditCourses = () => {
                                   <TextInput name={`faq[${index}].answer`} label={`FAQ Answer ${index + 1}`} type="textarea" placeholder="Enter FAQ answer" />
                                 </Col>
                                 <Col md="2" className="d-flex align-items-center gap-2">
-                                  {values.faq.length > 1 && (
+                                  {(values.faq?.length ?? 0) > 1 && (
                                     <Button type="text" onClick={() => remove(index)} danger className="m-1 p-1 action-btn btn-danger">
                                       <Minus className="action" />
                                     </Button>
                                   )}
-                                  {index === values.faq.length - 1 && (
+                                  {index === (values.faq?.length ?? 0) - 1 && (
                                     <Button type="text" onClick={() => push({ question: "", answer: "" })} className="m-1 p-1 btn btn-primary action-btn">
                                       <Add className="action" />
                                     </Button>
@@ -188,7 +190,7 @@ const AddEditCourses = () => {
                       <FieldArray name="listOfLecture">
                         {({ push, remove }) => (
                           <>
-                            {values.listOfLecture.map((_, index) => (
+                            {values.listOfLecture?.map((_, index) => (
                               <Row key={index} className="mb-3 gy-4">
                                 <Col md="5">
                                   <TextInput name={`listOfLecture[${index}].title`} label={`Title ${index + 1}`} type="textarea" placeholder="Enter list of Lecture Title" />
@@ -197,12 +199,12 @@ const AddEditCourses = () => {
                                   <TextInput name={`listOfLecture[${index}].description`} label={`Description ${index + 1}`} type="textarea" placeholder="Enter List of Lecture Description" />
                                 </Col>
                                 <Col md="2" className="d-flex align-items-center gap-2">
-                                  {values.listOfLecture.length > 1 && (
+                                  {(values.listOfLecture?.length ?? 0) > 1 && (
                                     <Button type="text" onClick={() => remove(index)} danger className="m-1 p-1 action-btn btn-danger">
                                       <Minus className="action" />
                                     </Button>
                                   )}
-                                  {index === values.listOfLecture.length - 1 && (
+                                  {index === (values.listOfLecture?.length ?? 0) - 1 && (
                                     <Button type="text" onClick={() => push({ title: "", description: "" })} className="m-1 p-1 btn btn-primary action-btn">
                                       <Add className="action" />
                                     </Button>
@@ -219,7 +221,7 @@ const AddEditCourses = () => {
                       <FieldArray name="testimonials">
                         {({ push, remove }) => (
                           <>
-                            {values.testimonials.map((_, index) => (
+                            {values.testimonials?.map((_, index) => (
                               <Row key={index} className="mb-3">
                                 <Col md="10" className="row gy-4 m-0">
                                   <Col md="4">
@@ -241,12 +243,12 @@ const AddEditCourses = () => {
                                   </Col>
                                 </Col>
                                 <Col md="2" className="d-flex align-items-center gap-2">
-                                  {values.testimonials.length > 1 && (
+                                  {(values.testimonials?.length ?? 0) > 1 && (
                                     <Button type="text" onClick={() => remove(index)} danger className="m-1 p-1 action-btn btn-danger">
                                       <Minus className="action" />
                                     </Button>
                                   )}
-                                  {index === values.testimonials.length - 1 && (
+                                  {index === (values.testimonials?.length ?? 0) - 1 && (
                                     <Button type="text" onClick={() => push({ name: "", role: "", message: "", rating: null })} className="m-1 p-1 btn btn-primary action-btn">
                                       <Add className="action" />
                                     </Button>

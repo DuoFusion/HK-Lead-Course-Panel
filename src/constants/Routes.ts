@@ -57,4 +57,13 @@ export const ROUTES = {
     INTEREST: "/interest",
     ADD_EDIT_INTEREST: "/add-edit-interest",
   },
+  WEB_SETTING: "/web-setting",
+  WORKSHOP_REGISTER: {
+    WORKSHOP_REGISTER: "/workshop-register",
+    ADD_EDIT_WORKSHOP_REGISTER: "/add-edit-workshop-register",
+  },
+  COURSES_REGISTER: {
+    COURSES_REGISTER: "/coursers-register",
+    ADD_EDIT_COURSES_REGISTER: "/add-edit-coursers-register",
+  },
 } as const;

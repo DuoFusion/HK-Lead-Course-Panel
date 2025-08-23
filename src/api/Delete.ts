@@ -17,7 +17,6 @@ async function Delete<T, TInput>(url: string, data?: TInput): Promise<T> {
 
   try {
     const response = await axios(config);
-    // return response.data;
     const resData = response.data;
 
     if (response.status === HTTP_STATUS.OK) {
@@ -27,7 +26,7 @@ async function Delete<T, TInput>(url: string, data?: TInput): Promise<T> {
       return null as T;
     }
   } catch (error: any) {
-    const axiosError = error as AxiosError<any>; // <--- set to `any` or a known error shape
+    const axiosError = error as AxiosError<any>;
 
     const responseData = axiosError.response?.data as { message?: string };
 

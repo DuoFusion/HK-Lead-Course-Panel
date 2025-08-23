@@ -6,7 +6,6 @@ const useBasicTableFilterHelper = ({ initialParams, debounceDelay = 300, sortKey
   const [pageNumber, setPageNumber] = useState(initialParams?.page ?? 1);
   const [pageSize, setPageSize] = useState(initialParams?.limit ?? 10);
   const [searchTerm, setSearchTerm] = useState(initialParams?.search ?? "");
-  // const [isActive, setActive] = useState(true);
   const [sortBy, setSortBy] = useState<string | null>(initialParams?.[sortKey] ?? null);
 
   const debouncedSearchTerm = useDebounce(searchTerm, debounceDelay);
@@ -15,7 +14,6 @@ const useBasicTableFilterHelper = ({ initialParams, debounceDelay = 300, sortKey
     page: pageNumber,
     limit: pageSize,
     search: searchTerm,
-    // blockFilter: isActive,
     ...initialParams,
   });
 
@@ -28,15 +26,6 @@ const useBasicTableFilterHelper = ({ initialParams, debounceDelay = 300, sortKey
     }));
     setPageNumber(1);
   }, [debouncedSearchTerm]);
-
-  // useEffect(() => {
-  //   setParams((prev) => ({
-  //     ...prev,
-  //     blockFilter: isActive,
-  //     page: 1, // reset to first page when filter changes
-  //   }));
-  //   setPageNumber(1);
-  // }, [isActive]);
 
   // Sync sort with dynamic key
   useEffect(() => {
@@ -70,10 +59,8 @@ const useBasicTableFilterHelper = ({ initialParams, debounceDelay = 300, sortKey
       pageSize,
       searchTerm,
       sortBy,
-      // isActive,
       params,
       setParams,
-      // setActive,
       handleSetSearch,
       handleSetSortBy,
       handlePaginationChange,

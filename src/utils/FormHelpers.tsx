@@ -62,41 +62,43 @@
 
 export function buildPayload<T extends Record<string, any>>(values: T, initialData?: Partial<T>): Partial<T> {
   const payload: Partial<T> = {};
-  const socialKeys = ["instagram", "facebook", "linkedin", "x"];
+  const socialKeys = ["instagram", "facebook", "linkedin", "x","whatsapp"];
   const socialMedia: Record<string, string | null> = {};
 
-  Object.entries(values).forEach(([key, value]) => {
-    const initialValue = initialData?.[key as keyof T];
+  function normalize(val: any) {
+    return val === "" || val === undefined ? null : val;
+  }
 
-    // normalize "" and undefined → null
-    const normalizedValue = value === "" || value === undefined ? null : value;
+  function processField(key: string, value: any, initialValue: any, target: any) {
+    const normalizedValue = normalize(value);
 
-    // image fields are arrays → send first item
-    if (key.toLowerCase().includes("image") && Array.isArray(value)) {
+    // image fields (array -> string)
+    if ((key.toLowerCase().includes("image") || key === "image") && Array.isArray(value)) {
       const newImage = value[0] || null;
-      if (newImage !== initialValue) {
-        (payload as any)[key] = newImage;
-      }
+      if (newImage !== initialValue) target[key] = newImage;
     }
-    // array fields
+    // array fields (faq, testimonials, lectures etc.)
     else if (Array.isArray(value)) {
-      if (JSON.stringify(value) !== JSON.stringify(initialValue)) {
-        (payload as any)[key] = value;
-      }
+      const newArr = value.map((item) =>
+        typeof item === "object" && item !== null ? buildPayload(item, initialValue) : item
+      );
+      if (JSON.stringify(newArr) !== JSON.stringify(initialValue)) target[key] = newArr;
     }
-    // collect socialMedia separately
+    // social media keys
     else if (socialKeys.includes(key)) {
       socialMedia[key] = normalizedValue as string | null;
     }
     // normal fields
     else {
-      if (normalizedValue !== initialValue) {
-        (payload as any)[key] = normalizedValue;
-      }
+      if (normalizedValue !== initialValue) target[key] = normalizedValue;
     }
+  }
+
+  Object.entries(values).forEach(([key, value]) => {
+    const initialValue = initialData?.[key as keyof T];
+    processField(key, value, initialValue, payload);
   });
 
-  // attach socialMedia if provided
   if (Object.values(socialMedia).some((val) => val !== null)) {
     (payload as any).socialMedia = socialMedia;
   }
