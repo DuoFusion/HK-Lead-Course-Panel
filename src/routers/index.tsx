@@ -36,6 +36,8 @@ import AddEditInterest from "../Pages/Interest/AddEditInterest";
 import WebSettingContainer from "../Pages/webSetting";
 import WorkshopRegisterContainer from "../Pages/workshopRegister";
 import AddEditWorkshopRegister from "../Pages/workshopRegister/AddEditRegister";
+import CoursesRegisterContainer from "../Pages/coursesRegister";
+import AddEditCoursesRegister from "../Pages/coursesRegister/AddEditCoursesRegister";
 
 export const Router = createBrowserRouter([
   {
@@ -58,6 +60,9 @@ export const Router = createBrowserRouter([
 
           { path: ROUTES.COURSES.COURSES, element: <CoursesContainer /> },
           { path: ROUTES.COURSES.ADD_EDIT_COURSES, element: <AddEditCourses /> },
+
+          { path: ROUTES.COURSES_REGISTER.COURSES_REGISTER, element: <CoursesRegisterContainer /> },
+          { path: ROUTES.COURSES_REGISTER.ADD_EDIT_COURSES_REGISTER, element: <AddEditCoursesRegister /> },
 
           { path: ROUTES.LANGUAGE.LANGUAGE, element: <LanguagesContainer /> },
           { path: ROUTES.LANGUAGE.ADD_EDIT_LANGUAGE, element: <AddEditLanguages /> },

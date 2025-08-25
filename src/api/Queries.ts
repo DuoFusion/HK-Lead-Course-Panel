@@ -1,5 +1,5 @@
 import { KEYS, URL_KEYS } from "../constants";
-import { AboutApiResponse, BannerApiResponse, CategoryApiResponse, CouponCodeApiResponse, CoursesApiResponse, FaqApiResponse, InterestApiResponse, LanguagesApiResponse, LeadFormApiResponse, MentorsApiResponse, Params, SkillLevelApiResponse, TestomonialsApiResponse, WebSettingApiResponse, WhatYouLearnApiResponse, WorkshopApiResponse } from "../types";
+import { AboutApiResponse, BannerApiResponse, CategoryApiResponse, CouponCodeApiResponse, CoursesApiResponse, CoursesRegisterApiResponse, FaqApiResponse, InterestApiResponse, LanguagesApiResponse, LeadFormApiResponse, MentorsApiResponse, Params, SkillLevelApiResponse, TestomonialsApiResponse, WebSettingApiResponse, WhatYouLearnApiResponse, WorkshopApiResponse } from "../types";
 import { WorkshopRegisterApiResponse } from "../types/WorkshopRegister";
 import Get from "./Get";
 import { useApiGet } from "./hooks";
@@ -17,6 +17,9 @@ const Queries = {
 
   // ************ Courses ***********
   useGetCourses: (params: Params) => useApiGet<CoursesApiResponse>([KEYS.COURSES.ALL, params], () => Get(URL_KEYS.COURSES.ALL, params)),
+
+    // ************ Courses Register ***********
+  useGetCoursesRegister: (params: Params) => useApiGet<CoursesRegisterApiResponse>([KEYS.COURSES_REGISTER.ALL, params], () => Get(URL_KEYS.COURSES_REGISTER.ALL, params)),
 
   // ************ Languages ***********
   useGetLanguages: (params: Params) => useApiGet<LanguagesApiResponse>([KEYS.LANGUAGE.ALL, params], () => Get(URL_KEYS.LANGUAGE.ALL, params)),

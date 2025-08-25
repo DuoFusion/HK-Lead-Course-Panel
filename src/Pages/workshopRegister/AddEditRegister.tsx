@@ -7,44 +7,39 @@ import { Mutations, Queries } from "../../api";
 import { SelectInput, TextInput } from "../../attribute/formFields";
 import { ROUTES } from "../../constants";
 import { Breadcrumbs, CardWrapper } from "../../coreComponents";
-import { WorkshopFormValues } from "../../types";
+import { WorkshopRegisterFormValues } from "../../types";
 import { generateOptions } from "../../utils";
 import { buildPayload } from "../../utils/FormHelpers";
-import { WorkshopSchema } from "../../utils/ValidationSchemas";
+import { WorkshopRegisterSchema } from "../../utils/ValidationSchemas";
+import { PaymentMethodStatus, PaymentStatus } from "../../data";
 
-const AddEditWorkshopRegister = () => {
+const AddEditWorkshopRegister = () => { 
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state;
   const initialData = state?.editData;
 
-  const { mutate: useWorkshop, isPending: isWorkshopAdding } = Mutations.useWorkshop();
-  const { mutate: upEditWorkshop, isPending: isWorkshopUpdating } = Mutations.useEditWorkshop();
-  const { data: category, isLoading: isCategoryLoading } = Queries.useGetCategory({});
+  const { mutate: upEditWorkshop, isPending: isWorkshopUpdating } = Mutations.useEditWorkshopRegister();
+  const { data: Workshop, isLoading: isWorkshopLoading } = Queries.useGetWorkshop({});
+  const { data: CouponCode, isLoading: isCouponCodeLoading } = Queries.useGetCouponCode({});
 
-  const handleNavigate = () => navigate(ROUTES.WORKSHOP.WORKSHOP);
+  const handleNavigate = () => navigate(ROUTES.WORKSHOP_REGISTER.WORKSHOP_REGISTER);
 
-  const initialValues: WorkshopFormValues = {
-    title: initialData?.title || "",
-    shortDescription: initialData?.shortDescription || "",
-    date: initialData?.date || "",
-    time: initialData?.time || "",
-    duration: initialData?.duration || "",
-    instructorImage: initialData?.instructorImage ? [initialData.instructorImage] : [],
-    instructorName: initialData?.instructorName || "",
-    thumbnailImage: initialData?.thumbnailImage ? [initialData.thumbnailImage] : [],
-    workshopImage: initialData?.workshopImage ? [initialData.workshopImage] : [],
-    price: initialData?.price || null,
-    categoryId: initialData?.categoryId?._id || "",
-    status: initialData?.status || "",
-    priority: initialData?.priority || null,
-    fullDescription: initialData?.fullDescription || "",
-    syllabus: initialData?.syllabus || "",
-    faq: initialData?.faq || [{ question: "", answer: "" }],
-    features: initialData?.features,
+  const initialValues: WorkshopRegisterFormValues = {
+    workshopId: initialData?.workshopId?._id || "",
+    name: initialData?.name || "",
+    email: initialData?.email || "",
+    phoneNumber: initialData?.phoneNumber || "",
+    city: initialData?.city || "",
+    profession: initialData?.profession || "",
+    paymentStatus: initialData?.paymentStatus || "",
+    fees: initialData?.fees || null,
+    couponCodeId: initialData?.couponCodeId?._id || "",
+    paymentMethod: initialData?.paymentMethod || "",
+    transactionId: initialData?.transactionId || "",
   };
 
-  const handleSubmit = async (values: WorkshopFormValues, { resetForm }: FormikHelpers<WorkshopFormValues>) => {
+  const handleSubmit = async (values: WorkshopRegisterFormValues, { resetForm }: FormikHelpers<WorkshopRegisterFormValues>) => {
     const payload = buildPayload(values, initialData);
 
     const onSuccessHandler = () => {
@@ -53,24 +48,22 @@ const AddEditWorkshopRegister = () => {
     };
 
     if (state?.edit) {
-      upEditWorkshop({ workshopId: initialData?._id, ...payload }, { onSuccess: () => onSuccessHandler() });
-    } else {
-      useWorkshop(payload, { onSuccess: () => onSuccessHandler() });
+      upEditWorkshop({ workshopRegisterId: initialData?._id, ...payload }, { onSuccess: () => onSuccessHandler() });
     }
   };
 
   return (
     <Fragment>
-      <Breadcrumbs mainTitle={`${state?.edit ? "Edit" : "Add"} Workshop`} parent="Workshop" />
+      <Breadcrumbs mainTitle={`${state?.edit ? "Edit" : "Add"} Workshop Register`} parent="Workshop" />
       <Container fluid>
-        <CardWrapper title={`${state?.edit ? "Edit" : "Add"} Workshop`}>
+        <CardWrapper title={`${state?.edit ? "Edit" : "Add"} Workshop Register`}>
           <div className="input-items">
-            <Formik<WorkshopFormValues> initialValues={initialValues} validationSchema={WorkshopSchema} onSubmit={handleSubmit} enableReinitialize>
+            <Formik<WorkshopRegisterFormValues> initialValues={initialValues} validationSchema={WorkshopRegisterSchema} onSubmit={handleSubmit} enableReinitialize>
               {() => (
                 <Form>
                   <Row className="gy-3">
                     <Col md="6" xl="4">
-                      <SelectInput name="categoryId" label="category" options={generateOptions(category?.data?.category_data)} loading={isCategoryLoading} />
+                      <SelectInput name="workshopId" label="workshop" placeholder="select an workshop" options={generateOptions(Workshop?.data?.workshop_data)} loading={isWorkshopLoading} required/>
                     </Col>
                     <Col md="6" xl="4">
                       <TextInput name="name" label="name" type="text" placeholder="Enter name" required />
@@ -82,29 +75,29 @@ const AddEditWorkshopRegister = () => {
                       <TextInput name="phoneNumber" label="phone Number" type="number" placeholder="Enter phone Number" required />
                     </Col>
                     <Col md="6" xl="4">
-                      <TextInput name="city" label="city" type="text" placeholder="Enter city" required />
+                      <TextInput name="city" label="city" type="text" placeholder="Enter city" />
                     </Col>
                     <Col md="6" xl="4">
                       <TextInput name="profession" label="profession" type="text" placeholder="Enter profession" />
                     </Col>
                     <Col md="6" xl="4">
-                      <TextInput name="paymentStatus" label="paymentStatus" type="text" placeholder="Enter paymentStatus" required />
+                      <SelectInput name="paymentStatus" label="payment Status" placeholder="select an paymentStatus" options={PaymentStatus} required/>
                     </Col>
                     <Col md="6" xl="4">
                       <TextInput name="fees" label="fees" type="text" placeholder="Enter fees" />
                     </Col>
                     <Col md="6" xl="4">
-                      <SelectInput name="categoryId" label="category" options={generateOptions(category?.data?.category_data)} loading={isCategoryLoading} />
+                      <SelectInput name="couponCodeId" label="CouponCode" placeholder="select an CouponCode" options={generateOptions(CouponCode?.data?.coupon_data)} loading={isCouponCodeLoading} />
                     </Col>
                     <Col md="6">
-                      <TextInput name="paymentMethod" label="paymentMethod" type="text" placeholder="Enter paymentMethod" />
+                      <SelectInput name="paymentMethod" label="payment Method" placeholder="select an payment Method" options={PaymentMethodStatus}/>
                     </Col>
                     <Col md="6">
                       <TextInput name="transactionId" label="transactionId" type="text" placeholder="Enter transactionId" required />
                     </Col>
                     <Col sm="12">
                       <div className="text-center mt-1">
-                        <Button htmlType="submit" type="primary" className="btn btn-primary" size="large" loading={isWorkshopAdding || isWorkshopUpdating}>
+                        <Button htmlType="submit" type="primary" className="btn btn-primary" size="large" loading={isWorkshopUpdating}>
                           Save
                         </Button>
                         <Button htmlType="button" className="btn btn-light ms-3" size="large" onClick={() => handleNavigate()}>

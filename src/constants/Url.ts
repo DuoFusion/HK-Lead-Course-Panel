@@ -96,10 +96,10 @@ const URL = {
     ALL: "/web-setting",
     ADD_EDIT: "/web-setting/add/edit",
   },
-  CATEGORY_REGISTER: {
-    ALL: "/category-register",
-    EDIT: "/category-register/edit",
-    DELETE: "/category-register/delete",
+  COURSES_REGISTER: {
+    ALL: "/course-register",
+    EDIT: "/course-register/edit",
+    DELETE: "/course-register/delete",
   },
   WORKSHOP_REGISTER: {
     ALL: "/workshop-register",

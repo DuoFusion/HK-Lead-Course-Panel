@@ -115,6 +115,20 @@ export const WorkshopSchema = Yup.object({
   faq: Yup.array().of(faqSchema).min(1, "At least one FAQ is required"),
 });
 
+export const WorkshopRegisterSchema = Yup.object({
+  workshopId: fieldSchema("string", "Workshop"),
+  name: fieldSchema("string", "name"),
+  email: fieldSchema("string", { required: false }),
+  phoneNumber: fieldSchema("string", "phone Number"),
+  city: fieldSchema("string", { required: false }),
+  profession: fieldSchema("string", { required: false }),
+  paymentStatus: fieldSchema("string", "payment Status"),
+  fees: fieldSchema("number", "fees"),
+  couponCodeId: fieldSchema("string", { required: false }),
+  paymentMethod: fieldSchema("string", "paymentMethod"),
+  transactionId: fieldSchema("string", "transactionId"),
+});
+
 // Courses
 export const CoursesSchema = Yup.object({
   title: fieldSchema("string", "Title"),
@@ -138,6 +152,21 @@ export const CoursesSchema = Yup.object({
   faq: Yup.array().of(faqSchema).min(1, "At least one FAQ is required"),
   listOfLecture: Yup.array().of(lectureSchema).min(1, "At least one Lecture is required"),
   testimonials: Yup.array().of(testimonialSchema(false)).min(1, "At least one Testimonial is required"),
+});
+
+// Courses Register
+export const CoursesRegisterSchema = Yup.object({
+  fullName: fieldSchema("string", "fullName"),
+  email: fieldSchema("string", { required: false }),
+  phoneNumber: fieldSchema("string", "phoneNumber"),
+  city: fieldSchema("string", { required: false }),
+  paymentMethod: fieldSchema("string", "paymentMethod"),
+  transactionId: fieldSchema("string", "transactionId"),
+  paymentStatus: fieldSchema("string", "paymentStatus"),
+  courseId: fieldSchema("string", "courseId"),
+  couponCodeId: fieldSchema("string", { required: false }),
+  profession: fieldSchema("string", { required: false }),
+  fees: fieldSchema("string", "fees"),
 });
 
 // Languages

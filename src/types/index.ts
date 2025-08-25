@@ -18,3 +18,4 @@ export * from "./CouponCode";
 export * from "./Interest";
 export * from "./WebSetting";
 export * from "./WorkshopRegister";
+export * from "./CoursesRegister";

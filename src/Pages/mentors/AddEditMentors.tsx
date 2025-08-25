@@ -66,7 +66,7 @@ const AddEditMentors = () => {
                       <TextInput name="name" label="name" type="text" placeholder="Enter name" required />
                     </Col>
                     <Col md="6">
-                      <TextInput name="role" label="role" type="text" placeholder="Enter role" />
+                      <TextInput name="role" label="role" type="text" placeholder="Enter role" required />
                     </Col>
                     <Col md="6">
                       <TextInput name="experience" label="experience" type="text" placeholder="Enter experience" />

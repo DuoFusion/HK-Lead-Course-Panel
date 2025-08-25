@@ -93,10 +93,10 @@ export const KEYS = {
     ALL: "web-setting",
     ADD_EDIT: "add-edit-web-setting",
   },
-  CATEGORY_REGISTER: {
-    ALL: "category-register",
-    EDIT: "edit-category-register",
-    DELETE: "delete-category-register",
+  COURSES_REGISTER: {
+    ALL: "course-register",
+    EDIT: "edit-course-register",
+    DELETE: "delete-course-register",
   },
   WORKSHOP_REGISTER: {
     ALL: "workshop-register",
