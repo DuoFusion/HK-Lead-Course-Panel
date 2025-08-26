@@ -19,3 +19,4 @@ export * from "./Interest";
 export * from "./WebSetting";
 export * from "./WorkshopRegister";
 export * from "./CoursesRegister";
+export * from "./NewsLetter";

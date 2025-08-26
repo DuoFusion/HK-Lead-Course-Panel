@@ -19,11 +19,11 @@ const Mutations = {
   useEditWorkshop: () => useApiPost<{ workshopId: string } & WorkshopFormValues, void>([KEYS.WORKSHOP.EDIT, KEYS.WORKSHOP.ALL], (input) => Post(URL_KEYS.WORKSHOP.EDIT, input)),
   useDeleteWorkshop: () => useApiDelete<string, void>([KEYS.WORKSHOP.DELETE, KEYS.WORKSHOP.ALL], (id) => Delete(`${URL_KEYS.WORKSHOP.DELETE}/${id}`)),
   useHandleActive: () => useApiPost<{ workshopId: string; isBlocked?: boolean; features?: boolean }, void>([KEYS.WORKSHOP.EDIT, KEYS.WORKSHOP.ALL], (input) => Post(URL_KEYS.WORKSHOP.EDIT, input)),
-  
+
   // ************ Workshop Register ***********
   useDeleteWorkshopRegister: () => useApiDelete<string, void>([KEYS.WORKSHOP_REGISTER.DELETE, KEYS.WORKSHOP_REGISTER.ALL], (id) => Delete(`${URL_KEYS.WORKSHOP_REGISTER.DELETE}/${id}`)),
   useEditWorkshopRegister: () => useApiPost<{ workshopRegisterId: string } & WorkshopRegisterFormValues, void>([KEYS.WORKSHOP_REGISTER.EDIT, KEYS.WORKSHOP_REGISTER.ALL], (input) => Post(URL_KEYS.WORKSHOP_REGISTER.EDIT, input)),
-  
+
   // ************ Upload ***********
   useUpload: () => useApiPost<FormData, UploadResponse>([KEYS.UPLOAD.ADD], (input) => Post(URL_KEYS.UPLOAD.ADD, input)),
   // useDeleteUpload: () => useApiDelete<{ imageUrl: string }, void>([KEYS.UPLOAD.DELETE_UPLOAD, KEYS.UPLOAD.ALL_UPLOAD], (id) => Delete(`${URL_KEYS.Upload.Delete}`, id)),
@@ -34,11 +34,9 @@ const Mutations = {
   useDeleteCourses: () => useApiDelete<string, void>([KEYS.COURSES.DELETE, KEYS.COURSES.ALL], (id) => Delete(`${URL_KEYS.COURSES.DELETE}/${id}`)),
   useCoursesHandleActive: () => useApiPost<{ courseId: string; isBlocked?: boolean }, void>([KEYS.COURSES.EDIT, KEYS.COURSES.ALL], (input) => Post(URL_KEYS.COURSES.EDIT, input)),
 
-  
   // ************ Courses Register ***********
   useEditCoursesRegister: () => useApiPost<{ courseRegisterId: string } & CoursesRegisterFormValues, void>([KEYS.COURSES_REGISTER.EDIT, KEYS.COURSES_REGISTER.ALL], (input) => Post(URL_KEYS.COURSES_REGISTER.EDIT, input)),
   useDeleteCoursesRegister: () => useApiDelete<string, void>([KEYS.COURSES_REGISTER.DELETE, KEYS.COURSES_REGISTER.ALL], (id) => Delete(`${URL_KEYS.COURSES_REGISTER.DELETE}/${id}`)),
-
 
   // ************ Language ***********
   useLanguages: () => useApiPost<LanguagesFormValues, void>([KEYS.LANGUAGE.ADD, KEYS.LANGUAGE.ALL], (input) => Post(URL_KEYS.LANGUAGE.ADD, input)),
@@ -93,6 +91,9 @@ const Mutations = {
 
   // ************ Web Setting ***********
   useWebSetting: () => useApiPost<Partial<WebSettingFormValues>, void>([KEYS.WEB_SETTING.ADD_EDIT, KEYS.WEB_SETTING.ALL], (input) => Post(URL_KEYS.WEB_SETTING.ADD_EDIT, input)),
+
+  // ************ News Letter ***********
+  useDeleteNewsLetter: () => useApiDelete<string, void>([KEYS.NEWS_LETTER.DELETE, KEYS.NEWS_LETTER.ALL], (id) => Delete(`${URL_KEYS.NEWS_LETTER.DELETE}/${id}`)),
 };
 
 export default Mutations;

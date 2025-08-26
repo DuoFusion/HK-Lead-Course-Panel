@@ -22,4 +22,5 @@ export const menuList: MenuItem[] = [
   { id: 16, title: "Lead Form", url: ROUTES.LEAD_FORM, icon: "editors", type: "link" },
   { id: 17, title: "Coupon Code", url: ROUTES.COUPON_CODE.COUPON_CODE, icon: "editors", type: "link" },
   { id: 18, title: "Web Setting", url: ROUTES.WEB_SETTING, icon: "editors", type: "link" },
+  { id: 19, title: "news letter", url: ROUTES.NEWS_LETTER.NEWS_LETTER, icon: "editors", type: "link" },
 ];

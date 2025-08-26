@@ -21,6 +21,8 @@ const WebSettingContainer = () => {
     phoneNumber: WebSetting?.phoneNumber || 0,
     whatsappNumber: WebSetting?.whatsappNumber || 0,
     whatsappMessage: WebSetting?.whatsappMessage || "",
+    razorpayKeyId: WebSetting?.razorpayKeyId || "",
+    razorpayKeySecret: WebSetting?.razorpayKeySecret || "",
     address: WebSetting?.address || "",
     socialMedia: {
       instagram: WebSetting?.socialMedia?.instagram || "",
@@ -71,6 +73,12 @@ const WebSettingContainer = () => {
                       </Col>
                       <Col md="6">
                         <TextInput name="socialMedia.whatsapp" label="whatsapp" type="text" placeholder="whatsapp Link" inputGroupIcon={<Whatsapp />} />
+                      </Col>
+                      <Col md="6">
+                        <TextInput name="razorpayKeyId" label="razorpay Key Id" type="text" placeholder="Enter razorpay Key Id" required />
+                      </Col>
+                      <Col md="6">
+                        <TextInput name="razorpayKeySecret" label="razorpay Key Secret" type="text" placeholder="Enter razorpay Key Secret" required />
                       </Col>
                       <Col md="12">
                         <TextInput name="address" label="address" type="textarea" placeholder="Enter address" required />

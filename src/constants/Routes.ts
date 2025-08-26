@@ -66,4 +66,8 @@ export const ROUTES = {
     COURSES_REGISTER: "/coursers-register",
     ADD_EDIT_COURSES_REGISTER: "/add-edit-coursers-register",
   },
+  NEWS_LETTER: {
+    NEWS_LETTER: "/news-letter",
+    ADD_EDIT_NEWS_LETTER: "/add-edit-news-letter",
+  },
 } as const;

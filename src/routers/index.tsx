@@ -38,6 +38,7 @@ import WorkshopRegisterContainer from "../Pages/workshopRegister";
 import AddEditWorkshopRegister from "../Pages/workshopRegister/AddEditRegister";
 import CoursesRegisterContainer from "../Pages/coursesRegister";
 import AddEditCoursesRegister from "../Pages/coursesRegister/AddEditCoursesRegister";
+import NewsLetterContainer from "../Pages/NewsLetter";
 
 export const Router = createBrowserRouter([
   {
@@ -96,6 +97,8 @@ export const Router = createBrowserRouter([
           { path: ROUTES.INTEREST.ADD_EDIT_INTEREST, element: <AddEditInterest /> },
 
           { path: ROUTES.WEB_SETTING, element: <WebSettingContainer /> },
+
+          { path: ROUTES.NEWS_LETTER.NEWS_LETTER, element: <NewsLetterContainer /> },
         ],
       },
     ],

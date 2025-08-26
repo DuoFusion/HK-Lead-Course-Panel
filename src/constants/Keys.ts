@@ -103,4 +103,10 @@ export const KEYS = {
     EDIT: "edit-workshop-register",
     DELETE: "delete-workshop-register",
   },
+  NEWS_LETTER: {
+    ALL: "news-letter",
+    ADD: "add-news-letter",
+    EDIT: "edit-news-letter",
+    DELETE: "delete-news-letter",
+  },
 } as const;

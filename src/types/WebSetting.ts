@@ -7,13 +7,15 @@ interface socialMedia {
   whatsapp?: string;
 }
 
-export interface WebSettingFormValues  {
+export interface WebSettingFormValues {
   email?: string;
   phoneNumber?: number | null;
   address?: string;
   whatsappNumber?: number | null;
   whatsappMessage?: string;
   socialMedia?: socialMedia;
+  razorpayKeyId?: string;
+  razorpayKeySecret?: string;
 }
 
 export interface WebSettingType extends WebSettingFormValues, CommonDataType {

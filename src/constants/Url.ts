@@ -106,6 +106,12 @@ const URL = {
     EDIT: "/workshop-register/edit",
     DELETE: "/workshop-register/delete",
   },
+  NEWS_LETTER: {
+    ALL: "/news-letter",
+    ADD: "/news-letter",
+    EDIT: "/news-letter",
+    DELETE: "/news-letter",
+  },
 } as const;
 
 // Construct the URL object
