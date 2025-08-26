@@ -84,7 +84,7 @@ const AddEditWorkshopRegister = () => {
                       <SelectInput name="paymentStatus" label="payment Status" placeholder="select an paymentStatus" options={PaymentStatus} required/>
                     </Col>
                     <Col md="6" xl="4">
-                      <TextInput name="fees" label="fees" type="text" placeholder="Enter fees" />
+                      <TextInput name="fees" label="fees" type="number" placeholder="Enter fees" />
                     </Col>
                     <Col md="6" xl="4">
                       <SelectInput name="couponCodeId" label="CouponCode" placeholder="select an CouponCode" options={generateOptions(CouponCode?.data?.coupon_data)} loading={isCouponCodeLoading} />

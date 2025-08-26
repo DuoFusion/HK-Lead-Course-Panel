@@ -12,7 +12,6 @@ export interface LeadFormType extends CommonDataType {
   background: string;
   itKnowledgeLevel: string;
   additionalMessage: string;
-  priority: 1;
 }
 
 export interface LeadFormDataResponse extends PageStatus {

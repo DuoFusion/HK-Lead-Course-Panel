@@ -22,7 +22,6 @@ const LeadFormContainer = () => {
 
   const columns: ColumnsType<LeadFormType> = [
     { title: "Sr No.", key: "index", fixed: "left", render: (_, __, index) => (pageNumber - 1) * pageSize + index + 1 },
-    { title: "priority", dataIndex: "priority", key: "priority" },
     { title: "Id", dataIndex: "_id", key: "_id" },
     { title: "full Name", dataIndex: "fullName", key: "fullName" },
     { title: "email", dataIndex: "email", key: "email" },

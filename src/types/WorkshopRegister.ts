@@ -9,10 +9,10 @@ export interface WorkshopRegisterFormValues {
   phoneNumber?: string;
   city?: string;
   profession?: string;
-  paymentStatus?: number;
-  fees?: string;
+  paymentStatus?: string;
+  fees?: number;
   couponCodeId?: string;
-  paymentMethod?: number;
+  paymentMethod?: string;
   transactionId?: string;
 }
 
