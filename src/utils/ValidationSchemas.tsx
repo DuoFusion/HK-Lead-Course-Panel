@@ -152,6 +152,7 @@ export const CoursesSchema = Yup.object({
   faq: Yup.array().of(faqSchema).min(1, "At least one FAQ is required"),
   listOfLecture: Yup.array().of(lectureSchema).min(1, "At least one Lecture is required"),
   testimonials: Yup.array().of(testimonialSchema(false)).min(1, "At least one Testimonial is required"),
+  features: fieldSchema("boolean", { required: false }),
 });
 
 // Courses Register

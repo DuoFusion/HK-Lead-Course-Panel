@@ -5,7 +5,7 @@ import { Fragment } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Col, Container, Row } from "reactstrap";
 import { Mutations, Queries } from "../../api";
-import { ImageUpload, RateInput, SelectInput, TextInput } from "../../attribute/formFields";
+import { CustomSwitch, ImageUpload, RateInput, SelectInput, TextInput } from "../../attribute/formFields";
 import { ROUTES } from "../../constants";
 import { Breadcrumbs, CardWrapper } from "../../coreComponents";
 import { DiscountStatus } from "../../data";
@@ -48,6 +48,7 @@ const AddEditCourses = () => {
     faq: initialData?.faq || [{ question: "", answer: "" }],
     listOfLecture: initialData?.listOfLecture || [{ title: "", description: "" }],
     testimonials: initialData?.testimonials?.length ? initialData.testimonials.map((t: TestimonialsType) => ({ ...t, image: t.image ? [t.image] : [] })) : [{ name: "", role: "", message: "", rating: null, image: [] }],
+    features: initialData?.features,
   };
 
   const handleNavigate = () => navigate(ROUTES.COURSES.COURSES);
@@ -259,6 +260,9 @@ const AddEditCourses = () => {
                           </>
                         )}
                       </FieldArray>
+                    </Col>
+                    <Col md="12">
+                      <CustomSwitch name="features" title="features" />
                     </Col>
                     <Col sm="12">
                       <div className="text-center mt-1">

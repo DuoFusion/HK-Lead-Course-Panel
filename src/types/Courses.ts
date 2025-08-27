@@ -43,6 +43,7 @@ export interface CoursesFormValues {
   faq?: FAQType[];
   listOfLecture?: ListOfLectureType[];
   testimonials?: TestimonialsType[];
+  features?: boolean;
 }
 
 export interface CoursesType extends Omit<Required<CoursesFormValues>, "skillLevelId" | "whatYouLearnId" | "courseLanguageId">, CommonDataType {

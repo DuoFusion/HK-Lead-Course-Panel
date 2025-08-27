@@ -32,7 +32,7 @@ const Mutations = {
   useCourses: () => useApiPost<CoursesFormValues, void>([KEYS.COURSES.ADD, KEYS.COURSES.ALL], (input) => Post(URL_KEYS.COURSES.ADD, input)),
   useEditCourses: () => useApiPost<{ courseId: string } & CoursesFormValues, void>([KEYS.COURSES.EDIT, KEYS.COURSES.ALL], (input) => Post(URL_KEYS.COURSES.EDIT, input)),
   useDeleteCourses: () => useApiDelete<string, void>([KEYS.COURSES.DELETE, KEYS.COURSES.ALL], (id) => Delete(`${URL_KEYS.COURSES.DELETE}/${id}`)),
-  useCoursesHandleActive: () => useApiPost<{ courseId: string; isBlocked?: boolean }, void>([KEYS.COURSES.EDIT, KEYS.COURSES.ALL], (input) => Post(URL_KEYS.COURSES.EDIT, input)),
+  useCoursesHandleActive: () => useApiPost<{ courseId: string; isBlocked?: boolean; features?: boolean }, void>([KEYS.COURSES.EDIT, KEYS.COURSES.ALL], (input) => Post(URL_KEYS.COURSES.EDIT, input)),
 
   // ************ Courses Register ***********
   useEditCoursesRegister: () => useApiPost<{ courseRegisterId: string } & CoursesRegisterFormValues, void>([KEYS.COURSES_REGISTER.EDIT, KEYS.COURSES_REGISTER.ALL], (input) => Post(URL_KEYS.COURSES_REGISTER.EDIT, input)),

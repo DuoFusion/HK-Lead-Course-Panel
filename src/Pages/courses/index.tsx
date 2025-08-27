@@ -1,4 +1,4 @@
-import { Button, Flex, Image, Modal, Table } from "antd";
+import { Button, Flex, Image, Modal, Switch, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { Edit, Forbidden, Trash } from "iconsax-react";
 import { Fragment } from "react";
@@ -65,6 +65,14 @@ const CoursesContainer = () => {
       dataIndex: "courseImage",
       key: "courseImage",
       render: (courseImage) => (courseImage ? <Image src={courseImage} width={60} height={60} alt="courses_image" fallback="/placeholder.png" /> : "-"),
+    },
+    {
+      title: "features",
+      dataIndex: "features",
+      key: "features",
+      render: (features, record) => <Switch checked={features} className="switch-xsm" onChange={(checked) => HandleActive({ courseId: record._id.toString(), features: checked })} />,
+      fixed: "right",
+      width: 90,
     },
     {
       title: "Option",
