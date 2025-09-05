@@ -25,7 +25,7 @@ const AddEditWhatYouLearn = () => {
     priority: initialData?.priority || null,
   };
 
-  const handleNavigate = () => navigate(ROUTES.SKILL_LEVEL.SKILL_LEVEL);
+  const handleNavigate = () => navigate(ROUTES.WHAT_YOU_LEARN.WHAT_YOU_LEARN);
 
   const handleSubmit = async (values: WhatYouLearnFormValues, { resetForm }: FormikHelpers<WhatYouLearnFormValues>) => {
     const payload = buildPayload(values, initialData);

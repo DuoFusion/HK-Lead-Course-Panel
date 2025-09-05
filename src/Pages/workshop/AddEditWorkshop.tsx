@@ -75,10 +75,10 @@ const AddEditWorkshop = () => {
                       <TextInput name="title" label="Title" type="text" placeholder="Enter workshop title" required />
                     </Col>
                     <Col md="6" xl="4">
-                      <DataAndTime name="date" type="date" label="Start Date" format="DD/MM/YYYY" placeholder="Start Date" required disablePast />
+                      <DataAndTime name="date" type="date" label="Date" format="DD/MM/YYYY" placeholder="Date" required disablePast />
                     </Col>
                     <Col md="6" xl="4">
-                      <DataAndTime name="time" type="time" label="Meeting Time" format="HH:mm:ss" required />
+                      <DataAndTime name="time" type="time" label="Time" format="HH:mm:ss" required />
                     </Col>
                     <Col md="6" xl="4">
                       <TextInput name="duration" label="Duration" type="text" placeholder="Enter duration" required />

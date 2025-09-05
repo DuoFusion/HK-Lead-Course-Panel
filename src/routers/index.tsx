@@ -18,7 +18,7 @@ import AddEditLanguages from "../Pages/languages/AddEditLanguages";
 import SkillLevelContainer from "../Pages/SkillLevel";
 import AddEditSkillLevel from "../Pages/SkillLevel/AddEditSkillLevel";
 import WhatYouLearnContainer from "../Pages/WhatYouLearn";
-import AddEditWhatYouLearn from "../Pages/WhatYouLearn/AddEditSkillLevel";
+import AddEditWhatYouLearn from "../Pages/WhatYouLearn/AddEditWhatYouLearn";
 import BannerContainer from "../Pages/banner";
 import AddEditBanner from "../Pages/banner/AddEditBanner";
 import MentorsContainer from "../Pages/mentors";

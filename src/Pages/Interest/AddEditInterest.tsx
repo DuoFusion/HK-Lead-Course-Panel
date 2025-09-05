@@ -25,7 +25,7 @@ const AddEditInterest = () => {
     priority: initialData?.priority || null,
   };
 
-  const handleNavigate = () => navigate(ROUTES.SKILL_LEVEL.SKILL_LEVEL);
+  const handleNavigate = () => navigate(ROUTES.INTEREST.INTEREST);
 
   const handleSubmit = async (values: InterestFormValues, { resetForm }: FormikHelpers<InterestFormValues>) => {
     const payload = buildPayload(values, initialData);
