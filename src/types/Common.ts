@@ -48,6 +48,14 @@ export interface ColorPickerInputProps extends Omit<ColorPickerProps, "value" | 
   [key: string]: any;
 }
 
+export interface QuillInputProps {
+  label?: string;
+  name: string;
+  required?: boolean;
+  placeholder?: string;
+  modules?: any;
+}
+
 // ************ Upload ***********
 
 export interface UploadResponse {

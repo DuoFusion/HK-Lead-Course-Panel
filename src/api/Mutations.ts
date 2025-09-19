@@ -1,5 +1,5 @@
 import { KEYS, URL_KEYS } from "../constants";
-import { AboutType, BannerFormValues, CategoryFormValues, ChangePasswordPayload, CouponCodeFormValues, CoursesFormValues, CoursesRegisterFormValues, FaqFormValues, InterestFormValues, LanguagesFormValues, LoginPayload, LoginResponse, MentorsFormValues, SkillLevelFormValues, TestomonialsFormValues, UploadResponse, WebSettingFormValues, WhatYouLearnFormValues, WorkshopFormValues, WorkshopRegisterFormValues } from "../types";
+import { AboutType, AnnouncementFormValues, BannerFormValues, BlogFormValues, CategoryFormValues, ChangePasswordPayload, CouponCodeFormValues, CoursesFormValues, CoursesRegisterFormValues, FaqFormValues, InterestFormValues, LanguagesFormValues, LoginPayload, LoginResponse, MentorsFormValues, PrivacyPolicyType, SkillLevelFormValues, TermsConditionType, TestomonialsFormValues, UploadResponse, WebSettingFormValues, WhatYouLearnFormValues, WorkshopFormValues, WorkshopRegisterFormValues } from "../types";
 import Delete from "./Delete";
 import { useApiDelete, useApiPost } from "./hooks";
 import Post from "./Post";
@@ -58,6 +58,16 @@ const Mutations = {
   useEditBanner: () => useApiPost<{ bannerId: string } & BannerFormValues, void>([KEYS.BANNER.EDIT, KEYS.BANNER.ALL], (input) => Post(URL_KEYS.BANNER.EDIT, input)),
   useDeleteBanner: () => useApiDelete<string, void>([KEYS.BANNER.DELETE, KEYS.BANNER.ALL], (id) => Delete(`${URL_KEYS.BANNER.DELETE}/${id}`)),
 
+  // ************ Blog ***********
+  useBlog: () => useApiPost<BlogFormValues, void>([KEYS.BLOG.ADD, KEYS.BLOG.ALL], (input) => Post(URL_KEYS.BLOG.ADD, input)),
+  useEditBlog: () => useApiPost<{ blogId: string } & BlogFormValues, void>([KEYS.BLOG.EDIT, KEYS.BLOG.ALL], (input) => Post(URL_KEYS.BLOG.EDIT, input)),
+  useDeleteBlog: () => useApiDelete<string, void>([KEYS.BLOG.DELETE, KEYS.BLOG.ALL], (id) => Delete(`${URL_KEYS.BLOG.DELETE}/${id}`)),
+
+  // ************ Announcement ***********
+  useAnnouncement: () => useApiPost<AnnouncementFormValues, void>([KEYS.ANNOUNCEMENT.ADD, KEYS.ANNOUNCEMENT.ALL], (input) => Post(URL_KEYS.ANNOUNCEMENT.ADD, input)),
+  useEditAnnouncement: () => useApiPost<{ blogId: string } & AnnouncementFormValues, void>([KEYS.ANNOUNCEMENT.EDIT, KEYS.ANNOUNCEMENT.ALL], (input) => Post(URL_KEYS.ANNOUNCEMENT.EDIT, input)),
+  useDeleteAnnouncement: () => useApiDelete<string, void>([KEYS.ANNOUNCEMENT.DELETE, KEYS.ANNOUNCEMENT.ALL], (id) => Delete(`${URL_KEYS.ANNOUNCEMENT.DELETE}/${id}`)),
+
   // ************ Mentors ***********
   useMentors: () => useApiPost<MentorsFormValues, void>([KEYS.MENTORS.ADD, KEYS.MENTORS.ALL], (input) => Post(URL_KEYS.MENTORS.ADD, input)),
   useEditMentors: () => useApiPost<{ mentorsId: string } & MentorsFormValues, void>([KEYS.MENTORS.EDIT, KEYS.MENTORS.ALL], (input) => Post(URL_KEYS.MENTORS.EDIT, input)),
@@ -65,6 +75,12 @@ const Mutations = {
 
   // ************ About ***********
   useAbout: () => useApiPost<Partial<AboutType>, void>([KEYS.ABOUT.ADD_EDIT, KEYS.ABOUT.ALL], (input) => Post(URL_KEYS.ABOUT.ADD_EDIT, input)),
+
+  // ************ Privacy Policy ***********
+  usePrivacyPolicy: () => useApiPost<Partial<PrivacyPolicyType>, void>([KEYS.PRIVACY_POLICY.ADD_EDIT, KEYS.PRIVACY_POLICY.ALL], (input) => Post(URL_KEYS.PRIVACY_POLICY.ADD_EDIT, input)),
+
+  // ************ Terms Condition ***********
+  useTermsCondition: () => useApiPost<Partial<TermsConditionType>, void>([KEYS.TERMS_CONDITION.ADD_EDIT, KEYS.TERMS_CONDITION.ALL], (input) => Post(URL_KEYS.TERMS_CONDITION.ADD_EDIT, input)),
 
   // ************ Testomonials ***********
   useTestomonials: () => useApiPost<TestomonialsFormValues, void>([KEYS.TESTOMONIALS.ADD, KEYS.TESTOMONIALS.ALL], (input) => Post(URL_KEYS.TESTOMONIALS.ADD, input)),

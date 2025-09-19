@@ -61,6 +61,14 @@ export const KEYS = {
     ALL: "about",
     ADD_EDIT: "add-edit-about",
   },
+  PRIVACY_POLICY: {
+    ALL: "privacy-policy",
+    ADD_EDIT: "add-edit-privacy-policy",
+  },
+  TERMS_CONDITION: {
+    ALL: "terms-condition",
+    ADD_EDIT: "add-edit-terms-condition",
+  },
   TESTOMONIALS: {
     ALL: "testomonials",
     ADD: "add-testomonials",
@@ -108,5 +116,17 @@ export const KEYS = {
     ADD: "add-news-letter",
     EDIT: "edit-news-letter",
     DELETE: "delete-news-letter",
+  },
+  BLOG: {
+    ALL: "blog",
+    ADD: "add-blog",
+    EDIT: "edit-blog",
+    DELETE: "delete-blog",
+  },
+  ANNOUNCEMENT: {
+    ALL: "announcement",
+    ADD: "add-announcement",
+    EDIT: "edit-announcement",
+    DELETE: "delete-announcement",
   },
 } as const;

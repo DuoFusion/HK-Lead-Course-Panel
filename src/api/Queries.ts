@@ -1,5 +1,5 @@
 import { KEYS, URL_KEYS } from "../constants";
-import { AboutApiResponse, BannerApiResponse, CategoryApiResponse, CouponCodeApiResponse, CoursesApiResponse, CoursesRegisterApiResponse, FaqApiResponse, InterestApiResponse, LanguagesApiResponse, LeadFormApiResponse, MentorsApiResponse, NewsLetterApiResponse, Params, SkillLevelApiResponse, TestomonialsApiResponse, WebSettingApiResponse, WhatYouLearnApiResponse, WorkshopApiResponse } from "../types";
+import { AboutApiResponse, AnnouncementApiResponse, BannerApiResponse, BlogApiResponse, CategoryApiResponse, CouponCodeApiResponse, CoursesApiResponse, CoursesRegisterApiResponse, FaqApiResponse, InterestApiResponse, LanguagesApiResponse, LeadFormApiResponse, MentorsApiResponse, NewsLetterApiResponse, Params, PrivacyPolicyApiResponse, SkillLevelApiResponse, TermsConditionApiResponse, TestomonialsApiResponse, WebSettingApiResponse, WhatYouLearnApiResponse, WorkshopApiResponse } from "../types";
 import { WorkshopRegisterApiResponse } from "../types/WorkshopRegister";
 import Get from "./Get";
 import { useApiGet } from "./hooks";
@@ -33,11 +33,24 @@ const Queries = {
   // ************ Banner ***********
   useGetBanner: (params: Params) => useApiGet<BannerApiResponse>([KEYS.BANNER.ALL, params], () => Get(URL_KEYS.BANNER.ALL, params)),
 
+  // ************ Blog ***********
+  useGetBlog: (params: Params) => useApiGet<BlogApiResponse>([KEYS.BLOG.ALL, params], () => Get(URL_KEYS.BLOG.ALL, params)),
+
+  
+  // ************ Announcement ***********
+  useGetAnnouncement: (params: Params) => useApiGet<AnnouncementApiResponse>([KEYS.ANNOUNCEMENT.ALL, params], () => Get(URL_KEYS.ANNOUNCEMENT.ALL, params)),
+
   // ************ Mentors ***********
   useGetMentors: (params: Params) => useApiGet<MentorsApiResponse>([KEYS.MENTORS.ALL, params], () => Get(URL_KEYS.MENTORS.ALL, params)),
 
   // ************ About ***********
   useGetAbout: () => useApiGet<AboutApiResponse>([KEYS.ABOUT.ALL], () => Get(URL_KEYS.ABOUT.ALL)),
+
+  // ************ Privacy Policy ***********
+  useGetPrivacyPolicy: () => useApiGet<PrivacyPolicyApiResponse>([KEYS.PRIVACY_POLICY.ALL], () => Get(URL_KEYS.PRIVACY_POLICY.ALL)),
+
+  // ************ Terms Condition ***********
+  useGetTermsCondition: () => useApiGet<TermsConditionApiResponse>([KEYS.TERMS_CONDITION.ALL], () => Get(URL_KEYS.TERMS_CONDITION.ALL)),
 
   // ************ Testomonials ***********
   useGetTestomonials: (params: Params) => useApiGet<TestomonialsApiResponse>([KEYS.TESTOMONIALS.ALL, params], () => Get(URL_KEYS.TESTOMONIALS.ALL, params)),

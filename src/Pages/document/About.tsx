@@ -1,7 +1,6 @@
 import { Col } from "antd";
-import { FormEvent, Fragment, useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Mutations, Queries } from "../../api";
-import { Breadcrumbs } from "../../coreComponents";
 import Information from "../../coreComponents/Information";
 
 const AboutContainer = () => {
@@ -26,12 +25,9 @@ const AboutContainer = () => {
   }, [allAboutUs]);
 
   return (
-    <Fragment>
-      <Breadcrumbs mainTitle="About" parent="Pages" />
-      <Col xl="12">
-        <Information headerTitle="About Us" loading={isAboutAdding} editorContent={editorContent} setEditorContent={setEditorContent} handleSubmit={handleSubmit} isEditing={isEditing} setIsEditing={setIsEditing} />
-      </Col>
-    </Fragment>
+    <Col xl="12">
+      <Information headerTitle="About Us" loading={isAboutAdding} editorContent={editorContent} setEditorContent={setEditorContent} handleSubmit={handleSubmit} isEditing={isEditing} setIsEditing={setIsEditing} />
+    </Col>
   );
 };
 

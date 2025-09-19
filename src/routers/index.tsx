@@ -23,7 +23,7 @@ import BannerContainer from "../Pages/banner";
 import AddEditBanner from "../Pages/banner/AddEditBanner";
 import MentorsContainer from "../Pages/mentors";
 import AddEditMentors from "../Pages/mentors/AddEditMentors";
-import AboutContainer from "../Pages/about";
+import DocumentContainer from "../Pages/document";
 import TestomonialsContainer from "../Pages/testomonials";
 import AddEditTestomonials from "../Pages/testomonials/AddEditTestomonials";
 import FaqContainer from "../Pages/faq";
@@ -39,6 +39,10 @@ import AddEditWorkshopRegister from "../Pages/workshopRegister/AddEditRegister";
 import CoursesRegisterContainer from "../Pages/coursesRegister";
 import AddEditCoursesRegister from "../Pages/coursesRegister/AddEditCoursesRegister";
 import NewsLetterContainer from "../Pages/NewsLetter";
+import BlogContainer from "../Pages/blog";
+import AddEditBlog from "../Pages/blog/AddEditBlog";
+import AddEditAnnouncement from "../Pages/announcement/AddEditAnnouncement";
+import AnnouncementContainer from "../Pages/announcement";
 
 export const Router = createBrowserRouter([
   {
@@ -80,7 +84,7 @@ export const Router = createBrowserRouter([
           { path: ROUTES.MENTORS.MENTORS, element: <MentorsContainer /> },
           { path: ROUTES.MENTORS.ADD_EDIT_MENTORS, element: <AddEditMentors /> },
 
-          { path: ROUTES.ABOUT, element: <AboutContainer /> },
+          { path: ROUTES.DOCUMENT, element: <DocumentContainer /> },
 
           { path: ROUTES.TESTOMONIALS.TESTOMONIALS, element: <TestomonialsContainer /> },
           { path: ROUTES.TESTOMONIALS.ADD_EDIT_TESTOMONIALS, element: <AddEditTestomonials /> },
@@ -99,6 +103,12 @@ export const Router = createBrowserRouter([
           { path: ROUTES.WEB_SETTING, element: <WebSettingContainer /> },
 
           { path: ROUTES.NEWS_LETTER.NEWS_LETTER, element: <NewsLetterContainer /> },
+
+          { path: ROUTES.BLOG.BLOG, element: <BlogContainer /> },
+          { path: ROUTES.BLOG.ADD_EDIT_BLOG, element: <AddEditBlog /> },
+
+          { path: ROUTES.ANNOUNCEMENT.ANNOUNCEMENT, element: <AnnouncementContainer /> },
+          { path: ROUTES.ANNOUNCEMENT.ADD_EDIT_ANNOUNCEMENT, element: <AddEditAnnouncement /> },
         ],
       },
     ],

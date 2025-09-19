@@ -5,7 +5,7 @@ import SvgIcon from "../../attribute/icons/SvgIcon";
 import { toggleSidebar } from "../../store/slices/LayoutSlice";
 import { Image } from "../../attribute/image";
 import SubMenu from "./SubMenu";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { MenuItem } from "../../types";
 import { menuList } from "../../data";
 
@@ -48,7 +48,17 @@ const Sidebar = () => {
                             <i className="fa fa-angle-right ps-2" />
                           </div>
                         </li>
-                        <SubMenu menu={menuList} activeMenu={activeMenu} setActiveMenu={setActiveMenu} level={0} />
+                        {menuList &&
+                          menuList.map((mainMenu, index) => (
+                            <Fragment key={index}>
+                              <li className="sidebar-main-title">
+                                <div>
+                                  <h6>{`${mainMenu.title}`}</h6>
+                                </div>
+                              </li>
+                              <SubMenu menu={mainMenu.Items} activeMenu={activeMenu} setActiveMenu={setActiveMenu} level={0} />
+                            </Fragment>
+                          ))}
                       </div>
                     </div>
                   </div>

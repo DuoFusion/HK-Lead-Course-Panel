@@ -260,3 +260,23 @@ export const WebSettingSchema = Yup.object({
   razorpayKeySecret: fieldSchema("string", "razorpayKeySecret"),
   razorpayKeyId: fieldSchema("string", "razorpayKeyId"),
 });
+
+// Blog
+export const BlogSchema = Yup.object({
+  title: fieldSchema("string", "title"),
+  subTitle: fieldSchema("string", "subTitle"),
+  description: fieldSchema("string", "description"),
+  priority: fieldSchema("number", "Priority"),
+  image: imageSchema("Blog Image"),
+  thumbnail: imageSchema("Thumbnail Image"),
+});
+
+// Announcement
+export const AnnouncementSchema = Yup.object({
+  title: fieldSchema("string", "title"),
+  subTitle: fieldSchema("string", "subTitle"),
+  description: fieldSchema("string", "description"),
+  priority: fieldSchema("number", "Priority"),
+  image: imageSchema("Announcement Image"),
+  thumbnail: imageSchema("Thumbnail Image"),
+});

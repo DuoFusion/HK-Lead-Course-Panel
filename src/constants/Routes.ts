@@ -39,7 +39,7 @@ export const ROUTES = {
     MENTORS: "/mentors",
     ADD_EDIT_MENTORS: "/add-edit-mentors",
   },
-  ABOUT: "/about",
+  DOCUMENT: "/document",
   TESTOMONIALS: {
     TESTOMONIALS: "/testomonials",
     ADD_EDIT_TESTOMONIALS: "/add-edit-testomonials",
@@ -69,5 +69,13 @@ export const ROUTES = {
   NEWS_LETTER: {
     NEWS_LETTER: "/news-letter",
     ADD_EDIT_NEWS_LETTER: "/add-edit-news-letter",
+  },
+  BLOG: {
+    BLOG: "/blog",
+    ADD_EDIT_BLOG: "/add-edit-blog",
+  },
+  ANNOUNCEMENT: {
+    ANNOUNCEMENT: "/announcement",
+    ADD_EDIT_ANNOUNCEMENT: "/add-edit-announcement",
   },
 } as const;

@@ -64,6 +64,14 @@ const URL = {
     ALL: "/about",
     ADD_EDIT: "/about/add/edit",
   },
+  PRIVACY_POLICY: {
+    ALL: "/privacy-policy",
+    ADD_EDIT: "/privacy-policy/add/edit",
+  },
+  TERMS_CONDITION: {
+    ALL: "/terms-condition",
+    ADD_EDIT: "/terms-condition/add/edit",
+  },
   TESTOMONIALS: {
     ALL: "/testomonial",
     ADD: "/testomonial/add",
@@ -111,6 +119,18 @@ const URL = {
     ADD: "/news-letter",
     EDIT: "/news-letter",
     DELETE: "/news-letter",
+  },
+  BLOG: {
+    ALL: "/blog",
+    ADD: "/blog/add",
+    EDIT: "/blog/edit",
+    DELETE: "/blog/delete",
+  },
+  ANNOUNCEMENT: {
+    ALL: "/announcement",
+    ADD: "/announcement/add",
+    EDIT: "/announcement/edit",
+    DELETE: "/announcement/delete",
   },
 } as const;
 
